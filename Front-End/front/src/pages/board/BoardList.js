@@ -2,7 +2,6 @@
 
 import React from "react";
 import BoardItem from "./BoardItem";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function BoardList() {
   return (
