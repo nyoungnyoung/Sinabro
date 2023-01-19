@@ -1,1 +1,11 @@
-// 폴더 push 하려고 임의로 만든 js파일입니당..! 수정하셔서 쓰시면 돼요!
+import React from 'react';
+
+function Accounts() {
+    return (
+        <div className='Accounts'>
+            <h1>accounts</h1>
+        </div>
+    )
+}
+
+export default Accounts
