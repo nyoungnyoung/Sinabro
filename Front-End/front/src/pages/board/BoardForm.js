@@ -3,7 +3,7 @@ import React from "react";
 function BoardForm(props) {
   return (
     <div>
-      <h1>게시글 생성</h1>
+      <h3>게시글 생성</h3>
       <label name="제목">제목</label>
       <input type="text" />
       <br />
