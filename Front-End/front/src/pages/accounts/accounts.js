@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function Accounts() {
-    return (
-        <div className='Accounts'>
-            <h1>accounts</h1>
-        </div>
-    )
+  return (
+    <div className="Accounts">
+      <h1>accounts</h1>
+    </div>
+  );
 }
 
-export default Accounts
+export default Accounts;

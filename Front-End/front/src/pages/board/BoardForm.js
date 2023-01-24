@@ -1,19 +1,41 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 function BoardForm(props) {
+  const navigate = useNavigate();
+
+  const moveBoardList = () => {
+    navigate("/board");
+  };
+
   return (
     <div>
       <h3>게시글 생성</h3>
-      <label name="제목">제목</label>
-      <input type="text" />
+      <Styledinput type="text" placeholder="제목" />
+      <Styledtextarea cols="30" rows="10" placeholder="내용"></Styledtextarea>
       <br />
-      <label name="내용">내용</label>
-      <textarea cols="30" rows="10"></textarea>
-      <br />
-      <button>등록</button>
-      <button>취소</button>
+      <Styledbutton>등록</Styledbutton>
+      <Styledbutton onClick={moveBoardList}>취소</Styledbutton>
     </div>
   );
 }
 
+const Styledinput = styled.input`
+  width: 70%;
+  padding: 10px;
+  margin: 10px;
+`;
+
+const Styledtextarea = styled.textarea`
+  width: 70%;
+  padding: 10px;
+  margin: 10px;
+`;
+
+const Styledbutton = styled.button`
+  width: 60px;
+  height: 30px;
+  margin: 5px;
+`;
 export default BoardForm;

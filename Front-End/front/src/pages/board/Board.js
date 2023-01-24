@@ -1,35 +1,18 @@
-// 공지게시판
-
+import { Route, Routes } from "react-router-dom";
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import BoardList from "./BoardList";
 import BoardForm from "./BoardForm";
+import BoardDetail from "./BoardDetail";
 
 function Board() {
-  const navigate = useNavigate();
-
-  const goToCreate = () => {
-    console.log("goToCreate");
-    navigate("/board/create");
-  };
-
   return (
-    <div className="Board">
+    <div>
       <h1>공지게시판</h1>
-      {/* <div>
-        <h1>Board</h1>
-        <BoardList />
-        <button>생성</button>
-      </div> */}
-
-      {/* 중첩라우터 생성 */}
       <Routes>
-        {/* <Route path="list" element={<BoardList />} /> */}
-        <Route path="create" element={<BoardForm />} />
+        <Route path="/" element={<BoardList />}></Route>
+        <Route path="/create" element={<BoardForm />}></Route>
+        <Route path="/detail" element={<BoardDetail />}></Route>
       </Routes>
-
-      <BoardList />
-      <button onClick={goToCreate}>게시글 생성</button>
     </div>
   );
 }
