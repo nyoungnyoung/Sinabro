@@ -1,21 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function BoardForm(props) {
+function BoardForm({ onCreate }) {
+  // 게시글 데이터
+  const [boardItem, setBoardItem] = useState({
+    title: "",
+    content: "",
+  });
+
+  // 이동
   const navigate = useNavigate();
 
+  // 이동
   const moveBoardList = () => {
+    navigate("/board");
+  };
+
+  const handleChangeBoardItem = (e) => {
+    setBoardItem({
+      ...boardItem,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    // console.log(boardItem);
+
+    onCreate(boardItem.title, boardItem.content);
+
+    // 공지게시판으로 이동
     navigate("/board");
   };
 
   return (
     <div>
       <h3>게시글 생성</h3>
-      <Styledinput type="text" placeholder="제목" />
-      <Styledtextarea cols="30" rows="10" placeholder="내용"></Styledtextarea>
+      <Styledinput
+        name="title"
+        value={boardItem.title}
+        onChange={handleChangeBoardItem}
+        type="text"
+        placeholder="제목"
+      />
+      <Styledtextarea
+        name="content"
+        value={boardItem.content}
+        onChange={handleChangeBoardItem}
+        cols="30"
+        rows="10"
+        placeholder="내용"
+      />
       <br />
-      <Styledbutton>등록</Styledbutton>
+      <Styledbutton onClick={handleSubmit}>등록</Styledbutton>
       <Styledbutton onClick={moveBoardList}>취소</Styledbutton>
     </div>
   );

@@ -2,48 +2,41 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import BoardItem from "./BoardItem";
 import styled from "styled-components";
 
-function BoardList() {
+function BoardList({ boardList }) {
   const navigate = useNavigate();
 
   const goToCreate = () => {
     navigate("/board/create");
   };
 
+  const header = ["번호", "제목", "작성자", "생성일자"];
+
   return (
     <div className="BoardList">
-      <h3>게시글 목록</h3>
       <StyledTable>
         <Styledthead>
           <tr>
-            <Styledtd>번호</Styledtd>
-            <Styledtd>제목</Styledtd>
-            <Styledtd>작성자</Styledtd>
-            <Styledtd>생성일자</Styledtd>
+            {header.map((item, idx) => {
+              return <Styledtd key={idx}>{item}</Styledtd>;
+            })}
           </tr>
         </Styledthead>
 
-        <tbody>
-          <tr>
-            <Styledtd>1</Styledtd>
-            <Styledtd>설날 연휴로 인한 휴강</Styledtd>
-            <Styledtd>관리자</Styledtd>
-            <Styledtd>2023.01.20</Styledtd>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <Styledtd>2</Styledtd>
-            <Styledtd>삼일절로 인한 휴강</Styledtd>
-            <Styledtd>관리자</Styledtd>
-            <Styledtd>2023.03.01</Styledtd>
-          </tr>
-        </tbody>
+        <Styledbody>
+          {boardList.map((item, idx) => {
+            return (
+              <tr key={idx}>
+                <Styledtd>{item.id}</Styledtd>
+                <Styledtd>{item.title}</Styledtd>
+                <Styledtd>{item.author}</Styledtd>
+                <Styledtd>{item.created_date}</Styledtd>
+              </tr>
+            );
+          })}
+        </Styledbody>
       </StyledTable>
-      <BoardItem />
       <Styledbutton onClick={goToCreate}>생성</Styledbutton>
     </div>
   );
@@ -61,6 +54,10 @@ const StyledTable = styled.table`
 const Styledthead = styled.thead`
   background-color: gray;
   color: white;
+`;
+
+const Styledbody = styled.tbody`
+  padding: 8px 3px;
 `;
 
 const Styledtd = styled.td`
