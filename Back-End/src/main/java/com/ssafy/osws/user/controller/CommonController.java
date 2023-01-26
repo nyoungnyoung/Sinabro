@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/common")
 public class CommonController {
-	@Autowired
+
 	private CommonService commonService;
 
 	@Autowired

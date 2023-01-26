@@ -5,6 +5,6 @@ import com.ssafy.osws.user.data.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	public User getByUserId(String userId);
+	public User findByUserId(String userId);
 
 }

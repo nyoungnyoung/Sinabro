@@ -16,15 +16,10 @@ public class CommonDaoImpl implements CommonDao {
 	public CommonDaoImpl(UserRepository userRepository) {
 	    this.userRepository = userRepository;
 	}
-	
-	@Override
-	public User insertUser(User user) {
-		return userRepository.save(user);
-	}
 
 	@Override
 	public User signIn(String userId) {
-		return userRepository.getByUserId(userId);
+		return userRepository.findByUserId(userId);
 	}
 
 	@Override
