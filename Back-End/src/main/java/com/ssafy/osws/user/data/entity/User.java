@@ -1,10 +1,10 @@
 package com.ssafy.osws.user.data.entity;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Collection;
 
 import javax.persistence.*;
 
@@ -73,6 +73,18 @@ public class User implements UserDetails {
 		List<String> roles = new ArrayList<>();
 		roles.add(role);
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

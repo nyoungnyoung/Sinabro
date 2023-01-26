@@ -26,5 +26,13 @@ public class CommonDaoImpl implements CommonDao {
 	public User save(User user) {
 		return userRepository.save(user);
 	}
-
+	
+	@Override
+	public boolean isSaved(String phone) {
+		if (userRepository.findByPhone(phone) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
