@@ -1,5 +1,7 @@
 package com.ssafy.osws.user.dao;
 
-public interface CommonDao {
+import com.ssafy.osws.user.data.entity.User;
 
+public interface CommonDao {
+	public User signIn(String userId);
 }
