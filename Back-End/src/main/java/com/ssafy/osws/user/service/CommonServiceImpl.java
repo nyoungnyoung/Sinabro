@@ -8,19 +8,34 @@ import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.user.dao.CommonDao;
 import com.ssafy.osws.user.data.entity.User;
 import com.ssafy.osws.user.dto.RequestSignIn;
+import com.ssafy.osws.user.dto.RequestSignUp;
 import com.ssafy.osws.user.dto.ResponseSignIn;
 
 @Service
 public class CommonServiceImpl implements CommonService {
-
+	
 	@Autowired
 	private CommonDao commonDao;
-	
+
 	@Autowired
 	private JwtProvider jwtProvider;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Override
+	public boolean signUp(RequestSignUp requestSignUp) throws RuntimeException {
+		//requestSignUp.toEntity();
+		requestSignUp.setPassword(passwordEncoder.encode(requestSignUp.getPassword()));
+		User user = requestSignUp.toEntity();
+	    
+	    User savedUser = commonDao.insertUser(user);
+
+	    if (!savedUser.getUserId().isEmpty()) {
+	      return true;
+	    }
+	    return false;
+	}
 	
 	@Override
 	public ResponseSignIn signIn(RequestSignIn requestSignIn) {

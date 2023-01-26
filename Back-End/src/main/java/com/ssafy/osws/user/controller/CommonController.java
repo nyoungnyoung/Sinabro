@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.osws.user.dto.RequestAuthentificationNumber;
+import com.ssafy.osws.user.dto.RequestSignUp;
 import com.ssafy.osws.user.dto.RequestSignIn;
 import com.ssafy.osws.user.dto.ResponseSignIn;
 import com.ssafy.osws.user.service.CommonService;
@@ -20,9 +21,13 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/common")
 public class CommonController {
-	
 	@Autowired
 	private CommonService commonService;
+
+	@Autowired
+	public CommonController(CommonService commonService) {
+		this.commonService = commonService;
+	}
 	
 	@ApiOperation(
 			value="전화번호 조회",
@@ -31,6 +36,18 @@ public class CommonController {
 	public ResponseEntity<String> phoneCheck(@RequestBody RequestAuthentificationNumber requestAuthentificationNumber, HttpServletRequest request) {
 		
 		return null;
+	}
+	
+	@ApiOperation(
+			value="회원가입",
+			notes="DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 OK를, 실패할 경우 ERROR를 반환한다.")
+	@PostMapping("/signup")
+	public ResponseEntity<?> signUp(@RequestBody RequestSignUp requestSignUp) {
+	
+		if (commonService.signUp(requestSignUp)) {
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+    	return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ApiOperation(
