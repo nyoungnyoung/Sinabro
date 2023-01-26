@@ -1,16 +1,16 @@
-import styled from 'styled-components'
-
+import styled from "styled-components";
 
 const StyledDiv = styled.div`
-    background-color: #FF7B54;
+  background-color: #f7c815;
+  padding: 5px;
 `;
 
 function Banner() {
-    return (
-        <StyledDiv className="Banner">
-            <h2>Banner</h2>
-        </StyledDiv>
-    )
+  return (
+    <StyledDiv className="Banner">
+      <h2>Banner</h2>
+    </StyledDiv>
+  );
 }
 
-export default Banner
+export default Banner;
