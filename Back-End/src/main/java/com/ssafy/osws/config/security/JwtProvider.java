@@ -1,4 +1,4 @@
-package com.ssafy.osws.config;
+package com.ssafy.osws.config.security;
 
 import java.security.Key;
 import java.util.Calendar;
@@ -6,6 +6,11 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -16,6 +21,8 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtProvider {
+	@Autowired
+	private UserDetailsService userDetailsService;
 	// 랜덤 키
 	private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	
@@ -70,4 +77,13 @@ public class JwtProvider {
                 .getBody()
                 .getSubject();
     }
+    
+    public Authentication getAuthentication(String userId) throws JwtException {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+        
+        return new UsernamePasswordAuthenticationToken(userDetails
+            , ""
+            , userDetails.getAuthorities());
+        
+      }
 }
