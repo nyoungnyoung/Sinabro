@@ -1,13 +1,12 @@
-import LectureItem from "./LectureItem"
-
+import React, { useState } from "react";
+import LectureItem from "./LectureItem";
 
 function LectureList() {
-    return (
-        <div className="LectureList">
-            <h2>LectureList</h2>
-            <LectureItem/>
-        </div>
-    )
+  return (
+    <div className="LectureList">
+      <LectureItem />
+    </div>
+  );
 }
 
-export default LectureList
+export default LectureList;
