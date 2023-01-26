@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import styled from "styled-components";
+import Card from "./Card";
 // import { FaStar } from "react-icons/fa"
 
 const dummyItem = [
@@ -20,7 +21,7 @@ const dummyItem = [
     title: "캐리커처 그리기",
     startTime: new Date(2023, 0, 25),
     endTime: new Date(2023, 2, 31),
-    description: "유화로 가을 풍경을 그려봅니다",
+    description: "친구의 얼굴을 캐릭터로 그려봐요",
     score: 5,
     savedName:
       "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
@@ -31,7 +32,7 @@ const dummyItem = [
     title: "풍경화 그리기",
     startTime: new Date(2023, 0, 25),
     endTime: new Date(2023, 2, 31),
-    description: "유화로 가을 풍경을 그려봅니다",
+    description: "원하는 풍경을 맘껏 그려요",
     score: 3.5,
     savedName:
       "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
@@ -42,7 +43,7 @@ const dummyItem = [
     title: "만화 그리기",
     startTime: new Date(2023, 0, 25),
     endTime: new Date(2023, 2, 31),
-    description: "유화로 가을 풍경을 그려봅니다",
+    description: "추억의 만화를 그려보아요",
     score: 4.2,
     savedName:
       "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
@@ -53,7 +54,7 @@ const dummyItem = [
     title: "캘리그라피",
     startTime: new Date(2023, 0, 25),
     endTime: new Date(2023, 2, 31),
-    description: "유화로 가을 풍경을 그려봅니다",
+    description: "예쁜 글씨 쓰기",
     score: 3.8,
     savedName:
       "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
@@ -64,7 +65,7 @@ const dummyItem = [
     title: "수채화 그리기",
     startTime: new Date(2023, 0, 25),
     endTime: new Date(2023, 2, 31),
-    description: "유화로 가을 풍경을 그려봅니다",
+    description: "수채화로 바다풍경을 그려봐요",
     score: 4.8,
     savedName:
       "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
@@ -82,19 +83,6 @@ const ListDiv = styled.div`
 //     background-color: aquamarine;
 //     position: relative;
 // `
-
-const LectureDiv = styled.div`
-  width: 250px;
-  height: 300px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  /* position: absolute; */
-`;
-
-const StyledImg = styled.img`
-  width: 250px;
-  height: 150px;
-`;
 
 // const Lecture = ({ img, description, title, period, tags, score }) => {
 //     const [hover, setHover] = useState('off')
@@ -115,25 +103,23 @@ const StyledImg = styled.img`
 // }
 
 function LectureItem() {
-  // const [hover, setHover] = useState('off')
-  // const onMouseEnter = () => setHover('on')
-  // const onMouseLeave = () => setHover('off')
+  // const [hover, setHover] = useState("off");
+  // const onMouseEnter = () => setHover("on");
+  // const onMouseLeave = () => setHover("off");
 
   return (
     <div className="LectureItem">
       <ListDiv>
-        {dummyItem.map((item) => (
-          <LectureDiv key={item.id}>
-            <StyledImg src={item.savedName} alt="img"></StyledImg>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <p>
-              {item.startTime.toLocaleDateString()}
-              {" ~ "}
-              {item.endTime.toLocaleDateString()}
-            </p>
-          </LectureDiv>
-          //
+        {dummyItem.map(item => (
+          <Card
+            key={item.id}
+            id={item.id}
+            imgsrc={item.savedName}
+            title={item.title}
+            description={item.description}
+            startTime={item.startTime}
+            endTime={item.endTime}
+          />
         ))}
       </ListDiv>
     </div>

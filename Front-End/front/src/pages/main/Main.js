@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import SideBar from "./SideBar";
 import CategoryTag from "./CategoryTag";
-import LectureList from "./LectureList";
+import LectureItem from "./LectureItem";
 import Banner from "./Banner";
+import SearchBar from "./SearchBar";
 // import Header from '../../components/Header';
 
 const MainPageDiv = styled.div`
@@ -33,8 +34,9 @@ function Main() {
         <ContentDiv>
           <SideBar />
           <ViewDiv>
+            <SearchBar />
             <CategoryTag />
-            <LectureList />
+            <LectureItem />
           </ViewDiv>
         </ContentDiv>
       </MainPageDiv>
