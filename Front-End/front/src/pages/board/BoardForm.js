@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -24,9 +24,21 @@ function BoardForm({ onCreate }) {
     });
   };
 
+  const titleInput = useRef();
+  const contentInput = useRef();
+
   const handleSubmit = () => {
     // console.log(boardItem);
 
+    if (boardItem.title.length < 1) {
+      titleInput.current.focus();
+      return;
+    }
+
+    if (boardItem.content.length < 1) {
+      contentInput.current.focus();
+      return;
+    }
     onCreate(boardItem.title, boardItem.content);
 
     // 공지게시판으로 이동
@@ -37,6 +49,7 @@ function BoardForm({ onCreate }) {
     <div>
       <h3>게시글 생성</h3>
       <Styledinput
+        ref={titleInput}
         name="title"
         value={boardItem.title}
         onChange={handleChangeBoardItem}
@@ -44,6 +57,7 @@ function BoardForm({ onCreate }) {
         placeholder="제목"
       />
       <Styledtextarea
+        ref={contentInput}
         name="content"
         value={boardItem.content}
         onChange={handleChangeBoardItem}

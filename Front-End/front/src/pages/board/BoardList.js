@@ -11,6 +11,10 @@ function BoardList({ boardList }) {
     navigate("/board/create");
   };
 
+  const goToDetail = (id) => {
+    navigate(`/board/detail/${id}`);
+  };
+
   const header = ["번호", "제목", "작성자", "생성일자"];
 
   return (
@@ -27,7 +31,7 @@ function BoardList({ boardList }) {
         <Styledbody>
           {boardList.map((item, idx) => {
             return (
-              <tr key={idx}>
+              <tr key={idx} onClick={() => goToDetail(item.id)}>
                 <Styledtd>{item.id}</Styledtd>
                 <Styledtd>{item.title}</Styledtd>
                 <Styledtd>{item.author}</Styledtd>
@@ -58,6 +62,7 @@ const Styledthead = styled.thead`
 
 const Styledbody = styled.tbody`
   padding: 8px 3px;
+  cursor: pointer;
 `;
 
 const Styledtd = styled.td`
@@ -67,7 +72,7 @@ const Styledtd = styled.td`
 const Styledbutton = styled.button`
   width: 60px;
   height: 30px;
-  margin: 5px;
+  margin: 20px;
 `;
 
 export default BoardList;
