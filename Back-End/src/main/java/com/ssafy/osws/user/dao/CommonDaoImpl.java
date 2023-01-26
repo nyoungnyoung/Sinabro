@@ -12,7 +12,6 @@ public class CommonDaoImpl implements CommonDao {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
 	public CommonDaoImpl(UserRepository userRepository) {
 	    this.userRepository = userRepository;
 	}
