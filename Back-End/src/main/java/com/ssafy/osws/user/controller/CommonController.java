@@ -33,7 +33,7 @@ public class CommonController {
 			value="전화번호 조회",
 			notes="DB 내부의 가입자 정보에 전화번호를 조회하고, 일치하는 정보가 있을 경우 True를, 없을 경우 False를 반환한다.")
 	@PostMapping("/phone-check")
-	public ResponseEntity<Boolean> phoneCheck(@RequestBody RequestAuthentificationNumber requestAuthentificationNumber, HttpServletRequest request) {
+	public ResponseEntity<Boolean> phoneCheck(@RequestBody RequestAuthentificationNumber requestAuthentificationNumber, HttpServletRequest request) throws Exception {
 		if (commonService.isSaved(requestAuthentificationNumber.getPhone())) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {

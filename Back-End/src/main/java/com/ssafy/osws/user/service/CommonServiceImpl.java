@@ -10,9 +10,6 @@ import com.ssafy.osws.user.data.entity.User;
 import com.ssafy.osws.user.dto.RequestSignIn;
 import com.ssafy.osws.user.dto.RequestSignUp;
 import com.ssafy.osws.user.dto.ResponseSignIn;
-import org.springframework.stereotype.Service;
-
-import com.ssafy.osws.user.dao.CommonDao;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -54,9 +51,9 @@ public class CommonServiceImpl implements CommonService {
 			
 		}
 		return responseSignIn;
-
+	
 	@Override
-	public boolean isSaved(String phone) {
+	public boolean isSaved(String phone) throws Exception {
 		return commonDao.isSaved(phone);
 	}
 }
