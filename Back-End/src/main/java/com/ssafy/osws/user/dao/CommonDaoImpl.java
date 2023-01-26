@@ -8,10 +8,20 @@ import com.ssafy.osws.user.data.repository.UserRepository;
 
 @Repository
 public class CommonDaoImpl implements CommonDao {
-
+	
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	public CommonDaoImpl(UserRepository userRepository) {
+	    this.userRepository = userRepository;
+	}
+	
+	@Override
+	public User insertUser(User user) {
+		return userRepository.save(user);
+	}
+
 	@Override
 	public User signIn(String userId) {
 		return userRepository.getByUserId(userId);
