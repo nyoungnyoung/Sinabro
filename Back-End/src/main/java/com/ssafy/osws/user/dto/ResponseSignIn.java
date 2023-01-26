@@ -15,7 +15,18 @@ public class ResponseSignIn {
 	private String accessToken;
 	private String refreshToken;
 	
-	public User toEntitiy() {
-		return User.builder().userId(id).refreshToken(refreshToken).build();
+	public User toEntitiy(User user) {
+		return User.builder()
+				.no(user.getNo())
+				.userId(user.getUserId())
+				.originalName(user.getOriginalName())
+				.savedName(user.getSavedName())
+				.email(user.getEmail())
+				.name(user.getName())
+				.password(user.getPassword())
+				.phone(user.getPhone())
+				.role(user.getRole())
+				.refreshToken(refreshToken)
+				.build();
 	}
 }
