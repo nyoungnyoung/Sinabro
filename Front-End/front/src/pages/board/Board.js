@@ -32,7 +32,10 @@ function Board() {
           path="/create"
           element={<BoardForm onCreate={onCreate} />}
         ></Route>
-        <Route path="/detail" element={<BoardDetail />}></Route>
+        <Route
+          path="/detail/:id"
+          element={<BoardDetail boardList={state} />}
+        ></Route>
       </Routes>
     </div>
   );
