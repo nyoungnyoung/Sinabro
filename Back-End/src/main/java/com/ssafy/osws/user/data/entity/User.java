@@ -28,7 +28,7 @@ public class User implements UserDetails {
 	private String savedName;
 	
 	@Column(name="id", nullable=false)
-	private String id;
+	private String userId;
 	
 	@Column(name="email", nullable=true)
 	private String email;
@@ -49,11 +49,11 @@ public class User implements UserDetails {
 	private String role;
 
 	@Builder
-	public User(String originalName, String savedName, String id, String email, String phone, String password,
+	public User(String originalName, String savedName, String userId, String email, String phone, String password,
 			String refreshToken, String name, String role) {
 		this.originalName = originalName;
 		this.savedName = savedName;
-		this.id = id;
+		this.userId = userId;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
