@@ -10,6 +10,9 @@ import SignUpMain from "./pages/signup/SignUpMain";
 import Admin from "./pages/admin/Admin";
 import Cs from "./pages/cs/Cs";
 import RealTime from "./pages/realtime/RealTime";
+import LectureInfo from "./pages/detail/LectureInfo";
+import LectureIndex from "./pages/detail/LectureIndex";
+import LectureReview from "./pages/detail/LectureReview";
 
 function App() {
   return (
@@ -20,7 +23,11 @@ function App() {
           {/* <Route path="/accounts" element={<Accounts />} /> */}
           <Route path="/signup/*" element={<SignUpMain />} />
           <Route path="/board/*" element={<Board />} />
-          <Route path="/detail/:lectureId" element={<Detail />} />
+          <Route path="/detail/:lectureId" element={<Detail />}>
+            <Route path="info" element={<LectureInfo />} />
+            <Route path="index" element={<LectureIndex />} />
+            <Route path="Review" element={<LectureReview />} />
+          </Route>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/manage" element={<Manage />} />
           <Route path="/admin" element={<Admin />} />
