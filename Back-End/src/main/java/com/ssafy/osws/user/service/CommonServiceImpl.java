@@ -68,6 +68,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
+	public boolean checkId(String userId) throws RuntimeException {
+		return commonDao.isSameId(userId);
+	}
+
 	public String sendAuthCode(String phone) throws Exception {
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSOY85XEGNVPAVE", "CVTX6F1GD29HY9YN48PRFTJBDWPRTVGB", "https://api.solapi.com");
 		
@@ -101,6 +105,5 @@ public class CommonServiceImpl implements CommonService {
 		} catch (Exception e) {
 			System.out.println("Exception at changePassword");
 		}
-		
 	}
 }

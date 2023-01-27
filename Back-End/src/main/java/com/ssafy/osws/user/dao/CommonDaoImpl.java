@@ -36,6 +36,10 @@ public class CommonDaoImpl implements CommonDao {
 	}
 
 	@Override
+	public boolean isSameId(String userId) {
+		return userRepository.existsByUserId(userId);
+	}
+
 	public User getUserByPhone(String phone) {
 		return userRepository.findByPhone(phone);
 	}
