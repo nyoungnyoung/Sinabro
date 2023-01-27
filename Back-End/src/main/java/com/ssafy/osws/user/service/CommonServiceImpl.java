@@ -51,6 +51,7 @@ public class CommonServiceImpl implements CommonService {
 			
 		}
 		return responseSignIn;
+	}
 	
 	@Override
 	public boolean isSaved(String phone) throws Exception {
