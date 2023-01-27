@@ -111,4 +111,9 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public void updatePassword(String password) {
+		//암호화 처리를 service layer에서 완료
+		this.password = password;
+	}
 }

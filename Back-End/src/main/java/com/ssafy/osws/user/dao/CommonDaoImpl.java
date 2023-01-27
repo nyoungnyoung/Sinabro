@@ -34,4 +34,9 @@ public class CommonDaoImpl implements CommonDao {
 			return false;
 		}
 	}
+
+	@Override
+	public User getUserByPhone(String phone) {
+		return userRepository.findByPhone(phone);
+	}
 }

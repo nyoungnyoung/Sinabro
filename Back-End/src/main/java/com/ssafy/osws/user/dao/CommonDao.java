@@ -6,4 +6,5 @@ public interface CommonDao {
 	public User signIn(String userId);
 	public User save(User user);
 	public boolean isSaved(String phone);
+	public User getUserByPhone(String phone);
 }
