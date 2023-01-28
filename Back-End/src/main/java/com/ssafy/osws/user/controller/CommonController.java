@@ -74,7 +74,7 @@ public class CommonController {
 	@ApiOperation(
 			value = "회원가입", 
 			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 OK를, 실패할 경우 ERROR를 반환한다.")
-	@PostMapping("/signup")
+	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUp(@RequestBody RequestSignUp requestSignUp) {
 
 		if (commonService.signUp(requestSignUp)) {
@@ -94,7 +94,7 @@ public class CommonController {
 	@ApiOperation(
 			value="아이디중복체크",
 			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
-	@GetMapping("/{userId}")
+	@GetMapping("/sign-up/{userId}")
 	public ResponseEntity<?> checkId(@PathVariable String userId) {
 		if (commonService.checkId(userId) == true) {
 			return new ResponseEntity<String>("success", HttpStatus.OK);
