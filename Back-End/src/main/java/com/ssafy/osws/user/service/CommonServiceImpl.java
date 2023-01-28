@@ -72,6 +72,7 @@ public class CommonServiceImpl implements CommonService {
 		return commonDao.isSameId(userId);
 	}
 
+	@Override
 	public String sendAuthCode(String phone) throws Exception {
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSOY85XEGNVPAVE", "CVTX6F1GD29HY9YN48PRFTJBDWPRTVGB", "https://api.solapi.com");
 		
