@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Detail from "./pages/detail/Detail";
 import MyPage from "./pages/mypage/MyPage";
 import Manage from "./pages/manage/Manage";
-import SignUpMain from "./pages/signup/SignUpMain";
+import SignUp from "./pages/signup/SignUp";
 import Admin from "./pages/admin/Admin";
 import Cs from "./pages/cs/Cs";
 import RealTime from "./pages/realtime/RealTime";
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           {/* <Route path="/accounts" element={<Accounts />} /> */}
-          <Route path="/signup/*" element={<SignUpMain />} />
+          <Route path="/signup/*" element={<SignUp />} />
           <Route path="/board/*" element={<Board />} />
           <Route path="/detail/:lectureId" element={<Detail />}>
             <Route path="info" element={<LectureInfo />} />
