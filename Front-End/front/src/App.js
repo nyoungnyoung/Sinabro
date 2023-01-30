@@ -13,6 +13,9 @@ import RealTime from "./pages/realtime/RealTime";
 import LectureInfo from "./pages/detail/LectureInfo";
 import LectureIndex from "./pages/detail/LectureIndex";
 import LectureReview from "./pages/detail/LectureReview";
+import Login from "./pages/login/Login";
+import FindId from "./pages/findid/FindId";
+import FindPw from "./pages/findpw/FindPw";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
           <Route path="/" element={<Main />} />
           {/* <Route path="/accounts" element={<Accounts />} /> */}
           <Route path="/signup/*" element={<SignUpMain />} />
+          <Route path="/login/:step" element={<Login />} />
+          <Route path="/findid/:step" element={<FindId />} />
+          <Route path="/findpw/:step" element={<FindPw />} />
           <Route path="/board/*" element={<Board />} />
           <Route path="/detail/:lectureId" element={<Detail />}>
             <Route path="info" element={<LectureInfo />} />
