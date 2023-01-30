@@ -1,5 +1,6 @@
 package com.ssafy.osws.user.service;
 
+import javax.transaction.Transactional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class CommonServiceImpl implements CommonService {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
+	@Transactional
 	public boolean signUp(RequestSignUp requestSignUp) throws RuntimeException {
 		//requestSignUp.toEntity();
 		requestSignUp.setPassword(passwordEncoder.encode(requestSignUp.getPassword()));
@@ -47,8 +49,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 	
 	@Override
+	@Transactional
 	public ResponseSignIn signIn(RequestSignIn requestSignIn) {
-		User user = commonDao.signIn(requestSignIn.getId());
+		User user = commonDao.getUserByUserId(requestSignIn.getId());
 		
 		ResponseSignIn responseSignIn = null;
 		if(user != null && passwordEncoder.matches(requestSignIn.getPassword(), user.getPassword())) {
@@ -66,6 +69,18 @@ public class CommonServiceImpl implements CommonService {
 	public boolean isSaved(String phone) throws Exception {
 		return commonDao.isSaved(phone);
 	}
+
+	@Override
+	@Transactional
+	public Boolean signOut(String userId) {
+		User user = commonDao.getUserByUserId(userId);
+		user.updateRefreshToken(null);
+		if(commonDao.save(user).getNo() > 0)
+			return true;
+		else
+			return false;
+	}
+
 
 	@Override
 	public boolean checkId(String userId) throws RuntimeException {
