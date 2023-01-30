@@ -7,3 +7,14 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+
+OPENVIDU_URL: http://localhost:4443/
+OPENVIDU_SECRET: MY_SECRET
+ 
+server:
+  port: 5000
+  ssl:
+    enabled: false
+
+
+    
