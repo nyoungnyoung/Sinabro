@@ -7,7 +7,8 @@ const BtnDiv = styled.button`
   padding-left: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 5px;\
+  cursor: pointer;
 `;
 
 const StyledImg = styled.img`

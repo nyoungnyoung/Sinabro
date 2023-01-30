@@ -32,6 +32,9 @@ function Main() {
       <Link to="/login/id">
         <button>로그인</button>
       </Link>
+      <Link to="/signup">
+        <button>회원가입</button>
+      </Link>
       <h1>Main</h1>
       <MainPageDiv>
         <Banner />

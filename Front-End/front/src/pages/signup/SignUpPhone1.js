@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import CustomerServiceButton from "./button/CustomerServiceButton";
+import CsBtn from "../../components/CsBtn";
 
 function SignUpPhone1() {
   const navigate = useNavigate();
@@ -34,11 +34,24 @@ function SignUpPhone1() {
           <StyledButton2 onClick={moveToPhone2}>다음 단계로</StyledButton2>
         </StyledDiv2>
       </StyledDiv1>
-      <CustomerServiceButton />
+      <LoginDiv>
+        <StyledLink to="/cs">
+          <CsBtn />
+        </StyledLink>
+      </LoginDiv>{" "}
     </div>
   );
 }
+const LoginDiv = styled.div`
+  padding-left: 18%;
+  padding-right: 18%;
+  padding-top: 5vh;
+`;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 const StyledDiv1 = styled.div`
   border: 1px solid black;
   width: 60%;
