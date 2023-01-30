@@ -4,6 +4,7 @@ import CategoryTag from "./CategoryTag";
 import LectureItem from "./LectureItem";
 import Banner from "./Banner";
 import SearchBar from "./SearchBar";
+import { Link } from "react-router-dom";
 // import Header from '../../components/Header';
 
 const MainPageDiv = styled.div`
@@ -28,6 +29,9 @@ function Main() {
   return (
     <div className="Main">
       {/* <Header/> */}
+      <Link to="/login/id">
+        <button>로그인</button>
+      </Link>
       <h1>Main</h1>
       <MainPageDiv>
         <Banner />
