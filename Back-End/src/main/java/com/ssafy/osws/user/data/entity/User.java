@@ -1,9 +1,7 @@
 package com.ssafy.osws.user.data.entity;
 
-import java.util.ArrayList;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,28 +67,12 @@ public class User implements UserDetails {
 		this.name = name;
 		this.role = role;
 	}
-	
-	public void updateRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<String> roles = new ArrayList<>();
 		roles.add(role);
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -115,9 +97,10 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	public void updatePassword(String password) {
-		//암호화 처리를 service layer에서 완료
-		this.password = password;
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
