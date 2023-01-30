@@ -3,6 +3,8 @@ package com.ssafy.osws.user.data.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -99,5 +101,13 @@ public class User implements UserDetails {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken; 
+	}
+
+	public void updatePassword(String encode) {
+		this.password = encode;	
 	}
 }
