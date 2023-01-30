@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 
@@ -36,10 +36,26 @@ function SignUpBirth() {
           <StyledButton2 onClick={moveToPhone}>다음 단계로</StyledButton2>
         </div>
       </StyledDiv1>
-      <CsBtn />
+      <LoginDiv>
+        <StyledLink to="/cs">
+          <CsBtn />
+        </StyledLink>
+      </LoginDiv>
     </div>
   );
 }
+
+const LoginDiv = styled.div`
+  padding-left: 18%;
+  padding-right: 18%;
+  padding-top: 5vh;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 const StyledDiv1 = styled.div`
   border: 1px solid black;
   width: 60%;

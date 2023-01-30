@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 import KakaoSignUpButton from "./button/KakaoSignUpButton";
@@ -21,13 +21,27 @@ function SignUpMain() {
       </StyledDiv>
 
       {/* 고객센터 안내 */}
-      <CsBtn />
+      <LoginDiv>
+        <StyledLink to="/cs">
+          <CsBtn />
+        </StyledLink>
+      </LoginDiv>
 
       {/* 카카오톡 회원가입 */}
       <KakaoSignUpButton />
     </div>
   );
 }
+const LoginDiv = styled.div`
+  padding-left: 18%;
+  padding-right: 18%;
+  padding-top: 5vh;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const StyledDiv = styled.div`
   width: 60%;
