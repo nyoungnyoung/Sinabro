@@ -45,6 +45,7 @@ public class SwaggerConfig {
                 .build();
     }
     
+    // 헤더에 키 추가
     private ApiKey apiKey() {
     	return new ApiKey("X-ACCESS-TOKEN", "X-ACCESS-TOKEN", "header");
     }
@@ -55,7 +56,8 @@ public class SwaggerConfig {
     			.build();
     }
 
-
+    
+    // authorization 범위 설정
 	private List<SecurityReference> defaultAuth() {
 		AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
 		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
@@ -63,6 +65,7 @@ public class SwaggerConfig {
 		return Arrays.asList(new SecurityReference("X-ACCESS-TOKEN", authorizationScopes));
 	}
     
+	// 시큐리티 문서 설정
 	@Bean
 	public SecurityConfiguration security() {
 			return SecurityConfigurationBuilder.builder()
