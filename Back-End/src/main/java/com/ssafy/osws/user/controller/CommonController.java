@@ -92,6 +92,14 @@ public class CommonController {
 	}
 	
 	@ApiOperation(
+			value="로그아웃",
+			notes="성공적으로 로그아웃하면 true, 실패하면 false를 반환한다.")
+	@GetMapping("/sign-out/{userId}")
+	public ResponseEntity<Boolean> signOut(@PathVariable String userId) {
+		return new ResponseEntity<Boolean>(commonService.signOut(userId), HttpStatus.OK);
+	}
+
+	@ApiOperation(
 			value="아이디중복체크",
 			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
 	@GetMapping("/sign-up/{userId}")
@@ -101,5 +109,4 @@ public class CommonController {
 	    }
 		return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
 }

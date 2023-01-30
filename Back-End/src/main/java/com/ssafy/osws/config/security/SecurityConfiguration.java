@@ -30,6 +30,7 @@ public class SecurityConfiguration {
 	        .and()
 	        .authorizeRequests()
 	        .antMatchers(HttpMethod.OPTIONS).permitAll() // 브라우저가 보낸 preflight 요청 해결
+	        .antMatchers("/common/sign-out/{userId}").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**").permitAll()
 	    	.and()
 	    	.addFilterBefore(new JwtAuthenticatioFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)

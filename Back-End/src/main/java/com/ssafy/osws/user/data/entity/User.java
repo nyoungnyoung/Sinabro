@@ -69,6 +69,10 @@ public class User implements UserDetails {
 		this.name = name;
 		this.role = role;
 	}
+	
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

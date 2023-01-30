@@ -17,7 +17,7 @@ public class CommonDaoImpl implements CommonDao {
 	}
 
 	@Override
-	public User signIn(String userId) {
+	public User getUserByUserId(String userId) {
 		return userRepository.findByUserId(userId);
 	}
 
