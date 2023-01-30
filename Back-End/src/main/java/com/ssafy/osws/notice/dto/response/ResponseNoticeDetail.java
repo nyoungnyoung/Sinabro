@@ -1,4 +1,4 @@
-package com.ssafy.osws.board.dto.response;
+package com.ssafy.osws.notice.dto.response;
 
 import java.util.List;
 
