@@ -1,4 +1,4 @@
-package com.ssafy.osws.board.dto.response;
+package com.ssafy.osws.notice.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResponseNotice {
+public class RequestDeleteNoticeAttachment {
 	private int no;
-	private String subject;
-	private String registeredDate;
 }

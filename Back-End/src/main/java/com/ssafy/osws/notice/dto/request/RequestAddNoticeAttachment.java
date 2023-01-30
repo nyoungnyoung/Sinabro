@@ -1,4 +1,4 @@
-package com.ssafy.osws.board.dto.request;
+package com.ssafy.osws.notice.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

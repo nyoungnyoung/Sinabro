@@ -1,4 +1,4 @@
-package com.ssafy.osws.board.controller;
+package com.ssafy.osws.notice.controller;
 
 
 import java.util.List;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.osws.board.dto.request.RequestModifyNotice;
-import com.ssafy.osws.board.dto.request.RequestWriteNotice;
-import com.ssafy.osws.board.dto.response.ResponseNotice;
-import com.ssafy.osws.board.dto.response.ResponseNoticeDetail;
-import com.ssafy.osws.board.dto.response.ResponseTotalPageNo;
+import com.ssafy.osws.notice.dto.request.RequestModifyNotice;
+import com.ssafy.osws.notice.dto.request.RequestWriteNotice;
+import com.ssafy.osws.notice.dto.response.ResponseNotice;
+import com.ssafy.osws.notice.dto.response.ResponseNoticeDetail;
+import com.ssafy.osws.notice.dto.response.ResponseTotalPageNo;
 
 import io.swagger.annotations.ApiOperation;
 
