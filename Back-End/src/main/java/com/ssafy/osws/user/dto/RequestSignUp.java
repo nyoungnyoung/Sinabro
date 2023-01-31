@@ -1,8 +1,5 @@
 package com.ssafy.osws.user.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.ssafy.osws.user.data.entity.User;
 
 import lombok.AllArgsConstructor;

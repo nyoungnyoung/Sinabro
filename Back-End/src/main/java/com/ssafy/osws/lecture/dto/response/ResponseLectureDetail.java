@@ -1,5 +1,7 @@
 package com.ssafy.osws.lecture.dto.response;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -19,6 +21,8 @@ public class ResponseLectureDetail {
 	private String savedName;
 	@JsonProperty("isEnrolled")
 	private Boolean enrolled;
+	
+	List<ResponseLectureTime> lectureTimeList;
 	
 	public boolean isEnrolled() {
 		return this.enrolled;
