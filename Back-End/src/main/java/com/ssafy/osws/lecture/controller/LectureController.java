@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 public class LectureController {
 	
 	@ApiOperation(
-			value = "강의 상세 정보", 
+			value = "강의 상세 정보 (try it out 불가)", 
 			notes = "강의 상세 정보를 반환한다. 강의 번호에 해당하는 강의가 없으면 null 반환")
 	@GetMapping("/{lectureNo}")
 	public ResponseEntity<ResponseLectureDetail> getLecture(@PathVariable() int lectureNo) {
@@ -35,7 +35,7 @@ public class LectureController {
 	}
 	
 	@ApiOperation(
-			value = "강의 주차별 목차 불러오기", 
+			value = "강의 주차별 목차 불러오기 (try it out 불가)", 
 			notes = "강의 주차별 목차를 불러온다. 권한이 없으면(로그인 안 함) 강의 자료는 볼 수 없다.")
 	@GetMapping("/{lectureNo}/weekly")
 	public ResponseEntity<List<ResponseWeeklyInfo>> getWeeklyInfoList(@PathVariable() int lectureNo) {
@@ -44,7 +44,7 @@ public class LectureController {
 	}
 	
 	@ApiOperation(
-			value = "수강 신청 요청", 
+			value = "수강 신청 요청 (try it out 불가)", 
 			notes = "수강 신청 요청을 처리한다.. 성공하면 true, 실패하면 false 반환")
 	@PostMapping("/{lectureNo}")
 	public ResponseEntity<Boolean> enrollLecture(@PathVariable() int lectureNo) {
@@ -54,7 +54,7 @@ public class LectureController {
 	}
 	
 	@ApiOperation(
-			value = "강의 수강 취소", 
+			value = "강의 수강 취소 (try it out 불가)", 
 			notes = "수강 취소 요청을 처리한다. 성공하면 true, 실패하면 false 반환")
 	@DeleteMapping("/{lectureNo}")
 	public ResponseEntity<Boolean> cancelLecture(@PathVariable() int lectureNo) {
