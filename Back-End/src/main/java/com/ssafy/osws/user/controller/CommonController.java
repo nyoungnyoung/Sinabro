@@ -39,7 +39,7 @@ public class CommonController {
 		if (commonService.isSaved(requestAuthentificationNumber.getPhone())) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 	}
 
