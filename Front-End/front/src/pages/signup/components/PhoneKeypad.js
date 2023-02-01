@@ -1,42 +1,48 @@
 import React, { useState } from "react";
 import "./PhoneKeypad.css";
 
-const PhoneKeypad = () => {
-  const [number, stateNumber] = useState("");
+const PhoneKeypad = ({ numberHandle }) => {
+  const [number, setNumber] = useState("");
 
   const numberOne = () => {
-    stateNumber([...number, 1]);
+    setNumber([...number, 1]);
   };
-
   const numberTwo = () => {
-    stateNumber([...number, 2]);
+    setNumber([...number, 2]);
   };
-
   const numberThree = () => {
-    stateNumber([...number, 3]);
+    setNumber([...number, 3]);
   };
   const numberFour = () => {
-    stateNumber([...number, 4]);
+    setNumber([...number, 4]);
   };
   const numberFive = () => {
-    stateNumber([...number, 5]);
+    setNumber([...number, 5]);
   };
   const numberSix = () => {
-    stateNumber([...number, 6]);
+    setNumber([...number, 6]);
   };
   const numberSeven = () => {
-    stateNumber([...number, 7]);
+    setNumber([...number, 7]);
   };
   const numberEight = () => {
-    stateNumber([...number, 8]);
+    setNumber([...number, 8]);
   };
   const numberNine = () => {
-    stateNumber([...number, 9]);
+    setNumber([...number, 9]);
   };
   const numberZero = () => {
-    stateNumber([...number, 0]);
+    setNumber([...number, 0]);
   };
-  console.log(number);
+
+  const erase = () => {
+    number.pop();
+    // console.log(number);
+    setNumber([...number]);
+    // console.log(number);
+  };
+
+  // console.log(number);
 
   return (
     <div className="keypad-wrapper">
@@ -78,6 +84,10 @@ const PhoneKeypad = () => {
           0
         </div>
       </div>
+      <button className="eraseButton" onClick={erase}>
+        지우기
+      </button>
+      <h3>번호 : {number}</h3>
     </div>
   );
 };

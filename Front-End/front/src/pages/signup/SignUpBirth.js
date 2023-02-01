@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 import BirthCalendar from "../signup/components/BirthCalendar";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpBirth() {
@@ -23,14 +23,13 @@ function SignUpBirth() {
   };
 
   // 😀store의 생년월일 불러오기
-  const state = useSelector((state) => state);
+  // const state = useSelector((state) => state);
 
   // 😀birth : 전역으로 보내기
   const sendBirth = () => {
     dispatch(signUpActions.addBirth(birth));
   };
 
-  console.log("state", state);
   return (
     <div>
       <StyledDiv1>
@@ -44,15 +43,6 @@ function SignUpBirth() {
         </StyledCalendar>
 
         <StyledDiv2>
-          <StyledInput
-            type="text"
-            value={birth}
-            placeholder="여기에 생년월일을 입력해주세요 :)"
-            onChange={(e) => {
-              setBirth(e.target.value);
-              // console.log(birth);
-            }}
-          />
           <h3>{birth}</h3>
 
           <StyledButton1
@@ -101,11 +91,11 @@ const StyledDiv2 = styled.div`
   padding-bottom: 20px;
 `;
 
-const StyledInput = styled.input`
-  width: 40%;
-  padding: 10px;
-  margin-right: 10px;
-`;
+// const StyledInput = styled.input`
+//   width: 40%;
+//   padding: 10px;
+//   margin-right: 10px;
+// `;
 
 const StyledButton1 = styled.button`
   cursor: pointer;
