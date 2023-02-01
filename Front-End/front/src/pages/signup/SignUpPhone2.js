@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+import { useSelector } from "react-redux";
 
 function SignUpPhone2() {
   const navigate = useNavigate();
+
+  const state = useSelector((state) => state);
+  console.log(state);
 
   const moveToAgree = () => {
     navigate("/signup/agree");

@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import "./PhoneKeypad.css";
+import { useDispatch } from "react-redux";
+import { signUpActions } from "../../../store/SignUpSlice";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-const PhoneKeypad = ({ numberHandle }) => {
+const PhoneKeypad = () => {
   const [number, setNumber] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const moveToPhone2 = () => {
+    navigate("/signup/phone2");
+  };
 
   const numberOne = () => {
     setNumber([...number, 1]);
@@ -41,8 +52,9 @@ const PhoneKeypad = ({ numberHandle }) => {
     setNumber([...number]);
     // console.log(number);
   };
-
-  // console.log(number);
+  const sendNumber = () => {
+    dispatch(signUpActions.addNumber(number));
+  };
 
   return (
     <div className="keypad-wrapper">
@@ -88,8 +100,20 @@ const PhoneKeypad = ({ numberHandle }) => {
         지우기
       </button>
       <h3>번호 : {number}</h3>
+      <StyledButton1
+        onClick={() => {
+          moveToPhone2();
+          sendNumber();
+        }}
+      >
+        인증번호 받기
+      </StyledButton1>
     </div>
   );
 };
-
+const StyledButton1 = styled.button`
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 20px;
+`;
 export default PhoneKeypad;

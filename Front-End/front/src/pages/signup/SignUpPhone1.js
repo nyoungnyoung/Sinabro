@@ -3,33 +3,33 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 import PhoneKeypad from "./components/PhoneKeypad";
-import { useSelector, useDispatch } from "react-redux";
-import { signUpActions } from "../../store/SignUpSlice";
+// import { useSelector, useDispatch } from "react-redux";
+// import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpPhone1() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
-  const moveToPhone2 = () => {
-    navigate("/signup/phone2");
-  };
+  // const moveToPhone2 = () => {
+  //   navigate("/signup/phone2");
+  // };
 
   // 😀number 저장
-  const [number, setNumber] = useState("");
+  // const [number, setNumber] = useState("");
 
   // 😀PhoneKeypad로부터 데이터 전달받기 위한 코드
-  const numberHandle = (number) => {
-    setNumber(number);
-  };
+  // const numberHandle = (number) => {
+  //   setNumber(number);
+  // };
 
   // 😀birth : 전역으로 보내기
-  const sendNumber = () => {
-    dispatch(signUpActions.addPhone(number));
-  };
+  // const sendNumber = () => {
+  //   dispatch(signUpActions.addPhone(number));
+  // };
 
-  const state = useSelector((state) => state);
+  // const state = useSelector((state) => state);
 
-  console.log("state", state);
+  // console.log("state", state);
 
   return (
     <div>
@@ -48,15 +48,14 @@ function SignUpPhone1() {
               console.log(number);
             }}
           /> */}
-          <PhoneKeypad numberHandle={numberHandle} />
-          <StyledButton1
+          <PhoneKeypad />
+          {/* <StyledButton1
             onClick={() => {
-              sendNumber();
               moveToPhone2();
             }}
           >
             인증번호 받기
-          </StyledButton1>
+          </StyledButton1> */}
         </StyledDiv2>
         {/* <StyledDiv2>
           <StyledButton2 onClick={moveToPhone2}>다음 단계로</StyledButton2>
@@ -96,11 +95,11 @@ const StyledDiv2 = styled.div`
 //   margin-right: 10px;
 // `;
 
-const StyledButton1 = styled.button`
-  cursor: pointer;
-  padding: 10px;
-  margin-bottom: 20px;
-`;
+// const StyledButton1 = styled.button`
+//   cursor: pointer;
+//   padding: 10px;
+//   margin-bottom: 20px;
+// `;
 
 // const StyledButton2 = styled.button`
 //   margin-top: 15px;

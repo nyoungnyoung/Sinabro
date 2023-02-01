@@ -29,7 +29,7 @@ export const signUpSlice = createSlice({
     addBirth(state, action) {
       state.birth = action.payload;
     },
-    addPhone(state, action) {
+    addNumber(state, action) {
       state.phone = action.payload;
     },
     changeAgree(state) {
