@@ -1,0 +1,20 @@
+.keypad-wrapper {
+  display: block;
+  justify-content: center;
+}
+
+.keypad-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.keypad-item {
+  width: 70px;
+  height: 70px;
+  background-color: bisque;
+  margin: 10px;
+  font-size: 30px;
+  border: 1px black solid;
+  cursor: pointer;
+}

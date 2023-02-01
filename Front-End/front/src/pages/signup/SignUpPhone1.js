@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+import PhoneKeypad from "./components/PhoneKeypad";
 
 function SignUpPhone1() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function SignUpPhone1() {
     navigate("/signup/phone2");
   };
 
+  // 😀number 저장
   const [number, setNumber] = useState("");
   return (
     <div>
@@ -28,6 +30,7 @@ function SignUpPhone1() {
               console.log(number);
             }}
           />
+          <PhoneKeypad />
           <StyledButton1>인증번호 받기</StyledButton1>
         </StyledDiv2>
         <StyledDiv2>
@@ -59,7 +62,6 @@ const StyledDiv1 = styled.div`
 `;
 
 const StyledDiv2 = styled.div`
-  display: flex;
   justify-content: center;
 `;
 
