@@ -8,8 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.osws.config.security.JwtProvider;
-import com.ssafy.osws.user.dao.CommonDao;
 import com.ssafy.osws.user.data.entity.User;
+import com.ssafy.osws.user.data.repository.UserRepository;
 import com.ssafy.osws.user.dto.RequestSignIn;
 import com.ssafy.osws.user.dto.RequestSignUp;
 import com.ssafy.osws.user.dto.ResponseSignIn;
@@ -23,7 +23,7 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 public class CommonServiceImpl implements CommonService {
 	
 	@Autowired
-	private CommonDao commonDao;
+	private UserRepository userRepository;
 
 	@Autowired
 	private JwtProvider jwtProvider;
@@ -38,7 +38,7 @@ public class CommonServiceImpl implements CommonService {
 		requestSignUp.setPassword(passwordEncoder.encode(requestSignUp.getPassword()));
 		User user = requestSignUp.toEntity();
 	    
-	    User savedUser = commonDao.save(user);
+	    User savedUser = userRepository.save(user);
 
 	    if (!savedUser.getUserId().isEmpty()) {
 	      return true;
@@ -49,7 +49,7 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	@Transactional
 	public ResponseSignIn signIn(RequestSignIn requestSignIn) {
-		User user = commonDao.getUserByUserId(requestSignIn.getId());
+		User user = userRepository.findByUserId(requestSignIn.getId());
 		
 		ResponseSignIn responseSignIn = null;
 		if(user != null && passwordEncoder.matches(requestSignIn.getPassword(), user.getPassword())) {
@@ -57,7 +57,7 @@ public class CommonServiceImpl implements CommonService {
 			responseSignIn.setId(user.getUserId());
 			responseSignIn.setAccessToken(jwtProvider.createAccessToken(user.getUserId()));
 			responseSignIn.setRefreshToken(jwtProvider.createRefreshToken(user.getUserId()));
-			commonDao.save(responseSignIn.toEntitiy(user));
+			userRepository.save(responseSignIn.toEntitiy(user));
 			
 		}
 		return responseSignIn;
@@ -65,15 +65,19 @@ public class CommonServiceImpl implements CommonService {
 	
 	@Override
 	public boolean isSaved(String phone) throws Exception {
-		return commonDao.isSaved(phone);
+		if (userRepository.findByPhone(phone) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	@Transactional
 	public Boolean signOut(String userId) {
-		User user = commonDao.getUserByUserId(userId);
+		User user = userRepository.findByUserId(userId);
 		user.updateRefreshToken(null);
-		if(commonDao.save(user).getNo() > 0)
+		if(userRepository.save(user).getNo() > 0)
 			return true;
 		else
 			return false;
@@ -82,7 +86,7 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public boolean checkId(String userId) throws RuntimeException {
-		return commonDao.isSameId(userId);
+		return userRepository.existsByUserId(userId);
 	}
 
 	@Override
@@ -112,10 +116,10 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public void changePassword(String phone, String password) throws Exception {
-		User user = commonDao.getUserByPhone(phone);
+		User user = userRepository.findByPhone(phone);
 		try {
 			user.updatePassword(passwordEncoder.encode(password));
-			commonDao.save(user);
+			userRepository.save(user);
 		} catch (Exception e) {
 			System.out.println("Exception at changePassword");
 		}
