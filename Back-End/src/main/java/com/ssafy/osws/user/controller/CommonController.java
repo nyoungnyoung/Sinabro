@@ -76,11 +76,15 @@ public class CommonController {
 			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 OK를, 실패할 경우 ERROR를 반환한다.")
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUp(@RequestBody RequestSignUp requestSignUp) {
-
-		if (commonService.signUp(requestSignUp)) {
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+		try {
+			if (commonService.signUp(requestSignUp)) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.OK);
+			}			
+		} catch(Exception e){
+			return new ResponseEntity<String>("errMessage: "+e, HttpStatus.INTERNAL_SERVER_ERROR);						
 		}
-		return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ApiOperation(
