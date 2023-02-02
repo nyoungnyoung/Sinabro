@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, Route, Outlet } from "react-router-dom";
+import { useParams, Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 const dummyItem = [
@@ -136,13 +136,13 @@ function Detail() {
       </StyledDiv>
       <div>
         <br />
-        <Link to="/info">
+        <Link to="info">
           <button>과정소개</button>
         </Link>
-        <Link to="/index">
+        <Link to="index">
           <button>강의목차</button>
         </Link>
-        <Link>
+        <Link to="review">
           <button>수강후기</button>
         </Link>
         <Outlet />

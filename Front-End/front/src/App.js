@@ -32,10 +32,10 @@ function App() {
           <Route path="/detail/:lectureId" element={<Detail />}>
             <Route path="info" element={<LectureInfo />} />
             <Route path="index" element={<LectureIndex />} />
-            <Route path="Review" element={<LectureReview />} />
+            <Route path="review" element={<LectureReview />} />
           </Route>
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/manage" element={<Manage />} />
+          <Route path="/manage/*" element={<Manage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/cs" element={<Cs />} />
           <Route path="/realtime" element={<RealTime />} />
