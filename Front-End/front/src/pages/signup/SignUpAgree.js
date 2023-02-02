@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+import { useSelector, useDispatch } from "react-redux";
+import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpAgree() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const moveToMSG = () => {
-    navigate("/signup/msg");
+    if (agree === false) {
+      alert("약관동의를 해주세요 :)");
+      navigate("/signup/agree");
+    } else {
+      navigate("/signup/msg");
+    }
   };
 
-  // 약관동의 여부
-  // const [isCheck, setisCheck] = useState(false);
+  // 😀약관동의 여부 저장
+  const [agree, setAgree] = useState(false);
+
+  // 😀약관동의 여부 : 전역으로 보내기
+  const sendAgree = () => {
+    setAgree(!agree);
+    dispatch(signUpActions.changeAgree(agree));
+  };
+
+  // 😀stateId 갱신 여부 확인 콘솔
+  // console.log("stateId", stateId);
+  const state = useSelector((state) => state);
+  console.log("state", state);
+  // console.log(agree);
 
   return (
     <div>
@@ -24,7 +44,7 @@ function SignUpAgree() {
           </StyledDiv2>
         </div>
         <StyledDiv3>
-          <input type="checkbox" />
+          <input type="checkbox" onClick={sendAgree} />
           <p>약관에 동의합니다</p>
         </StyledDiv3>
         <div>

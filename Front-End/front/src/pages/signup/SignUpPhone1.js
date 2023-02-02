@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 import PhoneKeypad from "./components/PhoneKeypad";
@@ -34,32 +34,12 @@ function SignUpPhone1() {
   return (
     <div>
       <StyledDiv1>
-        {/* <h1>SignUpPhone1</h1> */}
         <div>
           <h3>고객님의 휴대폰 번호를 입력해주세요!</h3>
         </div>
         <StyledDiv2>
-          {/* <StyledInput
-            type="text"
-            value={number}
-            placeholder="휴대폰 번호를 입력해주세요 :)"
-            onChange={(e) => {
-              setNumber(e.target.value);
-              console.log(number);
-            }}
-          /> */}
           <PhoneKeypad />
-          {/* <StyledButton1
-            onClick={() => {
-              moveToPhone2();
-            }}
-          >
-            인증번호 받기
-          </StyledButton1> */}
         </StyledDiv2>
-        {/* <StyledDiv2>
-          <StyledButton2 onClick={moveToPhone2}>다음 단계로</StyledButton2>
-        </StyledDiv2> */}
       </StyledDiv1>
       <LoginDiv>
         <StyledLink to="/cs">

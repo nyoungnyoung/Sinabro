@@ -14,9 +14,10 @@ function SignUpPhone2() {
     navigate("/signup/agree");
   };
 
-  // 인증번호 저장
-  const [prove, setProve] = useState();
+  // 😀인증번호 저장
+  const [prove, setProve] = useState("");
 
+  console.log(prove);
   return (
     <div>
       <StyledDiv1>

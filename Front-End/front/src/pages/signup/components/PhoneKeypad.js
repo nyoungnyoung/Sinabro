@@ -16,34 +16,34 @@ const PhoneKeypad = () => {
   };
 
   const numberOne = () => {
-    setNumber([...number, 1]);
+    setNumber([...number, "1"]);
   };
   const numberTwo = () => {
-    setNumber([...number, 2]);
+    setNumber([...number, "2"]);
   };
   const numberThree = () => {
-    setNumber([...number, 3]);
+    setNumber([...number, "3"]);
   };
   const numberFour = () => {
-    setNumber([...number, 4]);
+    setNumber([...number, "4"]);
   };
   const numberFive = () => {
-    setNumber([...number, 5]);
+    setNumber([...number, "5"]);
   };
   const numberSix = () => {
-    setNumber([...number, 6]);
+    setNumber([...number, "6"]);
   };
   const numberSeven = () => {
-    setNumber([...number, 7]);
+    setNumber([...number, "7"]);
   };
   const numberEight = () => {
-    setNumber([...number, 8]);
+    setNumber([...number, "8"]);
   };
   const numberNine = () => {
-    setNumber([...number, 9]);
+    setNumber([...number, "9"]);
   };
   const numberZero = () => {
-    setNumber([...number, 0]);
+    setNumber([...number, "0"]);
   };
 
   const erase = () => {
@@ -52,8 +52,11 @@ const PhoneKeypad = () => {
     setNumber([...number]);
     // console.log(number);
   };
+
   const sendNumber = () => {
-    dispatch(signUpActions.addNumber(number));
+    // 자바스크립트 함수를 쓸 때는 변수 생성해서 적용해주기!
+    const newNumber = number.join("");
+    dispatch(signUpActions.addNumber(newNumber));
   };
 
   return (
