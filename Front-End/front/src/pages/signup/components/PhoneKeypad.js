@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./PhoneKeypad.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpActions } from "../../../store/SignUpSlice";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const PhoneKeypad = () => {
   const [number, setNumber] = useState("");
@@ -52,13 +53,24 @@ const PhoneKeypad = () => {
     setNumber([...number]);
     // console.log(number);
   };
-
+  
   const sendNumber = () => {
     // 자바스크립트 함수를 쓸 때는 변수 생성해서 적용해주기!
     const newNumber = number.join("");
     dispatch(signUpActions.addNumber(newNumber));
   };
+  
+  const baseUrl = 'http://localhost:5000';
 
+  const axiosNumber = useSelector(state => state.signUp.phone);
+  
+  const sendAuthCode = () => {
+    axios.post(baseUrl + '/common/send-auth-code', {
+      phone: axiosNumber,
+    }).then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+};
+  
   return (
     <div className="keypad-wrapper">
       <div className="keypad-row">
@@ -105,8 +117,9 @@ const PhoneKeypad = () => {
       <h3>번호 : {number}</h3>
       <StyledButton1
         onClick={() => {
-          moveToPhone2();
           sendNumber();
+          sendAuthCode();
+          moveToPhone2();
         }}
       >
         인증번호 받기
@@ -114,9 +127,11 @@ const PhoneKeypad = () => {
     </div>
   );
 };
+
 const StyledButton1 = styled.button`
   cursor: pointer;
   padding: 10px;
   margin-bottom: 20px;
 `;
+
 export default PhoneKeypad;
