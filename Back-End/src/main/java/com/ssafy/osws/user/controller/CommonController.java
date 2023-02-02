@@ -103,10 +103,15 @@ public class CommonController {
 			value="아이디중복체크",
 			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
 	@GetMapping("/sign-up/{userId}")
-	public ResponseEntity<?> checkId(@PathVariable String userId) {
-		if (commonService.checkId(userId) == true) {
-			return new ResponseEntity<String>("success", HttpStatus.OK);
-	    }
-		return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<?> checkId(@PathVariable String userId) throws Exception {
+		try {
+			if (commonService.checkId(userId) == true) {
+				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<String>(""+e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
