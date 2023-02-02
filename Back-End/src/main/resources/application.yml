@@ -14,8 +14,8 @@ spring:
         #OAuth 로그인 시 설정한 Application의 정보를 사용하여 AccessToken을 Authorization Server에게 발급받을 때 사용
         registration:
           kakao:
-            client-id: 07deed17c6f5a400358f2e62adb0eb87
-            client-secret: yvdLdxH5aNC4L7764VNfuN0XIpaLww7P
+            client-id: 
+            client-secret: 
             redirect-uri: "http://localhost:5000/login/oauth2/code/kakao"
             client-authentication-method: POST
             authorization-grant-type: authorization_code
