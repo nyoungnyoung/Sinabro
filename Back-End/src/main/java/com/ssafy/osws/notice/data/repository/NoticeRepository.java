@@ -12,3 +12,4 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 	public void deleteAllByNo(Integer i);
 }	
 
+

@@ -13,20 +13,24 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity 
-@Table(name="category")
-public class Category {
+@Entity
+@Table(name="sub_category")
+public class SubCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int no;
 	
 	@Column(name="name", nullable=false)
 	private String name;
+	
+	@Column(name="category_to_sub_category", nullable=false)
+	private int categoryToSubCategory;
 
 	@Builder
-	public Category(int no, String name) {
+	public SubCategory(int no, String name, int categoryToSubCategory) {
 		this.no = no;
 		this.name = name;
-	}
+		this.categoryToSubCategory = categoryToSubCategory;
+	} 
 	
 }

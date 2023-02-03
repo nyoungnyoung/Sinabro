@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,8 +49,7 @@ public class MainController {
 			notes = "대분류 선택시 나오는 소분류를 반환한다. 대분류가 전체일 경우 null 반환")
 	@GetMapping("/category/{categoryNumber}")
 	public ResponseEntity<List<ResponseSubCategory>> getSubCategoryList(@PathVariable() String categoryNumber) {
-		return null;
-		
+		return new ResponseEntity<List<ResponseSubCategory>> (mainService.getSubCategoryList(categoryNumber), HttpStatus.OK);
 	}
 	
 	@ApiOperation(
@@ -59,7 +57,7 @@ public class MainController {
 			notes = "대분류 선택시 나오는 강의를 반환한다. 대분류가 전체일 경우 모든 강의 반환")
 	@GetMapping("/lecture/{categoryNumber}")
 	public ResponseEntity<List<ResponseLecture>> getLectureList(@PathVariable() String categoryNumber) {
-		return null;
+		return new ResponseEntity<List<ResponseLecture>> (mainService.getLectureListByCategory(categoryNumber), HttpStatus.OK);
 	}
 	
 	@ApiOperation(
@@ -70,7 +68,7 @@ public class MainController {
 			@PathVariable() String categoryNumber,
 			@Parameter(name="subCategoryNumberList", description = "1,2,3,.. 처럼 ,로 구분한다.") @PathVariable() String subCategoryNumberList) {
 		// subCategoryNumberList 는 , 기준으로 나눠야 한다.
-		return null;
+		return new ResponseEntity<List<ResponseLecture>> (mainService.getLectureListBySubCategory(subCategoryNumberList), HttpStatus.OK);
 	}
 	
 	@ApiOperation(
@@ -79,7 +77,7 @@ public class MainController {
 	@GetMapping("search/{query}")
 	public ResponseEntity<List<ResponseLecture>> searchLectureList(@PathVariable() String query) {
 		// query내용을 포함하는 강의 반환
-		return null;
+		return new ResponseEntity<List<ResponseLecture>> (mainService.searchLectureList(query), HttpStatus.OK);
 	}
 
 }
