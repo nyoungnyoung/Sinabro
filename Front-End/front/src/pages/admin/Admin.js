@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminMain from "./AdminMain";
 import AdminTeacherManage from "./AdminTeacherManage";
 import AdminUserManage from "./AdminUserManage";
+import CreateTeacher from "./CreateTeacher";
 
 function Admin() {
   return (
@@ -11,6 +12,7 @@ function Admin() {
       <Routes>
         <Route path="/" element={<AdminMain />}></Route>
         <Route path="/teacher" element={<AdminTeacherManage />}></Route>
+        <Route path="/teacher/create" element={<CreateTeacher />}></Route>
         <Route path="/user" element={<AdminUserManage />}></Route>
       </Routes>
     </div>
