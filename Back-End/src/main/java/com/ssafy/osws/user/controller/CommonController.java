@@ -73,7 +73,7 @@ public class CommonController {
 
 	@ApiOperation(
 			value = "회원가입", 
-			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 OK를, 실패할 경우 ERROR를 반환한다.")
+			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 success를, 실패할 시 fail을 반환한다.")
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUp(@RequestBody RequestSignUp requestSignUp) {
 		try {
