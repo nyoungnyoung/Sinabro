@@ -87,7 +87,7 @@ function LectureCreate() {
           minDate={new Date()}
           popperPlacement="auto"
         />
-        <span>강의 종료일</span>
+        <span>강의 종료일 :</span>
         <StyledDPicker
           selected={endDate}
           onChange={date => setEndDate(date)}
@@ -97,6 +97,11 @@ function LectureCreate() {
           minDate={startDate}
           popperPlacement="auto"
         />
+        <p>주차별계획</p>
+        <button>
+          <img src="/img/add.png" alt="plus" />
+        </button>
+        <hr />
       </form>
     </StyledDiv>
   );
