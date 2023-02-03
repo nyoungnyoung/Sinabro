@@ -10,4 +10,5 @@ import lombok.Setter;
 public class ResponsePriorityNotice {
 	private int no;
 	private String subject;
+	
 }
