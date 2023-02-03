@@ -1,0 +1,32 @@
+package com.ssafy.osws.user.dto;
+
+import com.ssafy.osws.user.data.entity.User;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
+public class ResponseSignIn {
+
+	private String id;
+	private String accessToken;
+	private String refreshToken;
+	
+	public User toEntitiy(User user) {
+		return User.builder()
+				.no(user.getNo())
+				.userId(user.getUserId())
+				.originalName(user.getOriginalName())
+				.savedName(user.getSavedName())
+				.email(user.getEmail())
+				.name(user.getName())
+				.password(user.getPassword())
+				.phone(user.getPhone())
+				.role(user.getRole())
+				.refreshToken(refreshToken)
+				.build();
+	}
+}
