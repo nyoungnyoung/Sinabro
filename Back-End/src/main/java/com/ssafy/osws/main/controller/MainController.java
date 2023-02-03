@@ -2,6 +2,7 @@ package com.ssafy.osws.main.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import com.ssafy.osws.main.dto.response.ResponseCategory;
 import com.ssafy.osws.main.dto.response.ResponseLecture;
 import com.ssafy.osws.main.dto.response.ResponsePriorityNotice;
 import com.ssafy.osws.main.dto.response.ResponseSubCategory;
+import com.ssafy.osws.main.service.MainService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,22 +23,26 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping("/main")
 public class MainController {
 	
+	private MainService mainService;
+	
+	public MainController(MainService mainService) {
+		this.mainService = mainService; 
+	}
+	
 	@ApiOperation(
 			value = "주요 공지 출력", 
 			notes = "메인페이지에 띄우는 주요 공지를 반환한다. 주요 공지가 없으면 null 반환")
 	@GetMapping("/notice")
-	public ResponseEntity<ResponsePriorityNotice> getPriorityNotice() {
-		return null;
-		
+	public ResponseEntity<ResponsePriorityNotice> getPriorityNotice() throws Exception {
+		return new ResponseEntity<ResponsePriorityNotice> (mainService.getPriorityNotice(), HttpStatus.OK);
 	}
 	
 	@ApiOperation(
 			value = "대분류 불러오기", 
 			notes = "메인페이지에 띄우는 대분류를 반환한다.")
 	@GetMapping("/category")
-	public ResponseEntity<List<ResponseCategory>> getCategoryList() {
-		return null;
-		
+	public ResponseEntity<List<ResponseCategory>> getCategoryList() throws Exception {
+		return new ResponseEntity<List<ResponseCategory>> (mainService.getCategoryList(), HttpStatus.OK);
 	}
 	
 	@ApiOperation(

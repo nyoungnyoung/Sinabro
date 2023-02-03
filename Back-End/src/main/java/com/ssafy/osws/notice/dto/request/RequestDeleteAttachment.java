@@ -7,6 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestAddNoticeAttachment {
-	private String subject;
+public class RequestDeleteAttachment {
+	private int no;
+	private String savedName;
 }

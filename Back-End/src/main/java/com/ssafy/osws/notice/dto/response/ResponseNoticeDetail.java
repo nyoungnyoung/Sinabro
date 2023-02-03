@@ -2,18 +2,23 @@ package com.ssafy.osws.notice.dto.response;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
 @Setter
-public class ResponseNoticeDetail {
-	private int no;
-	private String subject;
-	private String registeredDate;
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResponseNoticeDetail extends ResponseNotice {
+	
 	private String content;
 	private List<ResponseNoticeAttachment> fileList;
+	
+	ResponseNoticeDetail(int no, String subject, String registeredDate, String content) {
+		super(no, subject, registeredDate);
+		this.content = content;
+	}
 
 }

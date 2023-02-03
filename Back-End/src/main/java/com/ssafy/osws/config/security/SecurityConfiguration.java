@@ -43,7 +43,7 @@ public class SecurityConfiguration {
 	        .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**").permitAll()
 	        .antMatchers("/common/sign-out/{userId}").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**", "/login/**").permitAll()
-	        .antMatchers("/**").authenticated()
+	        .antMatchers("/oauth2/**").authenticated()
 	    	.and()
 	    	//== 필터 설정 == //
 	    	.addFilterBefore(new JwtAuthenticatioFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
