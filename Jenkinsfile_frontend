@@ -4,7 +4,7 @@ pipeline {
         stage('Gitlab') {
             steps {
                 sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "cd git/S08P12D203; git pull https://luxdefuror:VAhsFiYsUSYbFbQjbxEo@lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git; git checkout dev_FE"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "cd git; rm -rf S08P12D203; git clone https://luxdefuror:VAhsFiYsUSYbFbQjbxEo@lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git; cd S08P12D203; git checkout dev_FE;"'
                 }
             }
         }
