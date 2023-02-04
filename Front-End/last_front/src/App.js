@@ -8,6 +8,7 @@ import LectureDetail from "./pages/main/LectureDetail";
 import TeacherMain from "./pages/teacher/TeacherMain";
 import WebRtcMain from "./pages/webrtc/WebRtcMain";
 import Cs from "./pages/cs/Cs";
+import CompleteSignUp from "./pages/signup/CompleteSignUp";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Lobby />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup/complete" element={<CompleteSignUp />} />
           <Route path="/main" element={<Main />} />
           <Route path="/detail/:lectureId" element={<LectureDetail />} />
           <Route path="/teacher" element={<TeacherMain />} />
