@@ -5,6 +5,9 @@ pipeline {
             steps {
                 sshagent(credentials: ['ec2-ssh']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "./jenkins_frontend.sh"'
+                }
+            }
+        }
         stage('Docker hub push') {
             steps {
                 script {
