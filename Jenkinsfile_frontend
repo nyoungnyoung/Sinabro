@@ -1,21 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Gitlab') {
-            steps {
-                sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "cd git; rm -rf S08P12D203; git clone https://luxdefuror:VAhsFiYsUSYbFbQjbxEo@lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git; cd S08P12D203; git checkout dev_FE;"'
-                }
-            }
-        }
         stage('Build') {
             steps {
                 sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "cd git/S08P12D203/Front-End/front; npm install; npm run build"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "cd git/S08P12D203/Front-End; docker build -t xronace/d203-frontend:latest ."'
-                }
-            }
-        }
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "./jenkins_frontend.sh"'
         stage('Docker hub push') {
             steps {
                 script {
