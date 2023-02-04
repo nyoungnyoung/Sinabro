@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    stages {
+        stage('Gitlab') {
+            steps {
+                git branch: 'dev-BE',
+                credentialsId: 'GitLab',
+                url: 'https://lab.ssafy.com/luxdefuror/jenkinstest.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('Back-End') {
+                    sh "chmod +x gradlew"
+                    sh "./gradlew bootJar"
+                    sh "mv ./build/libs/*.jar ../Dockerfiles/d203-backend/"
+                }
+                dir('Dockerfiles/d203-backend') {
+                    script {
+                        dockerImage = docker.build "xronace/d203-backend:latest"
+                    }
+                }
+            }
+        }
+        stage('Docker hub push') {
+            steps {
+                script {
+                    docker.withRegistry('', 'Docker-Hub') {
+                        dockerImage.push("$BUILD_NUMBER")
+                    }
+                    sh "docker rmi xronace/d203-backend:$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sshagent(credentials: ['ec2-ssh']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" stop'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" up -d'
+                }
+            }
+        }
+    }
+}
