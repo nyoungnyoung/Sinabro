@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ssafy.osws.user.service.OAuth2UserServiceImpl;
+import com.ssafy.osws.user.service.impl.OAuth2UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 

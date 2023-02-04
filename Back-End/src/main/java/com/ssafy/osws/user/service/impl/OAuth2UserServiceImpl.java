@@ -1,4 +1,4 @@
-package com.ssafy.osws.user.service;
+package com.ssafy.osws.user.service.impl;
 
 import java.util.Collections;
 import java.util.Map;

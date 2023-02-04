@@ -1,4 +1,4 @@
-package com.ssafy.osws.user.service;
+package com.ssafy.osws.user.service.impl;
 
 import javax.transaction.Transactional;
 import java.util.Random;
@@ -13,6 +13,7 @@ import com.ssafy.osws.user.data.repository.UserRepository;
 import com.ssafy.osws.user.dto.RequestSignIn;
 import com.ssafy.osws.user.dto.RequestSignUp;
 import com.ssafy.osws.user.dto.ResponseSignIn;
+import com.ssafy.osws.user.service.CommonService;
 
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
