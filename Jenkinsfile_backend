@@ -37,6 +37,7 @@ pipeline {
                 sshagent(credentials: ['ec2-ssh']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" stop'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" up -d'
+                    sh 'docker image prune'
                 }
             }
         }
