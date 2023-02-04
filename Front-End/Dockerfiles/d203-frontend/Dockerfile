@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN mkdir ./build
 
-ADD ./front/build ./build
+ADD ../../front/build ./build
 
 RUN rm /etc/nginx/conf.d/default.conf
 
