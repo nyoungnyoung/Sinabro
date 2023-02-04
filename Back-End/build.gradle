@@ -58,7 +58,11 @@ querydsl {
 }
 
 sourceSets {
-    main.java.srcDir querydslDir
+    main {
+        java {
+            srcDirs = ["src/main/java", querydslDir]
+        }
+    }
 }
 
 compileQuerydsl {
@@ -76,3 +80,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+}
