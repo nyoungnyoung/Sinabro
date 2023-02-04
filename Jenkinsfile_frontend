@@ -17,7 +17,7 @@ pipeline {
                     script {
                         sh "npm install"
                         sh "chmod +x node_modules/.bin/react-scripts"
-                        sh "sudo npm run build"
+                        sh "npm run build"
                     }
                 }
                 dir('Dockerfiles/d203-frontend') {
