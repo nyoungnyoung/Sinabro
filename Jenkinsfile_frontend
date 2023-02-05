@@ -1,10 +1,28 @@
 pipeline {
     agent any
+    tools {nodejs "nodejs"}
     stages {
+        stage('Gitlab') {
+            steps {
+                script {
+                    git branch: 'dev_FE',
+                    credentialsId: 'GitLab',
+                    url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git'
+                }
+            }
+        }
         stage('Build') {
             steps {
-                sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "./jenkins_frontend.sh"'
+                dir('Front-End/front') {
+                    script {
+                        sh "npm install"
+                        sh "npm run build"
+                    }
+                }
+                dir('Front-End') {
+                    script {
+                        dockerImage = docker.build "xronace/d203-frontend:latest"
+                    }
                 }
             }
         }
@@ -30,55 +48,3 @@ pipeline {
         }
     }
 }
-
-// pipeline {
-//     agent any
-//     tools {nodejs "nodejs"}
-//     stages {
-//         stage('Gitlab') {
-//             steps {
-//                 script {
-//                     git branch: 'dev_FE',
-//                     credentialsId: 'GitLab',
-//                     url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git'
-//                 }
-//             }
-//         }
-//         stage('Build') {
-//             steps {
-//                 dir('Front-End/front') {
-//                     script {
-//                         sh "npm install"
-//                         sh "chmod +x node_modules/.bin/react-scripts"
-//                         sh "npm run build"
-//                     }
-//                 }
-//                 dir('Dockerfiles/d203-frontend') {
-//                     script {
-//                         dockerImage = docker.build "xronace/d203-frontend:latest"
-//                     }
-//                 }
-//             }
-//         }
-//         stage('Docker hub push') {
-//             steps {
-//                 script {
-//                     docker.withRegistry('', 'Docker-Hub') {
-//                         dockerImage.push("$BUILD_NUMBER")
-//                     }
-//                     sh "docker rmi xronace/d203-frontend:$BUILD_NUMBER"
-//                 }
-//             }
-//         }
-//         stage('Deploy') {
-//             steps {
-//                 sshagent(credentials: ['ec2-ssh']) {
-//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker stop d203-frontend"'
-//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker rm -f d203-frontend"'
-//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker run -dp 3000:80 --net=bridge --name d203-frontend xronace/d203-frontend:latest"'
-//                     sh 'docker image prune'
-//                 }
-//             }
-//         }
-//     }
-// }
