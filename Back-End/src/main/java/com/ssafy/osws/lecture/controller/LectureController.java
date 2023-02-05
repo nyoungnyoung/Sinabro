@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureDetail;
+import com.ssafy.osws.lecture.dto.response.ResponseLectureReview;
 import com.ssafy.osws.lecture.dto.response.ResponseWeeklyInfo;
 import com.ssafy.osws.lecture.service.LectureService;
 import com.ssafy.osws.notice.dto.request.RequestModifyNotice;
@@ -45,13 +46,23 @@ public class LectureController {
 	}
 	
 	@ApiOperation(
-			value = "강의 주차별 목차 불러오기 (try it out 불가)", 
-			notes = "강의 주차별 목차를 불러온다. 권한이 없으면(로그인 안 함) 강의 자료는 볼 수 없다.")
-	@GetMapping("/{lectureNo}/weekly")
-	public ResponseEntity<List<ResponseWeeklyInfo>> getWeeklyInfoList(@PathVariable() int lectureNo) {
-		return null;
+			value = "강의 상세 정보", 
+			notes = "강의 상세 정보를 반환한다. 강의 번호에 해당하는 강의가 없으면 null 반환")
+	@GetMapping("/review/{lectureNo}")
+	public ResponseEntity<List<ResponseLectureReview>> getLectureReview(@PathVariable() int lectureNo) {
+		return new ResponseEntity<>(lectureService.getLectureReview(lectureNo), HttpStatus.OK);
+		
 		
 	}
+	
+//	@ApiOperation(
+//			value = "강의 주차별 목차 불러오기 (try it out 불가)", 
+//			notes = "강의 주차별 목차를 불러온다. 권한이 없으면(로그인 안 함) 강의 자료는 볼 수 없다.")
+//	@GetMapping("/{lectureNo}/weekly")
+//	public ResponseEntity<List<ResponseWeeklyInfo>> getWeeklyInfoList(@PathVariable() int lectureNo) {
+//		return null;
+//		
+//	}
 	
 //	@ApiOperation(
 //			value = "수강 신청 요청 (try it out 불가)", 

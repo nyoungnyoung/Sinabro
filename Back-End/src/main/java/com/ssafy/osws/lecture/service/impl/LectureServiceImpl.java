@@ -1,6 +1,7 @@
 package com.ssafy.osws.lecture.service.impl;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.repository.LectureQueryDSLRepository;
+import com.ssafy.osws.lecture.data.repository.LectureReviewRepository;
 import com.ssafy.osws.lecture.data.repository.LectureTimeRepository;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureDetail;
+import com.ssafy.osws.lecture.dto.response.ResponseLectureReview;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureTime;
 import com.ssafy.osws.lecture.service.LectureService;
 
@@ -23,6 +26,9 @@ public class LectureServiceImpl implements LectureService {
 	
 	@Autowired
 	private LectureTimeRepository lectureTimeRepository;
+	
+	@Autowired
+	private LectureReviewRepository lectureReviewRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -57,5 +63,11 @@ public class LectureServiceImpl implements LectureService {
 		
 		System.out.println(responseLectureDetail);
 		return responseLectureDetail;
+	}
+
+	@Override
+	public List<ResponseLectureReview> getLectureReview(int lectureNo) {
+		
+		return Arrays.asList(modelMapper.map(lectureReviewRepository.findAllByLectureNo(lectureNo), ResponseLectureReview[].class));
 	}
 }
