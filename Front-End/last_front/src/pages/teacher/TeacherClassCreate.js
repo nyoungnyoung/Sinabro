@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import ClassTimeForm from "./ClassTimeForm";
 import { useNavigate } from "react-router-dom";
+// import styled from "styled-components";
 
 function TeacherClassCreate() {
   const navigate = useNavigate();
-  const [classData, setClassData] = useState({
-    category: "",
-    className: "",
-    explain: "",
-    startTime: "",
-    endTime: "",
-  });
 
-  // 카테고리에 넣을 값
-  const category = ["선택", "미술", "체육", "배움"];
+  const dataId = useRef(1);
+
+  const [classData, setClassData] = useState({
+    id: dataId.current,
+    originalName: "",
+    subject: "",
+    content: "",
+    maxOccupancy: 0,
+    startDate: "",
+    endDate: "",
+    lectureTimeList: [
+      {
+        day: "월",
+        startTime: "12:00 AM",
+        runTime: 0,
+      },
+    ],
+    weeklyInfoList: [
+      {
+        content: "",
+      },
+    ],
+  });
 
   const changeData = (event, type) => {
     setClassData({
@@ -21,61 +37,81 @@ function TeacherClassCreate() {
     });
   };
 
-  const moveToTeacherMain = () => {
+  const handleState = (event, type) => {
+    setClassData({
+      ...classData,
+      [type]: event,
+    });
+  };
+  // console.log(classData);
+
+  const moveToMain = () => {
     navigate("/teacher");
   };
+  dataId.current += 1;
 
   console.log(classData);
-
   return (
     <div>
-      <h2>강의 생성</h2>
-      <div>
-        <div>
-          <label>카테고리 : </label>
-          <select
-            name="category"
-            value={classData.category}
-            onChange={(event) => changeData(event, "category")}
-          >
-            {category.map((item, idx) => {
-              return <option key={idx}>{item}</option>;
-            })}
-          </select>
-        </div>
-      </div>
-
+      <h1>강의생성</h1>
       <div>
         <label>강의명 : </label>
         <input
           type="text"
-          onChange={(event) => changeData(event, "className")}
+          value={classData.originalName}
+          onChange={(event) => changeData(event, "originalName")}
         />
-      </div>
-      <div>
-        <label>강의설명 : </label>
+        <br />
+
+        <label>강의주제 : </label>
+        <input
+          type="text"
+          value={classData.subject}
+          onChange={(event) => changeData(event, "subject")}
+        />
+        <br />
+
+        <label>강의내용 : </label>
         <textarea
+          name="content"
           cols="30"
           rows="10"
-          onChange={(event) => changeData(event, "explain")}
+          placeholder="간단한 강의 설명 추가"
+          value={classData.content}
+          onChange={(event) => changeData(event, "content")}
         ></textarea>
+        <br />
+
+        <label>최대 수강 인원 : </label>
+        <input
+          type="number"
+          placeholder="강의 최대 인원 기입"
+          value={classData.maxOccupancy}
+          onChange={(event) => changeData(event, "maxOccupancy")}
+        />
+        <br />
+
+        <label>강의 시작일자 : </label>
+        <input
+          type="date"
+          placeholder="강의가 시작되는 날짜"
+          value={classData.startDate}
+          onChange={(event) => changeData(event, "startDate")}
+        />
+        <br />
+
+        <label>강의 종료일자 : </label>
+        <input
+          type="date"
+          placeholder="강의가 종료되는 날짜"
+          value={classData.endDate}
+          onChange={(event) => changeData(event, "endDate")}
+        />
+        <br />
+        <ClassTimeForm handleState={handleState} />
       </div>
 
-      <div>
-        <label>강의시간 : </label>
-        <input
-          type="text"
-          value={classData.startTime}
-          onChange={(event) => changeData(event, "startTime")}
-        />{" "}
-        ~
-        <input
-          type="text"
-          value={classData.endTime}
-          onChange={(event) => changeData(event, "endTime")}
-        />
-      </div>
-      <button onClick={moveToTeacherMain}>강의등록</button>
+      <button onClick={moveToMain}>추가</button>
     </div>
   );
 }

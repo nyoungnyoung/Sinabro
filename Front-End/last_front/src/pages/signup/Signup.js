@@ -20,8 +20,8 @@ function SignUp() {
     });
   };
 
-  const moveToComplete = () => {
-    navigate("/signup/complete");
+  const moveToCheck = () => {
+    navigate("/signup/check");
   };
 
   console.log(userData);
@@ -64,7 +64,7 @@ function SignUp() {
             />
           </InputDiv>
           <br />
-          <button onClick={moveToComplete}>회원가입</button>
+          <button onClick={moveToCheck}>회원가입</button>
         </FormDiv>
       </StyledDiv>
     </div>
