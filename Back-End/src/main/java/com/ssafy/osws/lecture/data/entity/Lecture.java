@@ -4,10 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.ssafy.osws.user.data.entity.User;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -36,16 +41,17 @@ public class Lecture {
 	
 	@Column(name="saved_name", nullable=true)
 	private String savedName;
-	
-	@Column(name="teacher_to_lecture", nullable=false)
-	private int teacherToLecture;
 
 	@Column(name="content", nullable=true)
 	private String content;
 	
 	@Column(name="max_occupancy", nullable=false)
 	private int maxOccupancy;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="teacher_to_lecture")
+	User user;
+	
 	@Builder
 	public Lecture(int no, String subject, Date startDate, Date endDate, String originalName, String savedName,
 			int teacherToLecture, String content, int maxOccupancy) {
@@ -55,7 +61,6 @@ public class Lecture {
 		this.endDate = endDate;
 		this.originalName = originalName;
 		this.savedName = savedName;
-		this.teacherToLecture = teacherToLecture;
 		this.content = content;
 		this.maxOccupancy = maxOccupancy;
 	}

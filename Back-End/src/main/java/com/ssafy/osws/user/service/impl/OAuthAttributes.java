@@ -35,7 +35,6 @@ public class OAuthAttributes {
         return User.builder()
         		.name("temp")
         		.password("temp")
-                .email(authUserInfo.getEmail())
                 .build();
     }
 }

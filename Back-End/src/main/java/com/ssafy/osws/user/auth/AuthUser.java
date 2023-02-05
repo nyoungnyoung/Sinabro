@@ -10,7 +10,6 @@ import lombok.Getter;
 
 @Getter
 public class AuthUser extends DefaultOAuth2User {
-    private String email;
     private String role;
     private String phone;
 
@@ -24,12 +23,11 @@ public class AuthUser extends DefaultOAuth2User {
      */
     public AuthUser(
         Collection<? extends GrantedAuthority> authorities,
-        Map<String, Object> attributes, String nameAttributeKey, String role, String email, String phone) {
+        Map<String, Object> attributes, String nameAttributeKey, String role, String phone) {
         super(authorities, attributes, nameAttributeKey);
         @SuppressWarnings("unchecked")
 		Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
         this.role = role;
-        this.email = (String) account.get("email");
         this.phone = phone;
     }
 }

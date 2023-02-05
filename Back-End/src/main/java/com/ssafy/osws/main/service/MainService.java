@@ -8,8 +8,8 @@ import com.ssafy.osws.main.dto.response.ResponsePriorityNotice;
 import com.ssafy.osws.main.dto.response.ResponseSubCategory;
 
 public interface MainService {
-	ResponsePriorityNotice getPriorityNotice();
-	List<ResponseCategory> getCategoryList(); 
+	ResponsePriorityNotice getPriorityNotice() throws Exception;
+	List<ResponseCategory> getCategoryList() throws Exception;
 	List<ResponseSubCategory> getSubCategoryList(String categoryNumber);
 	List<ResponseLecture> getLectureListByCategory(String categoryNumber);
 	List<ResponseLecture> getLectureListBySubCategory(String categoryNumber);

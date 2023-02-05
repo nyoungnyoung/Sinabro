@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.user.dto.RequestAuthentificationNumber;
 import com.ssafy.osws.user.dto.RequestNewPassword;
 import com.ssafy.osws.user.dto.RequestSignUp;
@@ -26,6 +27,9 @@ import io.swagger.annotations.ApiOperation;
 public class CommonController {
 
 	private CommonService commonService;
+	
+	@Autowired
+	private JwtProvider jwtProvider;
 
 	public CommonController(CommonService commonService) {
 		this.commonService = commonService;
@@ -73,23 +77,15 @@ public class CommonController {
 
 	@ApiOperation(
 			value = "회원가입", 
-			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 success를, 실패할 시 fail을 반환한다.")
+			notes = "DB에 새로운 회원 정보를 저장하고, 정상적으로 회원가입이 되면 OK를, 실패할 경우 ERROR를 반환한다.")
 	@PostMapping("/sign-up")
-	public ResponseEntity<?> signUp(@RequestBody RequestSignUp requestSignUp) {
-		try {
-			if (commonService.signUp(requestSignUp)) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.OK);
-			}			
-		} catch(Exception e){
-			return new ResponseEntity<String>("errMessage: "+e, HttpStatus.INTERNAL_SERVER_ERROR);						
-		}
+	public ResponseEntity<Boolean> signUp(@RequestBody RequestSignUp requestSignUp) {
+		return new ResponseEntity<Boolean>(commonService.signUp(requestSignUp), HttpStatus.OK);
 	}
 
 	@ApiOperation(
 			value = "로그인", 
-			notes = "일치하는 사용자가 있을 경우 아이디와 토큰들을, 없을 경우 null을 반환한다.")
+			notes = "일치하는 사용자가 있을 경우 토큰들을, 없을 경우 null을 반환한다.")
 	@PostMapping("/sign-in")
 	public ResponseEntity<ResponseSignIn> signIn(@RequestBody RequestSignIn requestSignIn) {
 		return new ResponseEntity<ResponseSignIn>(commonService.signIn(requestSignIn), HttpStatus.OK);
@@ -98,24 +94,25 @@ public class CommonController {
 	@ApiOperation(
 			value="로그아웃",
 			notes="성공적으로 로그아웃하면 true, 실패하면 false를 반환한다.")
-	@GetMapping("/sign-out/{userId}")
-	public ResponseEntity<Boolean> signOut(@PathVariable String userId) {
-		return new ResponseEntity<Boolean>(commonService.signOut(userId), HttpStatus.OK);
+	@GetMapping("/sign-out")
+	public ResponseEntity<Boolean> signOut(HttpServletRequest request) {
+		String phone = jwtProvider.validateToken(jwtProvider.resolveAccessToken(request));
+		return new ResponseEntity<Boolean>(commonService.signOut(phone), HttpStatus.OK);
 	}
 
-	@ApiOperation(
-			value="아이디중복체크",
-			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
-	@GetMapping("/sign-up/{userId}")
-	public ResponseEntity<?> checkId(@PathVariable String userId) throws Exception {
-		try {
-			if (commonService.checkId(userId) == true) {
-				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<String>(""+e, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+//	@ApiOperation(
+//			value="아이디중복체크",
+//			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
+//	@GetMapping("/sign-up/{userId}")
+//	public ResponseEntity<?> checkId(@PathVariable String userId) throws Exception {
+//		try {
+//			if (commonService.checkId(userId) == true) {
+//				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+//			} else {
+//				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+//			}
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(""+e, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 }

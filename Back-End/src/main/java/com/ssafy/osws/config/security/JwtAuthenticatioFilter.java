@@ -29,8 +29,8 @@ public class JwtAuthenticatioFilter extends OncePerRequestFilter {
 	    
 	    if (accessToken != null) {
 	    	try {
-	    		String userId = jwtProvider.validateToken(accessToken);
-	    		Authentication authentication = jwtProvider.getAuthentication(userId);
+	    		String phone = jwtProvider.validateToken(accessToken);
+	    		Authentication authentication = jwtProvider.getAuthentication(phone);
 	    		SecurityContextHolder.getContext().setAuthentication(authentication);
 	    	} catch (ExpiredJwtException e) {
 	    		// accessToken 기간 만료, refreshToken 확인

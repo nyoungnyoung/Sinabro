@@ -1,8 +1,10 @@
 package com.ssafy.osws.main.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class MainServiceImpl implements MainService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public ResponsePriorityNotice getPriorityNotice() {
+	public ResponsePriorityNotice getPriorityNotice() throws Exception {
 		Notice notice = noticeRepository.findByPriority(true);
 		
 		ResponsePriorityNotice responsePriorityNotice = null; 
@@ -63,7 +65,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<ResponseCategory> getCategoryList() {
+	public List<ResponseCategory> getCategoryList() throws Exception {
 		List<Category> categoryList = mainRepository.findAll();
 		List<ResponseCategory> resultList = Arrays.asList(modelMapper.map(categoryList, ResponseCategory[].class));
 		return resultList;

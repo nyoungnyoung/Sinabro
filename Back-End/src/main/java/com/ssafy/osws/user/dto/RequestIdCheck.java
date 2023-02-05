@@ -8,7 +8,7 @@ public class RequestIdCheck {
 	/* DTO -> Entity */
     public User toEntity() {
         User user = User.builder()
-        		.userId(id)
+        		.phone(id)
         		.build();
         return user;
     }

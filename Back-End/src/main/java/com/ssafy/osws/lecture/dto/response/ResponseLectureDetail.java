@@ -28,4 +28,11 @@ public class ResponseLectureDetail {
 		return this.enrolled;
 	}
 
+	@Override
+	public String toString() {
+		return "ResponseLectureDetail [no=" + no + ", subject=" + subject + ", name=" + name + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", content=" + content + ", savedName=" + savedName
+				+ ", enrolled=" + enrolled + ", lectureTimeList=" + lectureTimeList + "]";
+	}
+	
 }
