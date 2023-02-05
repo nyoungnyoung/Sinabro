@@ -30,7 +30,7 @@ function SignUp() {
       <h1>회원가입</h1>
       <StyledDiv>
         <FormDiv>
-          <div>
+          <InputDiv>
             <label>이름 : </label>
             <input
               type="text"
@@ -39,9 +39,9 @@ function SignUp() {
               }}
               value={userData.name}
             />
-          </div>
+          </InputDiv>
           <br />
-          <div>
+          <InputDiv>
             <label>전화번호 : </label>
             <input
               type="text"
@@ -50,10 +50,10 @@ function SignUp() {
               }}
               value={userData.number}
             />
-          </div>
+          </InputDiv>
           <br />
 
-          <div>
+          <InputDiv>
             <label>비밀번호 : </label>
             <input
               type="password"
@@ -62,7 +62,7 @@ function SignUp() {
               }}
               value={userData.password}
             />
-          </div>
+          </InputDiv>
           <br />
           <button onClick={moveToComplete}>회원가입</button>
         </FormDiv>
@@ -79,6 +79,10 @@ const FormDiv = styled.div`
   border: solid 1px black;
   width: 500px;
   height: 200px;
+`;
+
+const InputDiv = styled.div`
+  margin-top: 10px;
 `;
 
 export default SignUp;
