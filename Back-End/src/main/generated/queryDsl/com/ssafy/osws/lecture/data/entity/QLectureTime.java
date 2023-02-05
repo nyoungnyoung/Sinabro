@@ -25,9 +25,9 @@ public class QLectureTime extends EntityPathBase<LectureTime> {
 
     public final NumberPath<Integer> no = createNumber("no", Integer.class);
 
-    public final DateTimePath<java.time.LocalDateTime> runTime = createDateTime("runTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.sql.Timestamp> runTime = createDateTime("runTime", java.sql.Timestamp.class);
 
-    public final DateTimePath<java.time.LocalDateTime> startTime = createDateTime("startTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.sql.Timestamp> startTime = createDateTime("startTime", java.sql.Timestamp.class);
 
     public QLectureTime(String variable) {
         super(LectureTime.class, forVariable(variable));
