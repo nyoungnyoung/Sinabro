@@ -11,6 +11,7 @@ public class ModelMapperConfig {
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration()
+		.setMatchingStrategy(MatchingStrategies.STRICT)
 		// null은 스킵
 		.setSkipNullEnabled(true);
 		

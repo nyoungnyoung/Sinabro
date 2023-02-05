@@ -1,7 +1,5 @@
 package com.ssafy.osws.user.dto;
 
-import com.ssafy.osws.user.data.entity.User;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class RequestSignIn {
 
-	private String id;
+	private String phone;
 	private String password;
 }

@@ -34,30 +34,26 @@ public class CommonServiceImpl implements CommonService {
 	
 	@Override
 	@Transactional
-	public boolean signUp(RequestSignUp requestSignUp) throws RuntimeException {
-		//requestSignUp.toEntity();
+	public boolean signUp(RequestSignUp requestSignUp) {
 		requestSignUp.setPassword(passwordEncoder.encode(requestSignUp.getPassword()));
-		User user = requestSignUp.toEntity();
 	    
-	    User savedUser = userRepository.save(user);
-
-	    if (!savedUser.getUserId().isEmpty()) {
-	      return true;
+	    if(userRepository.save(requestSignUp.toEntity()).getNo() > 0) {
+	    	return true;
+	    } else {
+	    	return false;
 	    }
-	    return false;
 	}
 	
 	@Override
 	@Transactional
 	public ResponseSignIn signIn(RequestSignIn requestSignIn) {
-		User user = userRepository.findByUserId(requestSignIn.getId());
+		User user = userRepository.findByPhone(requestSignIn.getPhone());
 		
 		ResponseSignIn responseSignIn = null;
 		if(user != null && passwordEncoder.matches(requestSignIn.getPassword(), user.getPassword())) {
 			responseSignIn = new ResponseSignIn();
-			responseSignIn.setId(user.getUserId());
-			responseSignIn.setAccessToken(jwtProvider.createAccessToken(user.getUserId()));
-			responseSignIn.setRefreshToken(jwtProvider.createRefreshToken(user.getUserId()));
+			responseSignIn.setAccessToken(jwtProvider.createAccessToken(user.getPhone()));
+			responseSignIn.setRefreshToken(jwtProvider.createRefreshToken(user.getPhone()));
 			userRepository.save(responseSignIn.toEntitiy(user));
 			
 		}
@@ -75,8 +71,8 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	@Transactional
-	public Boolean signOut(String userId) {
-		User user = userRepository.findByUserId(userId);
+	public Boolean signOut(String phone) {
+		User user = userRepository.findByPhone(phone);
 		user.updateRefreshToken(null);
 		if(userRepository.save(user).getNo() > 0)
 			return true;
@@ -86,8 +82,8 @@ public class CommonServiceImpl implements CommonService {
 
 
 	@Override
-	public boolean checkId(String userId) throws RuntimeException {
-		return userRepository.existsByUserId(userId);
+	public boolean checkId(String phone) throws RuntimeException {
+		return userRepository.existsByPhone(phone);
 	}
 
 	@Override

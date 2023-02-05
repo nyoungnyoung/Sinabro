@@ -18,10 +18,8 @@ public class ResponseSignIn {
 	public User toEntitiy(User user) {
 		return User.builder()
 				.no(user.getNo())
-				.userId(user.getUserId())
 				.originalName(user.getOriginalName())
 				.savedName(user.getSavedName())
-				.email(user.getEmail())
 				.name(user.getName())
 				.password(user.getPassword())
 				.phone(user.getPhone())

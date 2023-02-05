@@ -25,7 +25,7 @@ public class QNotice extends EntityPathBase<Notice> {
 
     public final BooleanPath priority = createBoolean("priority");
 
-    public final StringPath registeredDate = createString("registeredDate");
+    public final DateTimePath<java.time.LocalDateTime> registeredDate = createDateTime("registeredDate", java.time.LocalDateTime.class);
 
     public final StringPath subject = createString("subject");
 

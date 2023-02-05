@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RequestSignUp {
 
-	private String id;
-	private String email;
 	private String phone;
 	private String password;
 	private String name;
@@ -23,8 +21,6 @@ public class RequestSignUp {
     /* DTO -> Entity */
     public User toEntity() {
         User user = User.builder()
-        		.userId(id)
-        		.email(email)
         		.phone(phone)
         		.password(password)
                 .name(name)

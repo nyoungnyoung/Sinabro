@@ -42,13 +42,12 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
                 attributes,
                 extractAttributes.getNameAttributeKey(),
                 createdUser.getRole(),
-                createdUser.getEmail(),
                 createdUser.getPhone()
         );
 	}
 	
 	private User getUser(OAuthAttributes attributes) {
-        User findUser = userRepository.findByEmail(attributes.getAuthUserInfo().getEmail()).orElse(null);
+        User findUser = null; //userRepository.findByEmail(attributes.getAuthUserInfo().getEmail()).orElse(null);
 
         if(findUser == null) {
             return saveUser(attributes);

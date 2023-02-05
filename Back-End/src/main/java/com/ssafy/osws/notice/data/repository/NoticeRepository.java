@@ -10,6 +10,4 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 	public Notice findByNo(int no);
 
 	public void deleteAllByNo(Integer i);
-}	
-
-
+}

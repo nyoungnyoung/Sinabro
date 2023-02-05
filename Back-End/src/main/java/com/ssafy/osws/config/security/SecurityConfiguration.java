@@ -30,7 +30,7 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http.formLogin().disable()
+	   return http.formLogin().disable()
 	    	.httpBasic().disable()
 	        .csrf().disable()
 	        .headers().frameOptions().disable()
@@ -41,20 +41,23 @@ public class SecurityConfiguration {
 	        .authorizeRequests()
 	        .antMatchers(HttpMethod.OPTIONS).permitAll() // 브라우저가 보낸 preflight 요청 해결
 	        .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**").permitAll()
-	        .antMatchers("/common/sign-out/{userId}").hasAnyRole("teacher", "admin", "normal")
+	        .antMatchers("/normal/**").hasRole("normal")
+	        .antMatchers("/common/sign-out").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**", "/login/**").permitAll()
-	        .antMatchers("/oauth2/**").authenticated()
+	        //.antMatchers("/oauth2/**").authenticated() 소셜 로그인
 	    	.and()
 	    	//== 필터 설정 == //
 	    	.addFilterBefore(new JwtAuthenticatioFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
 	        .addFilterBefore(new JwtExceptionFilter(), JwtAuthenticatioFilter.class)
 		  	//== 소셜 로그인 설정 ==//
+	        /*
 	        .oauth2Login()
 	        .userInfoEndpoint().userService(oAuth2UserServiceImpl)
 	        .and()
 	        .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
 	        .failureHandler(authenticationFailureHandler); //소셜 로그인 실패했을 때 Handler;
-	    return http.build();
+	        */
+	        .build();
 	  }
 	
 	@Bean

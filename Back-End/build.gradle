@@ -1,8 +1,8 @@
 
 buildscript {
-    dependencies {
-      classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
-   	}
+   ext {
+      queryDslVersion = "5.0.0"
+   }
 }
 
 plugins {
@@ -10,7 +10,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.8'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+   id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.ssafy'
@@ -50,11 +50,11 @@ dependencies {
 }
 
 // QueryDSL
-def querydslDir = "$buildDir/generated/queryDsl"
+def querydslDir = "src/main/generated/queryDsl"
 
 querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
+   jpa = true
+   querydslSourcesDir = querydslDir
 }
 
 sourceSets {

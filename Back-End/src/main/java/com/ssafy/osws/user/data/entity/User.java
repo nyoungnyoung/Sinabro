@@ -31,12 +31,6 @@ public class User implements UserDetails {
 	@Column(name="saved_name", nullable=true)
 	private String savedName;
 	
-	@Column(name="id", nullable=false)
-	private String userId;
-	
-	@Column(name="email", nullable=true)
-	private String email;
-	
 	@Column(name="phone", nullable=false)
 	private String phone;
 	
@@ -53,13 +47,11 @@ public class User implements UserDetails {
 	private String role;
 
 	@Builder
-	public User(int no, String originalName, String savedName, String userId, String email, String phone, String password,
+	public User(int no, String originalName, String savedName, String phone, String password,
 			String refreshToken, String name, String role) {
 		this.no = no;
 		this.originalName = originalName;
 		this.savedName = savedName;
-		this.userId = userId;
-		this.email = email;
 		this.phone = phone;
 		this.password = password;
 		this.refreshToken = refreshToken;

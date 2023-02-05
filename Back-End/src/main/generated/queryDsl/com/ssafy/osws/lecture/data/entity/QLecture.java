@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QLecture extends EntityPathBase<Lecture> {
 
     private static final long serialVersionUID = 1330887840L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QLecture lecture = new QLecture("lecture");
 
@@ -35,18 +38,27 @@ public class QLecture extends EntityPathBase<Lecture> {
 
     public final StringPath subject = createString("subject");
 
-    public final NumberPath<Integer> teacherToLecture = createNumber("teacherToLecture", Integer.class);
+    public final com.ssafy.osws.user.data.entity.QUser user;
 
     public QLecture(String variable) {
-        super(Lecture.class, forVariable(variable));
+        this(Lecture.class, forVariable(variable), INITS);
     }
 
     public QLecture(Path<? extends Lecture> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QLecture(PathMetadata metadata) {
-        super(Lecture.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QLecture(PathMetadata metadata, PathInits inits) {
+        this(Lecture.class, metadata, inits);
+    }
+
+    public QLecture(Class<? extends Lecture> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.user = inits.isInitialized("user") ? new com.ssafy.osws.user.data.entity.QUser(forProperty("user")) : null;
     }
 
 }
