@@ -35,8 +35,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" stop'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker-compose -f ./docker/docker-compose.yml" up -d'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker stop d203-backend"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker rm -f d203-backend"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker run -dp 5000:5000 -e SPRING_DATASOURCE_URL=jdbc:mysql://172.19.0.1:3306/oswsdb?serverTimezone=Asia/Seoul --net=bridge --name d203-backend xronace/d203-backend:latest"'
                     sh 'docker image prune'
                 }
             }
