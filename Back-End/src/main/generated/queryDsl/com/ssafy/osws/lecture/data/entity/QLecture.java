@@ -24,7 +24,7 @@ public class QLecture extends EntityPathBase<Lecture> {
 
     public final StringPath content = createString("content");
 
-    public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Integer> maxOccupancy = createNumber("maxOccupancy", Integer.class);
 
@@ -34,7 +34,7 @@ public class QLecture extends EntityPathBase<Lecture> {
 
     public final StringPath savedName = createString("savedName");
 
-    public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> startDate = createDateTime("startDate", java.time.LocalDateTime.class);
 
     public final StringPath subject = createString("subject");
 
