@@ -27,4 +27,8 @@ public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
 	@Query("Select l from Lecture l where l.subject like %:query%")
 	List<Lecture> findBySubjectContaining(@Param("query") String query, Pageable pageable);
+	
+	@Query("select l from Lecture l " + 
+			"where l.endDate > now() and l.teacherToLecture= :teacherNo ") 
+	List<Lecture> getInProgressLectureList(@Param("teacherNo") int teacherNo, Pageable pageable);
 }

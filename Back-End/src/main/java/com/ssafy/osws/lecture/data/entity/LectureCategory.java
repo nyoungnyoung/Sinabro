@@ -2,9 +2,8 @@ package com.ssafy.osws.lecture.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -14,17 +13,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity 
+@IdClass(LectureCategoryPK.class)
 @Table(name="lecture_category")
 public class LectureCategory {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="lecture_to_lecture_category", nullable=false)
 	private int lectureToLectureCategory;
 	
 	@Column(name="sub_category_to_lecture_category", nullable=false)
-	private String subCategoryToLectureCategory;
+	private int subCategoryToLectureCategory;
 
 	@Builder
-	public LectureCategory(int lectureToLectureCategory, String subCategoryToLectureCategory) {
+	public LectureCategory(int lectureToLectureCategory, int subCategoryToLectureCategory) {
 		this.lectureToLectureCategory = lectureToLectureCategory;
 		this.subCategoryToLectureCategory = subCategoryToLectureCategory;
 	}

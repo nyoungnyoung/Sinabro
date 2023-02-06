@@ -16,7 +16,6 @@ import com.ssafy.osws.lecture.data.repository.LectureCategoryRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.main.data.entity.Category;
 import com.ssafy.osws.main.data.entity.SubCategory;
-import com.ssafy.osws.main.data.repository.CategoryRepository;
 import com.ssafy.osws.main.data.repository.MainRepository;
 import com.ssafy.osws.main.data.repository.SubCategoryRepository;
 import com.ssafy.osws.main.dto.response.ResponseCategory;
@@ -31,8 +30,6 @@ public class MainServiceImpl implements MainService {
 	@Autowired
 	private NoticeRepository noticeRepository;
 
-	@Autowired
-	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	private SubCategoryRepository subCategoryRepository;
