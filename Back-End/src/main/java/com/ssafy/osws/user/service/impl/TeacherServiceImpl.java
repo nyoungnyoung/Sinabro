@@ -46,8 +46,8 @@ public class TeacherServiceImpl implements TeacherService{
 	private ModelMapper modelMapper;
 	
 	@Override
-	public List<ResponseSimpleLecture> getInProgressLectureList(int teacherNo) {
-		List<Lecture> lectureList = lectureRepository.getInProgressLectureList(teacherNo, PageRequest.of(0,6));
+	public List<ResponseSimpleLecture> getInProgressLectureList(String phone) {
+		List<Lecture> lectureList = lectureRepository.getInProgressLectureList(phone, PageRequest.of(0,6));
 		List<ResponseSimpleLecture> resultList = Arrays.asList(modelMapper.map(lectureList, ResponseSimpleLecture[].class));
 		return resultList;
 	}

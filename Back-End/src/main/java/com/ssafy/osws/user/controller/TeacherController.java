@@ -42,11 +42,10 @@ public class TeacherController {
 	@ApiOperation(	// 필요정보: 강사번호를 보내야하는데 GET이라서 어쩔수 없이 URL에 담아서보냄.
 			value = "강의 목록 불러오기", 
 			notes = "진행 중인 강의 목록을 반환한다. 진행 중인 강의가 없으면 null 반환")
-	@GetMapping("/lecture/{teacherNo}/in-progress")
-	public ResponseEntity<List<ResponseSimpleLecture>> getInProgressLectureList(@PathVariable int teacherNo, HttpServletRequest request) {
+	@GetMapping("/lecture/in-progress")
+	public ResponseEntity<List<ResponseSimpleLecture>> getInProgressLectureList(HttpServletRequest request) {
 		String phone = jwtProvider.validateToken(jwtProvider.resolveAccessToken(request));
-		System.out.println(teacherNo);
-		return new ResponseEntity<List<ResponseSimpleLecture>> (teacherService.getInProgressLectureList(teacherNo), HttpStatus.OK);
+		return new ResponseEntity<List<ResponseSimpleLecture>> (teacherService.getInProgressLectureList(phone), HttpStatus.OK);
 	}
 	
 	@ApiOperation( // 필요한 정보: 강사번호를 dto에 같이 포함시켜 요청한다. => 다시하기 REDO 
