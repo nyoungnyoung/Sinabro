@@ -49,11 +49,11 @@ function SearchBar(props) {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
 
-  const onChange = (e) => {
+  const onChange = e => {
     setSearch(e.target.value);
   };
 
-  const onKeyDown = (e) => {
+  const onKeyDown = e => {
     if (e.key == "Enter") {
       getSearchData();
       props.setCardData(item);
@@ -70,7 +70,7 @@ function SearchBar(props) {
     }
   };
 
-  console.log(item);
+  // console.log(item);
   //   useEffect(() => {
   //     const getCardData = async () => {
   //       const res = await axios.get("/dummydata/MyLectureCard.json");
