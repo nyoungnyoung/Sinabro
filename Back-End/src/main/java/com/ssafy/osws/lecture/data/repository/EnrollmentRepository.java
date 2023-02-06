@@ -11,7 +11,7 @@ import com.ssafy.osws.user.data.entity.User;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
 	@Query("select u from User u \r\n" + 
-			"left join Enrollment e on e.userToEnrollment = u.no \r\n" + 
+			"left join Enrollment e on e.userNo = u.no \r\n" + 
 			"where e.lectureNo = :lectureNo") 
 	List<User> findByLectureId(@Param("lectureNo") int lectureNo);
 	
