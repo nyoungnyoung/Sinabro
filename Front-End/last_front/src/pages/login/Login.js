@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
 
   const moveToMain = () => {
     navigate("/main");
+  };
+
+  const moveToLogin = () => {
+    navigate("/login");
   };
 
   const [login, setLogin] = useState({
@@ -18,6 +23,27 @@ function Login() {
       ...login,
       [type]: event.target.value,
     });
+  };
+
+  const apiLogin = () => {
+    axios
+      .post("http//localhost:5000/common/login-in", {
+        number: login.number,
+        password: login.password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        // response.data : 토큰
+        // 토큰은 전역변수로 관리해줘야한다.
+        if (response.data) {
+          moveToMain();
+        } else {
+          moveToLogin();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   console.log(login);
@@ -46,7 +72,7 @@ function Login() {
           />
         </div>
 
-        <button onClick={moveToMain}>로그인</button>
+        <button onClick={apiLogin()}>로그인</button>
       </div>
     </div>
   );
