@@ -1,5 +1,7 @@
 package com.ssafy.osws.config.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,6 +12,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ssafy.osws.user.service.impl.OAuth2UserServiceImpl;
 
@@ -29,6 +34,21 @@ public class SecurityConfiguration {
 	private final JwtProvider jwtProvider;
 	
 	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		
+		configuration.setAllowedOrigins(Arrays.asList("https://i8d203.p.ssafy.io/**"));
+		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("HEAD","POST","DELETE","PUT", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowCredentials(true);
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+	
+	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	   return http.formLogin().disable()
 	    	.httpBasic().disable()
@@ -41,7 +61,8 @@ public class SecurityConfiguration {
 	        .authorizeRequests()
 	        .antMatchers(HttpMethod.OPTIONS).permitAll() // 브라우저가 보낸 preflight 요청 해결
 	        .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**").permitAll()
-	        .antMatchers("/normal/**").hasRole("normal")
+	        .antMatchers("/normal/**").hasAnyRole("normal", "admin")
+	        .antMatchers("/teacher/**").hasAnyRole("teacher", "admin")
 	        .antMatchers("/common/sign-out").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**", "/login/**").permitAll()
 	        //.antMatchers("/oauth2/**").authenticated() 소셜 로그인
