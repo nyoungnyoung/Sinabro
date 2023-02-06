@@ -34,7 +34,7 @@ const CardDiv = styled.div`
   }
 `;
 
-function LectureList() {
+function LectureList({ changeValue, lecture }) {
   const [cardData, setCardData] = useState([]);
   // const [searchData, setSearchData] = useState([]);
 
@@ -79,11 +79,11 @@ function LectureList() {
       <h1>LectureList</h1>
       <p>로그인 후 출력될 신청 가능한 강의 목록 리스트!</p>
       <SearchBar setCardData={setCardData} />
-      <MainCategory />
+      <MainCategory changeValue={changeValue} lecture={lecture} />
       <SubCategory />
       <CardDiv>
         {cardData &&
-          cardData.map((data) => (
+          cardData.map(data => (
             <LectureItemCard
               key={data.no}
               no={data.no}

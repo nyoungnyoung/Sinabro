@@ -12,9 +12,15 @@ import CompleteSignUp from "./pages/signup/CompleteSignUp";
 // import TeacherClassCreate from "./pages/teacher/TeacherClassCreate";
 // import TeacherClassDetail from "./pages/teacher/TeacherClassDetail";
 import CheckNumber from "./pages/signup/CheckNumber";
+import styled from "styled-components";
+
+const StyledFonts = styled.div`
+  font-family: "SeoulNamsanB";
+`;
+
 function App() {
   return (
-    <div className="App">
+    <StyledFonts className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Lobby />} />
@@ -31,7 +37,7 @@ function App() {
           <Route path="/cs" element={<Cs />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </StyledFonts>
   );
 }
 
