@@ -16,7 +16,6 @@ public class RequestSignUp {
 	private String phone;
 	private String password;
 	private String name;
-    private String role;
  
     /* DTO -> Entity */
     public User toEntity() {
@@ -24,7 +23,7 @@ public class RequestSignUp {
         		.phone(phone)
         		.password(password)
                 .name(name)
-                .role(role == null ? "ROLE_normal" : role)
+                .role("ROLE_normal")
                 .build();
         return user;
     }
