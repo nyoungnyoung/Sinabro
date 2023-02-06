@@ -46,8 +46,8 @@ public class LectureController {
 	}
 	
 	@ApiOperation(
-			value = "강의 상세 정보", 
-			notes = "강의 상세 정보를 반환한다. 강의 번호에 해당하는 강의가 없으면 null 반환")
+			value = "강의 리뷰 정보", 
+			notes = "강의 리뷰 정보를 반환한다. 없으면 null 반환")
 	@GetMapping("/review/{lectureNo}")
 	public ResponseEntity<List<ResponseLectureReview>> getLectureReview(@PathVariable() int lectureNo) {
 		return new ResponseEntity<>(lectureService.getLectureReview(lectureNo), HttpStatus.OK);
