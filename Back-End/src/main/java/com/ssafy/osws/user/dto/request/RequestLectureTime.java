@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class RequestLectureTime {
 	private int day;
-	private String startTime;
-	private String runTime;
+	private String startTime; 	// "kk:mm:ss" 형식
+	private String runTime;		// "kk:mm:ss" 형식
 }
