@@ -103,3 +103,8 @@
   src: url(./fonts/NanumBarunGothic/NanumBarunGothicUltraLight.ttf)
     format("truetype");
 }
+
+@font-face {
+  font-family: "Chilgok_Cye";
+  src: url(./fonts/ChilgokHalmae/Chilgok_Cye.ttf) format("truetype");
+}
