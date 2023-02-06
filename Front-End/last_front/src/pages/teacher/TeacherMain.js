@@ -1,10 +1,19 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import TeacherClassCreate from "./TeacherClassCreate";
+import TeacherClassDetail from "./TeacherClassDetail";
+import TeacherClassList from "./TeacherClassList";
 
 function TeacherMain() {
   return (
     <div>
-      <h1>TeacherMain</h1>
-      <p>게시판 CRUD처럼 생성버튼, 수정버튼, 삭제버튼 이런식으로 나오게 구현</p>
+      <h1>강사 메인페이지</h1>
+
+      <Routes>
+        <Route path="/" element={<TeacherClassList />}></Route>
+        <Route path="/create" element={<TeacherClassCreate />}></Route>
+        <Route path="/detail/:id" element={<TeacherClassDetail />}></Route>
+      </Routes>
     </div>
   );
 }
