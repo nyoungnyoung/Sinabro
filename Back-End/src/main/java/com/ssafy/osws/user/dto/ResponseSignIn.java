@@ -10,8 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseSignIn {
-
-	private String id;
 	private String accessToken;
 	private String refreshToken;
 	

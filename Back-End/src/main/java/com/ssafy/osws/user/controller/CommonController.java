@@ -63,15 +63,15 @@ public class CommonController {
 	
 	@ApiOperation(
 			value = "비밀번호 변경",
-			notes = "새로운 비밀번호를 입력 후 DB에 반영한다. 인증 단계에서 입력했던 전화번호와 새로운 비밀번호를 받는다. 성공 시 success를, 실패할 시 fail을 반환한다.")
+			notes = "새로운 비밀번호를 입력 후 DB에 반영한다. 인증 단계에서 입력했던 전화번호와 새로운 비밀번호를 받는다. 성공 시 ture를, 실패할 시 false을 반환한다.")
 	@PostMapping("/change-password")
-	public ResponseEntity<String> changePassword(@RequestBody RequestNewPassword requestNewPassword, HttpServletRequest request) throws Exception {
+	public ResponseEntity<Boolean> changePassword(@RequestBody RequestNewPassword requestNewPassword, HttpServletRequest request) throws Exception {
 		try {
 			commonService.changePassword(requestNewPassword.getPhone(), requestNewPassword.getPassword());
-			return new ResponseEntity<String>("success", HttpStatus.OK);
-		} catch (Exception e) {
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		} catch (RuntimeException e) {
 			System.out.println(e);
-			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.ssafy.osws.user.service.impl;
 
+
 import javax.transaction.Transactional;
 import java.util.Random;
 
@@ -112,13 +113,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public void changePassword(String phone, String password) throws Exception {
+	@Transactional(rollbackOn =  RuntimeException.class)
+	public void changePassword(String phone, String password) throws RuntimeException {
 		User user = userRepository.findByPhone(phone);
-		try {
 			user.updatePassword(passwordEncoder.encode(password));
 			userRepository.save(user);
-		} catch (Exception e) {
-			System.out.println("Exception at changePassword");
-		}
 	}
 }
