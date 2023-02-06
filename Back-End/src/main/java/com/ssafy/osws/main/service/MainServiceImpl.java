@@ -63,7 +63,7 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public List<ResponseCategory> getCategoryList() throws Exception {
-		List<Category> categoryList = mainRepository.findAll();
+		List<Category> categoryList = mainRepository.findAllByOrderByNoAsc();
 		List<ResponseCategory> resultList = Arrays.asList(modelMapper.map(categoryList, ResponseCategory[].class));
 		return resultList;
 	}
