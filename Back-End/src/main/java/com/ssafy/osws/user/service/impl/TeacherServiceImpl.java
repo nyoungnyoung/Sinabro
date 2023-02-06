@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.entity.LectureCategory;
+import com.ssafy.osws.lecture.data.repository.EnrollmentRepository;
 import com.ssafy.osws.lecture.data.repository.LectureCategoryRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
+import com.ssafy.osws.lecture.data.repository.LectureTimeRepository;
 import com.ssafy.osws.user.data.entity.LectureTime;
 import com.ssafy.osws.user.data.entity.User;
-import com.ssafy.osws.user.data.repository.EnrollmentRepository;
-import com.ssafy.osws.user.data.repository.LectureTimeRepository;
 import com.ssafy.osws.user.data.repository.LectureWeeklyInfoRepository;
 import com.ssafy.osws.user.dto.request.RequestCreateLecture;
 import com.ssafy.osws.user.dto.response.ResponseNormalInfo;
