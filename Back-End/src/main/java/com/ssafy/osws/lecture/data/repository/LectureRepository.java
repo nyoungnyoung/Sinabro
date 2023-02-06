@@ -7,9 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.ssafy.osws.lecture.data.entity.Lecture;
 
+@Repository
 public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 	@Query("select l from Lecture l where l.no IN (select lc.lectureToLectureCategory from LectureCategory lc \r\n" + 
 			"join SubCategory sc \r\n" + 
@@ -29,6 +31,6 @@ public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 	List<Lecture> findBySubjectContaining(@Param("query") String query, Pageable pageable);
 	
 	@Query("select l from Lecture l " + 
-			"where l.endDate > now() and l.teacherToLecture= :teacherNo ") 
+			"where l.endDate > now() and l.user.no= :teacherNo ") 
 	List<Lecture> getInProgressLectureList(@Param("teacherNo") int teacherNo, Pageable pageable);
 }

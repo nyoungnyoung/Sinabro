@@ -37,4 +37,9 @@ public class LectureTime {
 	
 	@Column(name = "runtime", nullable = false)
 	private Timestamp runTime;
+
+	public void setLectureToLectureTime(int lectureNo) {
+		this.lectureNo = lectureNo;
+		
+	}
 }
