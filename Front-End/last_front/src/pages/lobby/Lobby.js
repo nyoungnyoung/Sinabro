@@ -10,7 +10,7 @@ function Lobby() {
   };
 
   const moveToSignUp = () => {
-    navigate("/signup");
+    navigate("/signup/main");
   };
   return (
     <div className="Lobby">
