@@ -9,13 +9,14 @@ export const mainSlice = createSlice({
         no: 1,
       },
     ],
+    mainNo: "0",
     subCategory: [
       {
         name: "",
         no: 1,
       },
     ],
-    LectureCard: [
+    lectureCard: [
       {
         no: 0,
         subject: "",
@@ -44,10 +45,14 @@ export const mainSlice = createSlice({
       state.subCategory = action.payload;
     },
     changeLecture: (state, action) => {
-      state.LectureCard = action.payload;
+      state.lectureCard = action.payload;
+    },
+    changeMainNo: (state, action) => {
+      state.mainNo = action.payload;
     },
   },
 });
 
-export const { changeMain, changeSub, changeLecture } = mainSlice.actions;
+export const { changeMain, changeSub, changeLecture, changeMainNo } =
+  mainSlice.actions;
 export default mainSlice.reducer;

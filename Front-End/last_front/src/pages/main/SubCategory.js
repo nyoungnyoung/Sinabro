@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeLecture } from "../../store/mainSlice";
+import axios from "../../store/baseURL";
 // import axios from "axios";
 // import { NavLink } from "react-router-dom";
 // import Slider from "react-slick";
@@ -42,6 +44,7 @@ const StyledDiv = styled.div`
   color: white;
   font-weight: bolder;
   font-size: large;
+  cursor: pointer;
 `;
 
 // const StyledSlider = styled(Slider)`
@@ -62,8 +65,27 @@ const StyledDiv = styled.div`
 // `;
 
 function SubCategory() {
+  // dispatch 사용하기 위해 정의해주기
+  const dispatch = useDispatch();
+
   // 소분류 리스트 store에서 가져오기
   const subCategory = useSelector(state => state.main.subCategory);
+
+  // 선택된 대분류No store에서 가져오기
+  const mainNo = useSelector(state => state.main.mainNo);
+
+  // 소분류 클릭시 selectedNo 변경
+  const [selectedNo, setSelectedNo] = useState("0");
+  const onClick = e => {
+    setSelectedNo(e.target.id);
+  };
+
+  // 소분류 버튼 클릭시 변경되는 selectedNo에 맞는 강의정보 가져오는 axios요청
+  useEffect(() => {
+    axios.get("/main/lecture/" + mainNo + "/" + selectedNo).then(lecture => {
+      dispatch(changeLecture(lecture.data));
+    });
+  }, [selectedNo]);
 
   return (
     <div>
@@ -72,8 +94,8 @@ function SubCategory() {
         <div>
           <CategoryDiv>
             {subCategory.map(category => (
-              <StyledDiv key={category.no}>
-                <span>{category.name}</span>
+              <StyledDiv key={category.no} id={category.no} onClick={onClick}>
+                <span id={category.no}>{category.name}</span>
               </StyledDiv>
             ))}
           </CategoryDiv>

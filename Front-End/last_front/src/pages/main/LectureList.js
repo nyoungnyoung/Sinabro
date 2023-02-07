@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import styled from "styled-components";
 import MainCategory from "./MainCategory";
 import SubCategory from "./SubCategory";
 import SearchBar from "./SearchBar";
 import LectureItemCard from "./LectureItemCard";
-import { useNavigate, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StyledDiv = styled.div`
   width: 50%;
@@ -35,52 +34,16 @@ const CardDiv = styled.div`
   }
 `;
 
-function LectureList({ changeValue, lecture }) {
-  const [cardData, setCardData] = useState([]);
-  // const [searchData, setSearchData] = useState([]);
-
-  // 카드 데이터 받아와서 state에 저장해주기
-
-  useEffect(() => {
-    const getCardData = async () => {
-      const res = await axios.get("/dummydata/MyLectureCard.json");
-      setCardData(res.data);
-    };
-    getCardData();
-  }, []);
-
-  // const getSearchData = async () => {
-  //   console.log("클릭");
-  //   try {
-  //     const res = await axios.get("/dummydata/MyLectureCard.json");
-  //     setSearchData(res.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/dummydata/LectureCard.json")
-  //     .then((res) => setCardData(res.data));
-  // }, []);
-
-  // console.log(cardData);
-
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 3,
-  //   slidesToScroll: 3,
-  // };
+function LectureList() {
+  // 메인카테고리 리스트 store에서 가져오기
+  const cardData = useSelector(state => state.main.lectureCard);
 
   return (
     <StyledDiv>
       <h1>LectureList</h1>
       <p>로그인 후 출력될 신청 가능한 강의 목록 리스트!</p>
-      <SearchBar setCardData={setCardData} />
-      <MainCategory changeValue={changeValue} lecture={lecture} />
+      <SearchBar />
+      <MainCategory />
       <SubCategory />
       <CardDiv>
         {cardData &&
