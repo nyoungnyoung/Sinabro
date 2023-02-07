@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../store/baseURL";
 import styled from "styled-components";
 
 function SignUpPw2({ signUpData }) {
@@ -25,7 +25,7 @@ function SignUpPw2({ signUpData }) {
 
   const apiSignUpData = () => {
     axios
-      .post("http://localhost:5000/common/sign-up", {
+      .post("/common/sign-up", {
         name: signUpData.name,
         password: signUpData.password,
         phone: signUpData.phone,

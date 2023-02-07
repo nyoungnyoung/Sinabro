@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { loginActions } from "../../store/loginSlice";
 
@@ -32,9 +32,10 @@ function Login() {
   const isLogined = (data) => {
     dispatch(loginActions.addToken(data));
   };
+
   const apiLogin = () => {
     axios
-      .post("http://localhost:5000/common/sign-in", {
+      .post("/common/sign-in", {
         phone: login.number,
         password: login.password,
       })

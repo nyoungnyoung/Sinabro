@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import ClassTimeForm from "./ClassTimeForm";
 import { useNavigate } from "react-router-dom";
 // import styled from "styled-components";
@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 function TeacherClassCreate() {
   const navigate = useNavigate();
 
-  const dataId = useRef(1);
-
   const [classData, setClassData] = useState({
-    id: dataId.current,
     originalName: "",
     subject: "",
     content: "",
@@ -48,7 +45,6 @@ function TeacherClassCreate() {
   const moveToMain = () => {
     navigate("/teacher");
   };
-  dataId.current += 1;
 
   console.log(classData);
   return (
