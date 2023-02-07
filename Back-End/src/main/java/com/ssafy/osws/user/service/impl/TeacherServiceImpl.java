@@ -18,6 +18,7 @@ import com.ssafy.osws.lecture.data.entity.LectureCategory;
 import com.ssafy.osws.lecture.data.entity.LectureTime;
 import com.ssafy.osws.lecture.data.repository.EnrollmentRepository;
 import com.ssafy.osws.lecture.data.repository.LectureCategoryRepository;
+import com.ssafy.osws.lecture.data.repository.LectureQueryDSLRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.lecture.data.repository.LectureTimeRepository;
 import com.ssafy.osws.user.data.entity.User;
@@ -46,6 +47,9 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	@Autowired
 	private LectureCategoryRepository lectureCategoryRepository;
+	
+	@Autowired
+	private LectureQueryDSLRepository lectureQueryDSLRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -108,7 +112,11 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public List<ResponseNormalInfo> getEnrollmentList(int lectureNo) {
+	public List<ResponseNormalInfo> getEnrollmentList(int lectureNo, HttpServletRequest request) {
+		if(!isMine(lectureNo, request)) {
+			return null;
+		}
+		
 		List<User> userList = enrollmentRepository.findByLectureId(lectureNo);
 		List<ResponseNormalInfo> resultList = Arrays.asList(modelMapper.map(userList, ResponseNormalInfo[].class));
 		return resultList;
@@ -117,8 +125,12 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	@Transactional(rollbackOn = RuntimeException.class)
 	public Boolean modifyLecture(RequestModifyLecture requestModifyLecture, HttpServletRequest request) throws RuntimeException{
-		Lecture lecture = requestModifyLecture.toEntity();
+		
+		if(!isMine(requestModifyLecture.getNo(), request)) {
+			return false;
+		}
 			
+		Lecture lecture = requestModifyLecture.toEntity();
 		// 기존의 List<lecture_time> 은 모두 삭제한다.
 		lectureTimeRepository.deleteAllByLecture(lecture);
 		lectureCategoryRepository.deleteAllByLectureToLectureCategory(lecture.getNo());
@@ -134,22 +146,30 @@ public class TeacherServiceImpl implements TeacherService{
 			lectureCategoryList.add(new LectureCategory(lecture.getNo(), i));
 		}
 		
-		String token = jwtProvider.resolveAccessToken(request);
-		String phone = null;
-		if(token != null) {
-			phone = jwtProvider.validateToken(token);
+		
+		User user = userRepository.findByPhone(findPhone(request));
+		if(user == null) {
+			throw new RuntimeException();
+		}
+		lecture.setUser(user);
+		lectureRepository.save(lecture);
+		lectureCategoryRepository.saveAll(lectureCategoryList);
+		lectureTimeRepository.saveAll(lectureTimeList);
+		
+		return true;
+	}
+	
+	private boolean isMine(int lectureNo, HttpServletRequest request) {
+		Lecture foundLecture = lectureQueryDSLRepository.findByPhoneAndLectureNo(findPhone(request), lectureNo);
+		if(foundLecture == null) {
+			return false;
 		}
 		
-		
-			User user = userRepository.findByPhone(phone);
-			if(user == null) {
-				throw new RuntimeException();
-			}
-			lecture.setUser(user);
-			lectureRepository.save(lecture);
-			lectureCategoryRepository.saveAll(lectureCategoryList);
-			lectureTimeRepository.saveAll(lectureTimeList);
-			return true;
+		return true;
+	}
+	
+	private String findPhone(HttpServletRequest request) {
+		return jwtProvider.validateToken(jwtProvider.resolveAccessToken(request));
 	}
 	
 }

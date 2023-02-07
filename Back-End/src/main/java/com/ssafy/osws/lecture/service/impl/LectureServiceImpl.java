@@ -48,7 +48,7 @@ public class LectureServiceImpl implements LectureService {
 		String token = jwtProvider.resolveAccessToken(request);
 		if(token != null) {
 			String phone = jwtProvider.validateToken(token);
-			if ((lectureQueryDSLRepository.findByPhoneAndLectureNo(phone, lectureNo)).getNo() > 0)
+			if ((lectureQueryDSLRepository.findByPhoneAndLectureNo(phone, lectureNo)) != null)
 				responseLectureDetail.setEnrolled(true);
 			else 
 				responseLectureDetail.setEnrolled(false);
