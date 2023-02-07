@@ -61,8 +61,8 @@ public class TeacherController {
 			value = "강의 참여자 정보 불러오기 ", 
 			notes = "강의 참여자 정보를 반환한다. 없는 강의 번호면 null 반환")
 	@GetMapping("/lecture/{lectureNo}/enrollment") 
-	public ResponseEntity<List<ResponseNormalInfo>> getEnrollmentList(@PathVariable int lectureNo) {
-		return new ResponseEntity<List<ResponseNormalInfo>> (teacherService.getEnrollmentList(lectureNo), HttpStatus.OK);
+	public ResponseEntity<List<ResponseNormalInfo>> getEnrollmentList(@PathVariable int lectureNo, HttpServletRequest request) {
+		return new ResponseEntity<List<ResponseNormalInfo>> (teacherService.getEnrollmentList(lectureNo, request), HttpStatus.OK);
 	}
 	
 	@ApiOperation(

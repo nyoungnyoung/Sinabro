@@ -12,7 +12,7 @@ import com.ssafy.osws.user.dto.response.ResponseSimpleLecture;
 public interface TeacherService {
 	List<ResponseSimpleLecture> getInProgressLectureList(String phone);
 	Boolean createLecture(RequestCreateLecture requestCreateLecture, HttpServletRequest request);
-	List<ResponseNormalInfo> getEnrollmentList(int lectureNo);
+	List<ResponseNormalInfo> getEnrollmentList(int lectureNo, HttpServletRequest request);
 	Boolean modifyLecture(RequestModifyLecture requestModifyLecture, HttpServletRequest request);
 
 }
