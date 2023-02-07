@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LectureList from "./LectureList";
 import MyPageList from "./MyPageList";
+// import axios from "axios";
+import axios from "../../store/baseURL";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMain } from "../../store/mainSlice";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -12,65 +16,22 @@ const StyledDiv = styled.div`
 `;
 
 function Main() {
-  const [lecture, setLecture] = useState({
-    // mainCategory: [
-    //   {
-    //     name: "모든강의",
-    //     no: 1,
-    //   },
-    // ],
-    isSelect: false,
-    SelectedMainNo: 1,
-    subCategory: [
-      {
-        name: "",
-        no: 1,
-      },
-    ],
-    LectureCard: [
-      {
-        no: 0,
-        subject: "",
-        startDate: "",
-        endDate: "",
-        content: "",
-        savedName: "",
-      },
-    ],
-    MyPageCard: [
-      {
-        no: 0,
-        subject: "",
-        startDate: "",
-        endDate: "",
-        content: "",
-        savedName: "",
-      },
-    ],
-  });
+  // dispatch 사용하기 위해 정의해주기
+  const dispatch = useDispatch();
+  const main = useSelector(state => state.main);
 
-  const changeValue = (value, type) => {
-    setLecture({
-      ...lecture,
-      [type]: value,
-    });
-  };
+  // 처음 마운트 됐을 때 메인 카테고리 데이터 받아와서 store에 저장해주기
+  // http://localhost:5000/main/category 로컬
+  // https://i8d203.p.ssafy.io/api/main/category
+  useEffect(() => {
+    const getMainData = async () => {
+      const res = await axios.get("/main/category");
+      dispatch(changeMain(res.data));
+    };
+    getMainData();
+  }, []);
 
-  // const changeValue = (e, type) => {
-  //   if (e.target.id) {
-  //     setLecture({
-  //       ...lecture,
-  //       [type]: e.target.id,
-  //     });
-  //   } else {
-  //     setLecture({
-  //       ...lecture,
-  //       [type]: e.target.value,
-  //     });
-  //   }
-  // };
-
-  console.log(lecture);
+  console.log(main);
 
   return (
     <div>
@@ -78,8 +39,10 @@ function Main() {
       <p>로그인 후 보여지는 첫번째 페이지!</p>
       <p>왼쪽에 신청 가능한 강의목록, 오른쪽에 마이페이지</p>
       <StyledDiv>
-        <LectureList changeValue={changeValue} lecture={lecture} />
-        <MyPageList changeValue={changeValue} />
+        <LectureList />
+        <MyPageList />
+        {/* <LectureList changeValue={changeValue} lecture={lecture} /> */}
+        {/* <MyPageList changeValue={changeValue} /> */}
       </StyledDiv>
     </div>
   );

@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup/*" element={<SignUpMain />} />
           {/* <Route path="/signup/check" element={<CheckNumber />} />
           <Route path="/signup/complete" element={<CompleteSignUp />} /> */}
-          <Route path="/main" element={<Main />} />
+          <Route path="/main/*" element={<Main />} />
           <Route path="/detail/:lectureId" element={<LectureDetail />} />
           <Route path="/teacher/*" element={<TeacherMain />} />
           <Route path="/webrtc/:lectureId" element={<WebRtcMain />} />

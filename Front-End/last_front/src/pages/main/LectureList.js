@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import LectureItemCard from "./LectureItemCard";
 import styled from "styled-components";
-import SearchBar from "./SearchBar";
 import MainCategory from "./MainCategory";
 import SubCategory from "./SubCategory";
+import SearchBar from "./SearchBar";
+import LectureItemCard from "./LectureItemCard";
+import { useNavigate, Route, Routes } from "react-router-dom";
 
 const StyledDiv = styled.div`
   width: 50%;
