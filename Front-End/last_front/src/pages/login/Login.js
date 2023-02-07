@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { loginActions } from "../../store/loginSlice";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const moveToMain = () => {
     navigate("/main");
@@ -26,10 +29,13 @@ function Login() {
     });
   };
 
+  const isLogined = (data) => {
+    dispatch(loginActions.addToken(data));
+  };
   const apiLogin = () => {
     axios
-      .post("http//localhost:5000/common/login-in", {
-        number: login.number,
+      .post("http://localhost:5000/common/sign-in", {
+        phone: login.number,
         password: login.password,
       })
       .then((response) => {
@@ -37,6 +43,7 @@ function Login() {
         // response.data : 토큰
         // 토큰은 전역변수로 관리해줘야한다.
         if (response.data) {
+          isLogined(response.data);
           moveToMain();
         } else {
           moveToLogin();
@@ -47,7 +54,9 @@ function Login() {
       });
   };
 
-  console.log(login);
+  const token = useSelector((state) => state);
+  console.log(token);
+  // console.log(login);
   return (
     <StyledDiv>
       <StyledH1>로그인</StyledH1>
@@ -75,7 +84,13 @@ function Login() {
           />
         </StyledDiv2>
 
-        <StyledButton onClick={apiLogin()}>로그인</StyledButton>
+        <StyledButton
+          onClick={() => {
+            apiLogin();
+          }}
+        >
+          로그인
+        </StyledButton>
       </div>
     </StyledDiv>
   );

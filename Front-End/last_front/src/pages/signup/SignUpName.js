@@ -14,7 +14,7 @@ function SignUpName({ HandleSignUp }) {
     navigate("/signup/number");
   };
 
-  console.log(name);
+  // console.log(name);
 
   return (
     <StyledDiv>

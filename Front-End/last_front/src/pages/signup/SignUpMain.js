@@ -57,7 +57,10 @@ function SignUpMain() {
           element={<SignUpPw1 HandleSignUp={HandleSignUp} />}
         ></Route>
         <Route path="/pw2" element={<SignUpPw2 signUpData={signUp} />}></Route>
-        <Route path="/complete" element={<CompleteSignUp />}></Route>
+        <Route
+          path="/complete"
+          element={<CompleteSignUp signUpData={signUp} />}
+        ></Route>
         <Route path="/existed" element={<AlreadyExisted />}></Route>
       </Routes>
     </div>
