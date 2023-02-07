@@ -25,6 +25,7 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
         phone: phone,
       })
       .then((response) => {
+        console.log(response.data);
         if (response.data === true) {
           // 이미 있다고 페이지 바꿔야함
           moveToExisted();
@@ -46,13 +47,6 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
       })
       .catch((error) => console.log(error));
   };
-
-  // const sendAuthCode = () => {
-  //   axios.post(baseUrl + '/common/send-auth-code', {
-  //     phone: axiosNumber,
-  //   }).then((response) => console.log(response.data))
-  //     .catch((error) => console.log(error));
-  // };
 
   return (
     <div>

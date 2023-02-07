@@ -30,7 +30,7 @@ function SignUpPw2({ signUpData }) {
 
   const apiSignUpData = () => {
     axios
-      .post("http//localhost:5000/common/sign-up", {
+      .post("http://localhost:5000/common/sign-up", {
         name: signUpData.name,
         password: signUpData.password,
         phone: signUpData.phone,
