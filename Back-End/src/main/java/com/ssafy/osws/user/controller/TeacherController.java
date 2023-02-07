@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.user.dto.request.RequestCreateLecture;
+import com.ssafy.osws.user.dto.request.RequestModifyLecture;
 import com.ssafy.osws.user.dto.response.ResponseNormalInfo;
 import com.ssafy.osws.user.dto.response.ResponseSimpleLecture;
 import com.ssafy.osws.user.service.TeacherService;
@@ -52,8 +53,8 @@ public class TeacherController {
 			value = "강의 생성 (lectureTime에서 day는 0:월 ~ 6:일 )", 
 			notes = "강의 생성 요청을 처리한다. 성공하면 true, 실패하면 false")
 	@PostMapping("/lecture")
-	public ResponseEntity<Boolean> createLecture(@RequestBody RequestCreateLecture requestCreateLecture) {
-		return new ResponseEntity<Boolean> (teacherService.createLecture(requestCreateLecture), HttpStatus.OK);
+	public ResponseEntity<Boolean> createLecture(@RequestBody RequestCreateLecture requestCreateLecture, HttpServletRequest request) {
+		return new ResponseEntity<Boolean> (teacherService.createLecture(requestCreateLecture, request), HttpStatus.OK);
 	}
 	
 	@ApiOperation(
@@ -67,9 +68,16 @@ public class TeacherController {
 	@ApiOperation(
 			value = "강의 편집하기 ", 
 			notes = "강의 편집 요청을 처리한다. 성공하면 true, 실패하면 false 반환")
-	@PutMapping("/lecture/{lectureNo}")
-	public ResponseEntity<Boolean> modifyLecture(@PathVariable int lectureNo, @RequestBody RequestCreateLecture requestCreateLecture) {
-		return new ResponseEntity<Boolean> (teacherService.modifyLecture(lectureNo, requestCreateLecture), HttpStatus.OK);
+	@PutMapping("/lecture")
+	public ResponseEntity<Boolean> modifyLecture(@RequestBody RequestModifyLecture requestModifyLecture, HttpServletRequest request) {
+		try {
+			return new ResponseEntity<Boolean> (teacherService.modifyLecture(requestModifyLecture, request), HttpStatus.OK);			
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
 	}
+	
+	
 	
 }

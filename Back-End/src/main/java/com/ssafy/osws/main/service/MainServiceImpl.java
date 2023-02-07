@@ -1,10 +1,8 @@
 package com.ssafy.osws.main.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,6 @@ import com.ssafy.osws.notice.data.repository.NoticeRepository;
 public class MainServiceImpl implements MainService {
 	@Autowired
 	private NoticeRepository noticeRepository;
-
 	
 	@Autowired
 	private SubCategoryRepository subCategoryRepository;
@@ -101,8 +98,13 @@ public class MainServiceImpl implements MainService {
 		
 		// subCategoryNumberList 는 , 기준으로 나눠야 한다.
 		List<String> list = Arrays.asList(subCategoryNumberList.split(","));
-		lectureList = lectureRepository.findLectureBySubCategory(list, PageRequest.of(0,6));
+		// List<String> -> List<Integer> 형태로 바꿈. 
+		List<Integer> intList = new ArrayList<>();
+		for(String s: list) {
+			intList.add(Integer.valueOf(s));
+		}
 		
+		lectureList = lectureRepository.findLectureBySubCategory(intList, PageRequest.of(0,6));
 		resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 		return resultList;
 	}
