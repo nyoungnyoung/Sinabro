@@ -5,7 +5,7 @@ import MyPageList from "./MyPageList";
 // import axios from "axios";
 import axios from "../../store/baseURL";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMain } from "../../store/mainSlice";
+import { changeMain, changeLecture } from "../../store/mainSlice";
 
 const StyledDiv = styled.div`
   display: flex;

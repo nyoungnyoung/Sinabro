@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { changeSub } from "../../store/mainSlice";
 import axios from "../../store/baseURL";
+import { useSelector, useDispatch } from "react-redux";
+import { changeSub, changeLecture, changeMainNo } from "../../store/mainSlice";
+// import { Link } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 // import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
@@ -33,15 +33,14 @@ const CategoryDiv = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledDiv = styled.div`
   width: 100px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  color: black;
-  text-decoration: none;
+  cursor: pointer;
 `;
 
 const ImgDiv = styled.div`
@@ -64,7 +63,6 @@ function MainCategory({ changeValue, lecture }) {
   // 메인카테고리 리스트 store에서 가져오기
   const mainCategory = useSelector(state => state.main.mainCategory);
   const [selectedNo, setSelectedNo] = useState("0");
-  // const [cardData, setCardData] = useState()
 
   // 대분류 클릭 시 selectedNo 변경
   const onClick = e => {
@@ -75,9 +73,15 @@ function MainCategory({ changeValue, lecture }) {
   useEffect(() => {
     axios.get("/main/category/" + selectedNo).then(response => {
       dispatch(changeSub(response.data));
-      // console.log(response);
-      console.log("axios 내", selectedNo);
+      dispatch(changeMainNo(selectedNo));
       // console.log(response.data);
+    });
+  }, [selectedNo]);
+
+  // 대분류 버튼 클릭시 변경되는 selectedNo에 맞는 강의정보 가져오는 axios 요청
+  useEffect(() => {
+    axios.get("/main/lecture/" + selectedNo).then(lecture => {
+      dispatch(changeLecture(lecture.data));
     });
   }, [selectedNo]);
 
@@ -85,7 +89,7 @@ function MainCategory({ changeValue, lecture }) {
     <CategoryDiv>
       {/* <Slider {...settings}> */}
       {mainCategory.map(category => (
-        <StyledLink
+        <StyledDiv
           to={`/main/${selectedNo}`}
           key={category.no}
           id={category.no}
@@ -95,7 +99,7 @@ function MainCategory({ changeValue, lecture }) {
             <StyledImg id={category.no} src="/img/all.png" alt="all" />
           </ImgDiv>
           <span id={category.no}>{category.name}</span>
-        </StyledLink>
+        </StyledDiv>
         // <NavLink key={category.no}>{category.name}</NavLink>
       ))}
       {/* </Slider> */}

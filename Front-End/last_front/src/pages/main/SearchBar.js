@@ -1,6 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "../../store/baseURL";
+import { useDispatch } from "react-redux";
+import { changeLecture } from "../../store/mainSlice";
+
 // import { FcSearch } from "react-icons/fc";
 
 const InputGroup = styled.div`
@@ -45,9 +48,11 @@ const StyledImg = styled.img`
   width: 40px;
 `;
 
-function SearchBar(props) {
+function SearchBar() {
+  // dispatch 사용하기 위해 정의해주기
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
-  const [item, setItem] = useState([]);
 
   const onChange = e => {
     setSearch(e.target.value);
@@ -56,43 +61,20 @@ function SearchBar(props) {
   const onKeyDown = e => {
     if (e.key == "Enter") {
       getSearchData();
-      props.setCardData(item);
     }
   };
 
+  // 검색 시 search 내용에 맞는 강의 정보 가져오는 axios요청
+
   const getSearchData = async () => {
-    console.log("클릭");
     try {
-      const res = await axios.get("/dummydata/MyLectureCard.json");
-      setItem(res.data);
+      const lecture = await axios.get("/main/search/" + search);
+      dispatch(changeLecture(lecture.data));
     } catch (e) {
       console.log(e);
     }
   };
 
-  // console.log(item);
-  //   useEffect(() => {
-  //     const getCardData = async () => {
-  //       const res = await axios.get("/dummydata/MyLectureCard.json");
-  //       setCardData(res.data);
-  //     };
-  //     getCardData();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     const getSearchData = async () => {
-  //       const searchInfo = search;
-  //       try {
-  //         console.log("클릭");
-  //         const res = await axios.get("/dummydata/SearchLecture.json");
-  //         setItem(res.data);
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     };
-  //   });
-
-  //   console.log(item);
   return (
     <InputGroup className="SearchBar">
       <StyledInput
@@ -102,12 +84,7 @@ function SearchBar(props) {
         onChange={onChange}
         onKeyDown={onKeyDown}
       />
-      <StyledButton
-        onClick={() => {
-          getSearchData();
-          props.setCardData(item);
-        }}
-      >
+      <StyledButton onClick={getSearchData}>
         <StyledImg src="/img/search.png" alt="search" />
         {/* <FcSearch size="40" /> */}
       </StyledButton>
