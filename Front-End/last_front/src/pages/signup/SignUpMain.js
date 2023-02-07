@@ -67,7 +67,7 @@ function SignUpMain() {
 const StyledH1 = styled.h1`
   padding: 30px;
   margin: 0px;
-  // background-color: #fff9be;
-  background-color: white;
+  background-color: #fff9be;
+  /* background-color: white; */
 `;
 export default SignUpMain;
