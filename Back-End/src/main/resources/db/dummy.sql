@@ -9,9 +9,11 @@ INSERT INTO `sub_category` VALUES (1,'재활',1),(2,'요가',1),(3,'유화미술
 # lecture
 INSERT INTO `lecture` VALUES (1,'재활운동','2023-02-02','2023-02-02',NULL,NULL,1,'운동합시다',20),(2,'재활운동2','2023-02-02','2023-02-02',NULL,NULL,1,'운동합시다',20),(3,'유화그림 그리기','2023-02-03','2023-02-10',NULL,NULL,2,'서영화를 그려요',15),(7,'이효리의 요가클래스','2023-02-03','2023-02-10',NULL,NULL,3,'요가를 해요',15);
 
-# 아래는 자동 cascade로 생성되게 ddl을 수정할 필요있음... 
 # lecture_category 
 INSERT INTO `lecture_category` VALUES (1,1),(2,1),(7,2),(3,3);
+
+# notice
+INSERT INTO `notice` (content, subject, priority, registered_date) values ("공지내용", "공지사항", true, now());
 
 
 

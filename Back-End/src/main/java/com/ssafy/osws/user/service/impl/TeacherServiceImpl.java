@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.entity.LectureCategory;
 import com.ssafy.osws.lecture.data.entity.LectureTime;
@@ -20,7 +22,10 @@ import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.lecture.data.repository.LectureTimeRepository;
 import com.ssafy.osws.user.data.entity.User;
 import com.ssafy.osws.user.data.repository.LectureWeeklyInfoRepository;
+import com.ssafy.osws.user.data.repository.UserRepository;
 import com.ssafy.osws.user.dto.request.RequestCreateLecture;
+import com.ssafy.osws.user.dto.request.RequestLectureTime;
+import com.ssafy.osws.user.dto.request.RequestModifyLecture;
 import com.ssafy.osws.user.dto.response.ResponseNormalInfo;
 import com.ssafy.osws.user.dto.response.ResponseSimpleLecture;
 import com.ssafy.osws.user.service.TeacherService;
@@ -43,7 +48,13 @@ public class TeacherServiceImpl implements TeacherService{
 	private LectureCategoryRepository lectureCategoryRepository;
 	
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private JwtProvider jwtProvider;
 	
 	@Override
 	public List<ResponseSimpleLecture> getInProgressLectureList(String phone) {
@@ -54,17 +65,26 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	@Transactional(rollbackOn = RuntimeException.class)
-	public Boolean createLecture(RequestCreateLecture requestCreateLecture) {
+	public Boolean createLecture(RequestCreateLecture requestCreateLecture, HttpServletRequest request) {
 		Lecture lecture = requestCreateLecture.toEntity();
 		
 		List<LectureTime> lectureTimeList = Arrays.asList(modelMapper.map(requestCreateLecture.getLectureTimeList(), LectureTime[].class));
 		
+		String token = jwtProvider.resolveAccessToken(request);
+		String phone = null;
+		if(token != null) {
+			phone = jwtProvider.validateToken(token);
+		}
+		
 		try {
+//			User user = userRepository.findById(requestCreateLecture.getTeacherToLecture()).get();
+			User user = userRepository.findByPhone(phone);
+			
+			lecture.setUser(user);
 			int lectureNo = lectureRepository.save(lecture).getNo();
-			System.out.println(lectureNo);
 			
 			for(LectureTime lt : lectureTimeList) {
-				lt.setLectureToLectureTime(lectureNo);
+				lt.setLecture(lecture);
 			}
 			lectureTimeRepository.saveAll(lectureTimeList);
 			 
@@ -95,18 +115,41 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public Boolean modifyLecture(int lectureNo, RequestCreateLecture requestCreateLecture) {
-		Lecture lecture = requestCreateLecture.toEntity();
-		List<LectureTime> lectureTimeList = Arrays.asList(modelMapper.map(requestCreateLecture.getLectureTimeList(), LectureTime[].class));
+	@Transactional(rollbackOn = RuntimeException.class)
+	public Boolean modifyLecture(RequestModifyLecture requestModifyLecture, HttpServletRequest request) throws RuntimeException{
+		Lecture lecture = requestModifyLecture.toEntity();
+			
+		// 기존의 List<lecture_time> 은 모두 삭제한다.
+		lectureTimeRepository.deleteAllByLecture(lecture);
+		lectureCategoryRepository.deleteAllByLectureToLectureCategory(lecture.getNo());
 		
-		try {
+		List<LectureTime> lectureTimeList = new ArrayList<>();
+		for(RequestLectureTime rlt : requestModifyLecture.getLectureTimeList()) {
+			lectureTimeList.add(rlt.toEntity(lecture));
+		}
+//		List<LectureTime> lectureTimeList = lectureTimeRepository.findAllByLectureNo(lecture.getNo());
+		
+		List<LectureCategory> lectureCategoryList = new ArrayList<>();
+		for(int i : requestModifyLecture.getSubCategoryList()) {
+			lectureCategoryList.add(new LectureCategory(lecture.getNo(), i));
+		}
+		
+		String token = jwtProvider.resolveAccessToken(request);
+		String phone = null;
+		if(token != null) {
+			phone = jwtProvider.validateToken(token);
+		}
+		
+		
+			User user = userRepository.findByPhone(phone);
+			if(user == null) {
+				throw new RuntimeException();
+			}
+			lecture.setUser(user);
 			lectureRepository.save(lecture);
+			lectureCategoryRepository.saveAll(lectureCategoryList);
 			lectureTimeRepository.saveAll(lectureTimeList);
 			return true;
-		} catch (Exception e) {
-			System.out.println(e);
-			return false;
-		}
 	}
 	
 }
