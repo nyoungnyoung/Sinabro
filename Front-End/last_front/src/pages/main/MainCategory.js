@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { changeSub } from "../../store/mainSlice";
+import axios from "../../store/baseURL";
 // import { NavLink } from "react-router-dom";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 // import baseURL from "../../store/val";
 
 const CategoryDiv = styled.div`
@@ -31,13 +33,15 @@ const CategoryDiv = styled.div`
   }
 `;
 
-const StyledDiv = styled.div`
+const StyledLink = styled(Link)`
   width: 100px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  color: black;
+  text-decoration: none;
 `;
 
 const ImgDiv = styled.div`
@@ -54,84 +58,44 @@ const StyledImg = styled.img`
 `;
 
 function MainCategory({ changeValue, lecture }) {
-  // // 카테고리 목록 보여줄 Slider설정
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 800,
-  //   slidesToShow: 2,
-  //   slidesToScroll: 2,
-  // };
+  // dispatch 사용하기 위해 정의해주기
+  const dispatch = useDispatch();
 
-  // 카테고리 icon
-  // const icons = [
-  //   "all.png",
-  //   "excercise.png",
-  //   "art.png",
-  //   "cooking.png",
-  //   "language.png",
-  //   "digital.png",
-  //   "writing.png",
-  //   "music.png",
-  //   "",
-  // ];
+  // 메인카테고리 리스트 store에서 가져오기
+  const mainCategory = useSelector(state => state.main.mainCategory);
+  const [selectedNo, setSelectedNo] = useState("0");
+  // const [cardData, setCardData] = useState()
 
-  const [mainCategory, setMainCategory] = useState([]);
-  const [selectedNo, setSelectedNo] = useState("");
-
-  // 처음 마운트 됐을 때 메인 카테고리 데이터 받아와서 state에 저장해주기
-  useEffect(() => {
-    axios.get("http://localhost:5000/main/category").then(res => {
-      setMainCategory(res.data);
-    });
-  }, []);
-
+  // 대분류 클릭 시 selectedNo 변경
   const onClick = e => {
     setSelectedNo(e.target.id);
-    // console.log(changeValue);
-    if (lecture.isSelect) {
-      changeValue(false, "isSelect");
-    } else {
-      changeValue(true, "isSelect");
-    }
-    changeValue(selectedNo, "SelectedMainNo");
-    // console.log(e.target.id);
-    // changeValue(selectedNo, "");
   };
 
-  console.log(selectedNo);
-  // const
-
-  // console.log(selectedNo);
-  // const getSearchData = async () => {
-  //   console.log("클릭");
-  //   try {
-  //     const res = await axios.get("/dummydata/MyLectureCard.json");
-  //     setItem(res.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  //   console.log(mainCategory);
+  // 대분류 버튼 클릭 시 변경되는 selectedNo에 맞는 소분류 가져오는 axios 요청
+  useEffect(() => {
+    axios.get("/main/category/" + selectedNo).then(response => {
+      dispatch(changeSub(response.data));
+      // console.log(response);
+      console.log("axios 내", selectedNo);
+      // console.log(response.data);
+    });
+  }, [selectedNo]);
 
   return (
     <CategoryDiv>
       {/* <Slider {...settings}> */}
       {mainCategory.map(category => (
-        <StyledDiv
+        <StyledLink
+          to={`/main/${selectedNo}`}
           key={category.no}
           id={category.no}
           onClick={onClick}
-          // onClick={() => {
-          //   onClick(category.no);
-          // }}
         >
           <ImgDiv id={category.no}>
             <StyledImg id={category.no} src="/img/all.png" alt="all" />
           </ImgDiv>
           <span id={category.no}>{category.name}</span>
-        </StyledDiv>
+        </StyledLink>
         // <NavLink key={category.no}>{category.name}</NavLink>
       ))}
       {/* </Slider> */}

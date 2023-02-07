@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import { NavLink } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from "react-redux";
+// import axios from "axios";
 // import { NavLink } from "react-router-dom";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 const CategoryDiv = styled.div`
   @media only screen and (max-width: 600px) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   @media only screen and (min-width: 600px) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   @media only screen and (min-width: 768px) {
     display: grid;
@@ -44,9 +44,10 @@ const StyledDiv = styled.div`
   font-size: large;
 `;
 
-const StyledSlider = styled(Slider)`
-  width: 100%;
-`;
+// const StyledSlider = styled(Slider)`
+//   width: 100%;
+// `;
+
 // const ImgDiv = styled.div`
 //   width: 70px;
 //   height: 70px;
@@ -61,35 +62,28 @@ const StyledSlider = styled(Slider)`
 // `;
 
 function SubCategory() {
-  // 카테고리 목록 보여줄 Slider설정
-  //   const settings = {
-  //     dots: true,
-  //     infinite: true,
-  //     speed: 800,
-  //     slidesToShow: 4,
-  //     slidesToScroll: 4,
-  //   };
-
-  const [subCategory, setSubCategory] = useState([]);
-
-  // 카테고리 데이터 받아와서 state에 저장해주기
-  useEffect(() => {
-    axios
-      .get("/dummydata/SubCategory.json")
-      .then((res) => setSubCategory(res.data));
-  }, []);
+  // 소분류 리스트 store에서 가져오기
+  const subCategory = useSelector(state => state.main.subCategory);
 
   return (
-    <CategoryDiv>
+    <div>
       {/* <StyledSlider {...settings}> */}
-      {subCategory.map((category) => (
-        <StyledDiv key={category.no}>
-          <span>{category.name}</span>
-        </StyledDiv>
-        // <NavLink key={category.no}>{category.name}</NavLink>
-      ))}
+      {subCategory ? (
+        <div>
+          <CategoryDiv>
+            {subCategory.map(category => (
+              <StyledDiv key={category.no}>
+                <span>{category.name}</span>
+              </StyledDiv>
+            ))}
+          </CategoryDiv>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
       {/* </StyledSlider> */}
-    </CategoryDiv>
+    </div>
   );
 }
 
