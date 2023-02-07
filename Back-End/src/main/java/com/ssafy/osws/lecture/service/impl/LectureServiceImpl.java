@@ -40,10 +40,10 @@ public class LectureServiceImpl implements LectureService {
 	public ResponseLectureDetail getLecture(int lectureNo, HttpServletRequest request) {
 		Lecture lecture = lectureQueryDSLRepository.findByLectureNo(lectureNo);
 		ResponseLectureDetail responseLectureDetail = null;
-		if(lecture.getNo() > 0) {
+		if(lecture != null) {
 			responseLectureDetail = modelMapper.map(lecture, ResponseLectureDetail.class);
 			responseLectureDetail.setName(lecture.getUser().getName());
-		}
+		} else return null;
 		
 		String token = jwtProvider.resolveAccessToken(request);
 		if(token != null) {
