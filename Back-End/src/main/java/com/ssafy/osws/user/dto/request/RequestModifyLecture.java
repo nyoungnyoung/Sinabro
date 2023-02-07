@@ -12,7 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestCreateLecture {
+public class RequestModifyLecture {
+	private int no;
 	private String subject;
 	private Date startDate;
 	private Date endDate;
@@ -28,6 +29,7 @@ public class RequestCreateLecture {
 	/* DTO -> Entity */
     public Lecture toEntity() {
     	Lecture lecture = Lecture.builder()
+    			.no(no)
         		.subject(subject)
         		.startDate(startDate)
         		.endDate(endDate)

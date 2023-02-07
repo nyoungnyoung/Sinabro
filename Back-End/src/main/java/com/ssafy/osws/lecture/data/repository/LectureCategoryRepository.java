@@ -6,4 +6,6 @@ import com.ssafy.osws.lecture.data.entity.LectureCategory;
 
 public interface LectureCategoryRepository extends JpaRepository<LectureCategory, Integer>{
 
+	void deleteAllByLectureToLectureCategory(int lectureToLectureCategory);
+
 }
