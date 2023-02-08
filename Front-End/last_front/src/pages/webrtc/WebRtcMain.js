@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
 import Focus from "./Focus";
+// import Zoom from "./Zoom";
 
 function WebRtcMain() {
   return (
@@ -15,6 +16,7 @@ function WebRtcMain() {
         <Focus />
         <SideBar />
       </StyledDiv2>
+      {/* <Zoom /> */}
     </StyledDiv>
   );
 }

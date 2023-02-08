@@ -53,6 +53,7 @@ const StyledP = styled.p`
 `;
 
 const StyledButton = styled.button`
+  font-family: "Chilgok_Cye";
   background-color: #583e26;
   color: white;
   font-size: 30px;
@@ -62,5 +63,8 @@ const StyledButton = styled.button`
   border-radius: 15px;
   font-weight: 700;
   cursor: pointer;
+  :hover {
+    color: yellow;
+  }
 `;
 export default Navbar;
