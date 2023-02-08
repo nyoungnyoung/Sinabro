@@ -11,7 +11,7 @@ function Focus() {
 
 const StyledDiv = styled.div`
   width: 80%;
-  hegiht: 90vh;
+  height: 90vh;
   color: white;
   background-color: black;
 `;
