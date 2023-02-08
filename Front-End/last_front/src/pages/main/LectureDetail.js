@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
-import { changeLecture, changeMainNo } from "../../store/mainSlice";
+import { changeLecture } from "../../store/detailSlice";
+// import { changeLecture, changeMainNo } from "../../store/mainSlice";
 import { useLocation } from "react-router-dom";
 // import axios from "axios";
 
@@ -14,58 +15,106 @@ const DetailPageDiv = styled.div`
 
 const StyledImg = styled.img`
   width: 50%;
-  height: auto;
   margin-right: 20px;
 `;
 
 const StyledDiv = styled.div`
   display: flex;
+  justify-content: space-between;
+  /* @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+  @media only screen and (min-width: 600px) {
+    flex-direction: column;
+  } */
+  /* @media only screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  } */
+  /* @media only screen and (min-width: 992px) {
+    display: flex;
+  }
+  @media only screen and (min-width: 1200px) {
+    display: flex;
+  } */
 `;
 
 const TableDiv = styled.div`
+  width: 50%;
   display: flex;
   flex-direction: column;
 `;
 
+const StyledBtn = styled.button`
+  margin-top: 15px;
+  width: 80%;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f7c815;
+  font-size: larger;
+  font-weight: 1000;
+  color: black;
+`;
+
 function LectureDetail() {
-  // Access Token 스토어에서 가져오기
-  const loginToken = useSelector(state => state.login.token);
+  // dispatch 사용하기 위해 정의해주기
+  const dispatch = useDispatch();
 
-  // 카드 데이터 받아와서 state에 저장해주기
-  const [lectureData, setLectureData] = useState([]);
+  // Access Token, 강의 상세정보 스토어에서 가져오기
+  const loginToken = useSelector(state => state.login.token.accessToken);
+  const lectureData = useSelector(state => state.detail.lectureData);
+  // const enrollInfo = useSelector(state => state.detail.lectureData.isEnrolled);
 
+  // isEnrolled 저장할 state생성
+  const [isEnrolled, setIsEnrolled] = useState(false);
+
+  // LectureNo 주소에서 받아오기
   const lectureNo = Number(useLocation().pathname.slice(8));
-  // console.log(lectureNo);
-  // console.log(loginToken.accessToken);
 
-  // 컴포넌트가 mount 될 때 axios 요청해서 데이터 저장
+  // 컴포넌트가 mount 될 때 axios 요청해서 데이터 store에 저장
   useEffect(() => {
-    axios.get("/lecture/" + lectureNo).then(info => {
-      setLectureData(info.data);
-    });
+    axios
+      .get("/lecture/" + lectureNo, {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      })
+      .then(info => {
+        dispatch(changeLecture(info.data));
+      });
   }, []);
 
-  // // 수강신청하기 버튼 누르면 신청하는 axios
-  // const registLecture = async () => {
-  //   try {
-  //     const lecture = await axios.post("/normal/lecture/" + lectureNo, {
-  //       headers: { "X-ACCESS-TOKEN": loginToken.accessToken },
-  //     });
-  //     console.log(lecture.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  // 수강신청하기 버튼 누르면 신청하는 axios
+  const registLecture = async () => {
+    try {
+      await axios.post(
+        "/normal/lecture/" + lectureNo,
+        {},
+        {
+          headers: { "X-ACCESS-TOKEN": loginToken },
+        }
+      );
+      setIsEnrolled(true);
+      // console.log(lecture.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  // console.log(lectureData);
+  // 수강신청취소 버튼 누르면 취소하는 axios
+  const deleteLecture = async () => {
+    try {
+      await axios.delete("/normal/lecture/" + lectureNo, {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      });
+      setIsEnrolled(false);
+      // console.log(lecture.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  // const registLecture = async () => {
-  //   try {
-  //     const regist = await axios.get("/normal/lecture/" + lectureNo);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  console.log(lectureData);
+  console.log(isEnrolled);
 
   return (
     <DetailPageDiv>
@@ -79,14 +128,13 @@ function LectureDetail() {
             수강기간 {lectureData.startDate} ~ {lectureData.endDate}
           </p>
           <p>강사명 {lectureData.name}</p>
-          {lectureData.isEnrolled ? (
-            <button>수강신청완료</button>
-          ) : (
-            <div>
-              <button>수강신청하기</button>
-              {/* <button onClick={registLecture}>수강신청하기</button> */}
-            </div>
-          )}
+          <div>
+            {isEnrolled ? (
+              <StyledBtn onClick={deleteLecture}>수강신청완료</StyledBtn>
+            ) : (
+              <StyledBtn onClick={registLecture}>수강신청하기</StyledBtn>
+            )}
+          </div>
         </TableDiv>
       </StyledDiv>
     </DetailPageDiv>

@@ -5,7 +5,7 @@ import MyPageList from "./MyPageList";
 
 import axios from "../../store/baseURL";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMain } from "../../store/mainSlice";
+import { changeMain, changeMyPage } from "../../store/mainSlice";
 import NavBar from "./NavBar";
 
 const StyledDiv = styled.div`
@@ -19,7 +19,10 @@ const StyledDiv = styled.div`
 function Main() {
   // dispatch 사용하기 위해 정의해주기
   const dispatch = useDispatch();
-  const main = useSelector(state => state.main);
+
+  // Access Token 스토어에서 가져오기
+  const loginToken = useSelector(state => state.login.token.accessToken);
+  // const main = useSelector(state => state.main);
 
   // 처음 마운트 됐을 때 메인 카테고리 데이터 받아와서 store에 저장해주기
   // http://localhost:5000/main/category 로컬
@@ -32,7 +35,18 @@ function Main() {
     getMainData();
   }, []);
 
-  console.log(main);
+  // 처음 마운트됐을 때 내가 신청한 강의 목록 axios 받아서 store에 저장해주기
+  useEffect(() => {
+    axios
+      .get("/normal/lecture", {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      })
+      .then(info => {
+        dispatch(changeMyPage(info.data));
+      });
+  }, []);
+
+  // console.log(main);
 
   return (
     <div>

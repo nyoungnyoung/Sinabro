@@ -33,14 +33,7 @@ const StyledLink = styled(Link)`
   color: black;
 `;
 
-function LectureItemCard({
-  no,
-  subject,
-  startDate,
-  endDate,
-  content,
-  savedName,
-}) {
+function MyPageCard({ no, subject, startDate, endDate, content, savedName }) {
   // 강의 신청 여부 판단해줄 state 만들기
   // const [isRegist, setIsRegist] = useState()
 
@@ -65,18 +58,26 @@ function LectureItemCard({
   return (
     <div>
       <LectureDiv>
-        <StyledLink to={`/detail/${no}`}>
+        <StyledLink to={`/webrtc/${no}`}>
           <StyledImg src={savedName} alt="img" />
           <h2>{subject}</h2>
           <p>{content}</p>
           <p>
             {startDate.slice(0, 10)} ~ {endDate.slice(0, 10)}
           </p>
+          <StyledBtn>강의입장</StyledBtn>
         </StyledLink>
-        <StyledBtn>강의신청</StyledBtn>
       </LectureDiv>
+      {/* <p>
+        로그인 후 메인페이지에서 강의 목록 내부에 카드 형식으로 들어갈 컴포넌트
+      </p>
+      <p>
+        왼쪽페이지:신청가능한 강의(신청하기)/오른쪽페이지:내가 신청한
+        강의(입장하기)
+      </p>
+      <p>얘를 클릭했을 때 LectureDetail이 나와야함!</p> */}
     </div>
   );
 }
 
-export default LectureItemCard;
+export default MyPageCard;
