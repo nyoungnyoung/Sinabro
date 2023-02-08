@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import SignUpCheckNumber from "./SignUpCheckNumber";
 import SignUpName from "./SignUpName";
 import SignUpNumber from "./SignUpNumber";
@@ -32,7 +33,7 @@ function SignUpMain() {
 
   return (
     <div>
-      <h1>회원가입 페이지</h1>
+      <StyledH1>회원가입</StyledH1>
       <Routes>
         <Route
           path="/"
@@ -56,11 +57,20 @@ function SignUpMain() {
           element={<SignUpPw1 HandleSignUp={HandleSignUp} />}
         ></Route>
         <Route path="/pw2" element={<SignUpPw2 signUpData={signUp} />}></Route>
-        <Route path="/complete" element={<CompleteSignUp />}></Route>
+        <Route
+          path="/complete"
+          element={<CompleteSignUp signUpData={signUp} />}
+        ></Route>
         <Route path="/existed" element={<AlreadyExisted />}></Route>
       </Routes>
     </div>
   );
 }
 
+const StyledH1 = styled.h1`
+  padding: 30px;
+  margin: 0px;
+  background-color: #fff9be;
+  /* background-color: white; */
+`;
 export default SignUpMain;
