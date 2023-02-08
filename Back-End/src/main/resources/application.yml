@@ -34,8 +34,8 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
-OPENVIDU_URL: http://localhost:4443/
-OPENVIDU_SECRET: MY_SECRET
+OPENVIDU_URL: https://i8d203.p.ssafy.io:8443/
+OPENVIDU_SECRET: SINABRO
  
 server:
   port: 5000
