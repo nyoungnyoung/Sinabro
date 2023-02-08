@@ -41,19 +41,40 @@ function LectureItemCard({
   content,
   savedName,
 }) {
+  // 강의 신청 여부 판단해줄 state 만들기
+  // const [isRegist, setIsRegist] = useState()
+
+  //   // 강의신청 버튼 클릭 시 신청 요청 보내는 axios!
+  // const registLecture = async() => {
+  //   try {
+  //     const regist = await axios.get("/normal/lecture/" +no )
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
+
+  //   const getSearchData = async () => {
+  //     try {
+  //       const lecture = await axios.get("/main/search/" + search);
+  //       dispatch(changeLecture(lecture.data));
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
   return (
     <div>
-      <StyledLink to={`/detail/${no}`}>
-        <LectureDiv>
+      <LectureDiv>
+        <StyledLink to={`/detail/${no}`}>
           <StyledImg src={savedName} alt="img" />
           <h2>{subject}</h2>
           <p>{content}</p>
           <p>
-            {startDate}~{endDate}
+            {startDate.slice(0, 10)} ~ {endDate.slice(0, 10)}
           </p>
-          <StyledBtn>강의</StyledBtn>
-        </LectureDiv>
-      </StyledLink>
+        </StyledLink>
+        <StyledBtn>강의신청</StyledBtn>
+      </LectureDiv>
       {/* <p>
         로그인 후 메인페이지에서 강의 목록 내부에 카드 형식으로 들어갈 컴포넌트
       </p>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
+import axios from "../../store/baseURL";
+import { useSelector, useDispatch } from "react-redux";
+import { changeLecture, changeMainNo } from "../../store/mainSlice";
+import { useLocation } from "react-router-dom";
+// import axios from "axios";
 
 const DetailPageDiv = styled.div`
   /* border: 1px solid black; */
@@ -25,29 +28,44 @@ const TableDiv = styled.div`
 `;
 
 function LectureDetail() {
+  // Access Token 스토어에서 가져오기
+  const loginToken = useSelector(state => state.login.token);
+
   // 카드 데이터 받아와서 state에 저장해주기
   const [lectureData, setLectureData] = useState([]);
-  // const [loading, setLoading] = useState([]);
-  // const lectureNo = useLocation().pathname.slice(8);
+
+  const lectureNo = Number(useLocation().pathname.slice(8));
+  // console.log(lectureNo);
+  // console.log(loginToken.accessToken);
 
   // 컴포넌트가 mount 될 때 axios 요청해서 데이터 저장
   useEffect(() => {
-    const loadData = async () => {
-      const result = await axios.get("/dummydata/NewLectureDetail.json");
-      setLectureData(result.data[0]);
-    };
-    loadData();
+    axios.get("/lecture/" + lectureNo).then(info => {
+      setLectureData(info.data);
+    });
   }, []);
 
-  console.log(lectureData);
-  // console.log(lectureNo);
+  // // 수강신청하기 버튼 누르면 신청하는 axios
+  // const registLecture = async () => {
+  //   try {
+  //     const lecture = await axios.post("/normal/lecture/" + lectureNo, {
+  //       headers: { "X-ACCESS-TOKEN": loginToken.accessToken },
+  //     });
+  //     console.log(lecture.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  // const targetLecture = lectureData.filter(
-  //   (lecture) => lecture.no == lectureNo
-  // );
-  // console.log(targetLecture[0]);
+  // console.log(lectureData);
 
-  // console.log(lectureNo);
+  // const registLecture = async () => {
+  //   try {
+  //     const regist = await axios.get("/normal/lecture/" + lectureNo);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <DetailPageDiv>
@@ -65,8 +83,8 @@ function LectureDetail() {
             <button>수강신청완료</button>
           ) : (
             <div>
-              <button>장바구니담기</button>
               <button>수강신청하기</button>
+              {/* <button onClick={registLecture}>수강신청하기</button> */}
             </div>
           )}
         </TableDiv>

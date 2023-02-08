@@ -26,16 +26,16 @@ export const mainSlice = createSlice({
         savedName: "",
       },
     ],
-    // MyPageCard: [
-    //   {
-    //     no: 0,
-    //     subject: "",
-    //     startDate: "",
-    //     endDate: "",
-    //     content: "",
-    //     savedName: "",
-    //   },
-    // ],
+    MyPageCard: [
+      {
+        no: 0,
+        subject: "",
+        startDate: "",
+        endDate: "",
+        content: "",
+        savedName: "",
+      },
+    ],
   },
   reducers: {
     changeMain: (state, action) => {
@@ -50,9 +50,17 @@ export const mainSlice = createSlice({
     changeMainNo: (state, action) => {
       state.mainNo = action.payload;
     },
+    changeMyPage: (state, action) => {
+      state.MyPageCard = action.payload;
+    },
   },
 });
 
-export const { changeMain, changeSub, changeLecture, changeMainNo } =
-  mainSlice.actions;
+export const {
+  changeMain,
+  changeSub,
+  changeLecture,
+  changeMainNo,
+  changeMyPage,
+} = mainSlice.actions;
 export default mainSlice.reducer;
