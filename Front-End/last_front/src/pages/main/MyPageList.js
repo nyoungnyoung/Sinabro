@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import LectureItemCard from "./LectureItemCard";
+import MyPageCard from "./MyPageCard";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
 const StyledDiv = styled.div`
   width: 50%;
@@ -23,23 +24,8 @@ const CardDiv = styled.div`
 `;
 
 function MyPageList() {
-  const [cardData, setCardData] = useState([]);
-
-  // 카드 데이터 받아와서 state에 저장해주기
-  useEffect(() => {
-    const getCardData = async () => {
-      const res = await axios.get("/dummydata/MyLectureCard.json");
-      setCardData(res.data);
-    };
-    getCardData();
-  }, []);
-
-  // useEffect(() => {
-  //   const getCardData = async () => {
-  //     const res = await axios.get("/dummydata/MyLectureCard.json");
-  //     setCardData(res.data);
-  //   };
-  // }, []);
+  // 내가 신청한 강의 리스트 store에서 가져오기
+  const cardData = useSelector(state => state.main.MyPageCard);
 
   return (
     <StyledDiv>
@@ -47,7 +33,7 @@ function MyPageList() {
       <p>신청한 강의 목록을 모두 표시합니다</p>
       <CardDiv>
         {cardData.map(data => (
-          <LectureItemCard
+          <MyPageCard
             key={data.no}
             no={data.no}
             subject={data.subject}
