@@ -79,8 +79,8 @@ public class MainServiceImpl implements MainService {
 	public List<ResponseLecture> getLectureListByCategory(String categoryNumber) {
 		List<Lecture> lectureList = null;
 		List<ResponseLecture> resultList = null;
-		// 대분류가 전체일 경우 모든 강의 반환. (임의로 0로 설정함...) (jw) 
-		if(Integer.parseInt(categoryNumber) == 0) {
+		// 대분류가 전체일 경우 모든 강의 반환. (1이면 저장된 강의를 no값 오름차순으로 반환함) (jw) 
+		if(Integer.parseInt(categoryNumber) == 1) {
 			lectureList = lectureRepository.findAllLectures(PageRequest.of(0,6));
 			resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 		}
