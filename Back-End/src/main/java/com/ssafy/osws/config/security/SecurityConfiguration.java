@@ -37,10 +37,11 @@ public class SecurityConfiguration {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		
-		configuration.setAllowedOrigins(Arrays.asList("https://i8d203.p.ssafy.io", "http://localhost:3000", "http://i8d203.p.ssafy.io"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://i8d203.p.ssafy.io", "http://i8d203.p.ssafy.io"));
+
 		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "DELETE", "PUT", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "DELETE", "PUT", "OPTIONS"));
 		configuration.setAllowCredentials(true);
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -51,12 +52,12 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	   return http
-			.cors().configurationSource(corsConfigurationSource())
-			.and()
 			.formLogin().disable()
 	    	.httpBasic().disable()
 	        .csrf().disable()
 	        .headers().frameOptions().disable()
+	        .and()
+	        .cors().configurationSource(corsConfigurationSource())
 	        .and()
 	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
