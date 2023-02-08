@@ -11,6 +11,9 @@ export const loginSlice = createSlice({
     addToken(state, action) {
       state.token = action.payload;
     },
+    logOut(state, action) {
+      state.token = "";
+    },
   },
 });
 

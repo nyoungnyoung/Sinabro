@@ -43,10 +43,10 @@ function MyPageList() {
 
   return (
     <StyledDiv>
-      <h1>MyPageList</h1>
-      <p>로그인 후 출력될 신청 강의 목록 리스트 나와야함!</p>
+      <h1>나의배움터</h1>
+      <p>신청한 강의 목록을 모두 표시합니다</p>
       <CardDiv>
-        {cardData.map((data) => (
+        {cardData.map(data => (
           <LectureItemCard
             key={data.no}
             no={data.no}

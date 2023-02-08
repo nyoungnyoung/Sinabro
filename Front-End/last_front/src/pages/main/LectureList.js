@@ -35,13 +35,13 @@ const CardDiv = styled.div`
 `;
 
 function LectureList() {
-  // 메인카테고리 리스트 store에서 가져오기
+  // 강의 리스트 store에서 가져오기
   const cardData = useSelector(state => state.main.lectureCard);
 
   return (
     <StyledDiv>
-      <h1>LectureList</h1>
-      <p>로그인 후 출력될 신청 가능한 강의 목록 리스트!</p>
+      <h1>강의 신청</h1>
+      <p>새로 신청할 수 있는 강의 목록입니다</p>
       <SearchBar />
       <MainCategory />
       <SubCategory />

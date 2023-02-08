@@ -56,7 +56,7 @@ const StyledImg = styled.img`
   width: 40px;
 `;
 
-function MainCategory({ changeValue, lecture }) {
+function MainCategory() {
   // dispatch 사용하기 위해 정의해주기
   const dispatch = useDispatch();
 

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import LectureList from "./LectureList";
 import MyPageList from "./MyPageList";
-// import axios from "axios";
+
 import axios from "../../store/baseURL";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMain, changeLecture } from "../../store/mainSlice";
+import { changeMain } from "../../store/mainSlice";
+import NavBar from "./NavBar";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -35,9 +36,10 @@ function Main() {
 
   return (
     <div>
-      <h1>Main</h1>
+      <NavBar />
+      {/* <h1>Main</h1>
       <p>로그인 후 보여지는 첫번째 페이지!</p>
-      <p>왼쪽에 신청 가능한 강의목록, 오른쪽에 마이페이지</p>
+      <p>왼쪽에 신청 가능한 강의목록, 오른쪽에 마이페이지</p> */}
       <StyledDiv>
         <LectureList />
         <MyPageList />
