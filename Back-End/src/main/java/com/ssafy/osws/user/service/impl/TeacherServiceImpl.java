@@ -159,7 +159,7 @@ public class TeacherServiceImpl implements TeacherService{
 		return true;
 	}
 	
-	private boolean isMine(int lectureNo, HttpServletRequest request) {
+	public boolean isMine(int lectureNo, HttpServletRequest request) {
 		Lecture foundLecture = lectureQueryDSLRepository.findByPhoneAndLectureNo(findPhone(request), lectureNo);
 		if(foundLecture == null) {
 			return false;
@@ -168,7 +168,7 @@ public class TeacherServiceImpl implements TeacherService{
 		return true;
 	}
 	
-	private String findPhone(HttpServletRequest request) {
+	public String findPhone(HttpServletRequest request) {
 		return jwtProvider.validateToken(jwtProvider.resolveAccessToken(request));
 	}
 	
