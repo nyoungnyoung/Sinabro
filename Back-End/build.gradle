@@ -50,7 +50,7 @@ dependencies {
 }
 
 // QueryDSL
-def querydslDir = "$buildDir/generated/queryDsl"
+def querydslDir = "$buildPath/generated/queryDsl"
 
 querydsl {
    jpa = true
