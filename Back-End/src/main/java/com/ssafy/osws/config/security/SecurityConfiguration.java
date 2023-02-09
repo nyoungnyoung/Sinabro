@@ -67,7 +67,8 @@ public class SecurityConfiguration {
 	        .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**").permitAll()
 	        .antMatchers("/normal/**").hasAnyRole("normal", "admin")
 	        .antMatchers("/teacher/**").hasAnyRole("teacher", "admin")
-	        .antMatchers("/common/sign-out").hasAnyRole("teacher", "admin", "normal")
+	        .antMatchers(HttpMethod.DELETE, "/api/sessions/{sessionId}/connections").hasAnyRole("teacher", "admin")
+	        .antMatchers("/common/sign-out", "/api/sessions").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**", "/login/**").permitAll()
 	        //.antMatchers("/oauth2/**").authenticated() 소셜 로그인
 	    	.and()
