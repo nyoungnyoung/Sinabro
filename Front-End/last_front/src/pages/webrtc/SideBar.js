@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLinkClickHandler, useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
 
 function SideBar({ handleGlass }) {
@@ -49,11 +49,11 @@ function SideBar({ handleGlass }) {
   if (chat === false) {
     return (
       <StyledDiv>
-        <h3>메뉴바</h3>
+        {/* <StyledH3>메뉴바</StyledH3> */}
         {/* <p>WebRTC 메뉴바</p> */}
         <MicDiv>
           <MicDiv2>
-            <MicImg src="/img/mic.png" alt="mic" />
+            <MicImg src="/img/mic_black.png" alt="mic" />
             <h3>마이크</h3>
           </MicDiv2>
           <div>
@@ -78,7 +78,7 @@ function SideBar({ handleGlass }) {
 
         <VideoDiv>
           <VideoDiv2>
-            <VideoImg src="/img/video.png" alt="mic" />
+            <VideoImg src="/img/video_black.png" alt="mic" />
             <h3>비디오</h3>
           </VideoDiv2>
           <div>
@@ -107,7 +107,7 @@ function SideBar({ handleGlass }) {
 
         <GlassDiv>
           <GlassDiv2>
-            <GlassImg src="/img/glass.png" alt="glass" />
+            <GlassImg src="/img/zoom_black.png" alt="glass" />
             <h3>돋보기</h3>
           </GlassDiv2>
           <div>
@@ -120,7 +120,10 @@ function SideBar({ handleGlass }) {
                   ? { backgroundColor: "green" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeGlassOn}
+              onClick={() => {
+                changeGlassOn();
+                handleGlass(true);
+              }}
             >
               켜짐
             </OnButton>
@@ -133,7 +136,10 @@ function SideBar({ handleGlass }) {
                   ? { backgroundColor: "red" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeGlassOff}
+              onClick={() => {
+                changeGlassOff();
+                handleGlass(false);
+              }}
             >
               꺼짐
             </OffButton>
@@ -142,7 +148,7 @@ function SideBar({ handleGlass }) {
 
         <ChatDiv>
           <ChatDiv2>
-            <GlassImg src="/img/chatting.png" alt="chatting" />
+            <GlassImg src="/img/chatting_black.png" alt="chatting" />
             <h3>채팅</h3>
           </ChatDiv2>
           <OnChatButton onClick={changeChatOn}>채팅장 열기</OnChatButton>
@@ -160,16 +166,21 @@ function SideBar({ handleGlass }) {
 const StyledDiv = styled.div`
   width: 20%;
   height: 90vh;
-  background-color: whitesmoke;
+  background-color: black;
 `;
-
+// const StyledH3 = styled.h3`
+//   color: white;
+// `;
 const MicDiv = styled.div`
+  margin-top: 15%;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
   height: 15%;
-  background-color: #9f9494;
+  background-color: #fff3c6;
+  border-radius: 10px;
   margin-bottom: 10px;
+  box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
 `;
 
 const MicDiv2 = styled.div`
@@ -188,10 +199,12 @@ const MicImg = styled.img`
 const VideoDiv = styled.div`
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 5%;
   width: 90%;
   height: 15%;
-  background-color: #9f9494;
-  margin-bottom: 10px;
+  background-color: #fff3c6;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
 `;
 
 const VideoDiv2 = styled.div`
@@ -208,12 +221,14 @@ const VideoImg = styled.img`
 `;
 
 const GlassDiv = styled.div`
+  margin-top: 5%;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
   height: 15%;
-  background-color: #9f9494;
-  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #fff3c6;
+  box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
 `;
 
 const GlassDiv2 = styled.div`
@@ -230,11 +245,14 @@ const GlassImg = styled.img`
 `;
 
 const ChatDiv = styled.div`
+  box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
+  margin-top: 5%;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
   height: 15%;
-  background-color: #9f9494;
+  border-radius: 10px;
+  background-color: #fff3c6;
   margin-bottom: 85px;
 `;
 
@@ -247,6 +265,7 @@ const ChatDiv2 = styled.div`
 const OnButton = styled.button`
   width: 60px;
   background-color: gray;
+  border-radius: 10px;
   border: 0px solid green;
   color: white;
   padding: 5px;
@@ -259,6 +278,7 @@ const OnButton = styled.button`
 `;
 
 const OnChatButton = styled.button`
+  border-radius: 10px;
   width: 100px;
   background-color: gray;
   border: 0px solid green;
@@ -273,6 +293,7 @@ const OnChatButton = styled.button`
 `;
 
 const OffButton = styled.button`
+  border-radius: 10px;
   width: 60px;
   background-color: gray;
   border: 0px solid red;
@@ -287,17 +308,18 @@ const OffButton = styled.button`
 `;
 
 const StyledButton = styled.button`
+  border-radius: 10px;
   font-size: 100%;
   font-weight: 1000;
   margin-top: 15px;
   width: 90%;
   height: 8%;
-  background-color: gray;
+  background-color: #fff3c6;
   border: 0px #f7c815 solid;
   cursor: pointer;
   :hover {
     background-color: #f7c815;
-    color: white;
+    color: black;
     font-weight: 1000;
   }
 `;

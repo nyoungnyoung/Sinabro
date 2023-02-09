@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../store/baseURL";
 import styled from "styled-components";
 function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
   const [phone, setPhone] = useState("");
@@ -21,7 +21,7 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
 
   const phoneCheck = (phone) => {
     axios
-      .post("http://localhost:5000/common/phone-check/", {
+      .post("/common/phone-check/", {
         phone: phone,
       })
       .then((response) => {
@@ -31,7 +31,7 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
         } else {
           // send-auth-code api 실행
           axios
-            .post("http://localhost:5000/common/send-auth-code/", {
+            .post("/common/send-auth-code/", {
               phone: phone,
             })
             .then((response) => {

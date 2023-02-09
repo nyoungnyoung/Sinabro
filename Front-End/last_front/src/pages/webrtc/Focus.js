@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+// import Zoom from "./Zoom";
 
 function Focus({ glassOn }) {
   // console.log(glassOn);
@@ -13,22 +14,22 @@ function Focus({ glassOn }) {
 
   const glassDiv = useRef();
 
-  const user = 7;
+  const user = 2;
 
   const mouseMove = (event) => {
     // console.log(event);
 
     // 마우스 위치
-    const clientX = event.clientX;
-    const clientY = event.clientY;
+    // console.log(event);
+    const pageX = event.pageX;
+    const pageY = event.pageY;
 
     // StyledGlass.style.left = clientX + console.log("clientX", clientX);
-    // console.log("clientX", clientX);
-    // console.log("clientY", clientY);
+    console.log("pageX", pageX);
+    console.log("pageY", pageY);
 
-    // console.log(typeof clientX);
-    // const left = glassDiv.current.clientLeft + clientX;
-    // const top = glassDiv.current.clientTop + clientY;
+    // const left = glassDiv.current.pageX + pageX;
+    // const top = glassDiv.current.pageY + pageY;
 
     // console.log("left", left);
     // console.log("top", top);
@@ -52,6 +53,7 @@ function Focus({ glassOn }) {
           <StyledGlass ref={glassDiv}>
             <h1>돋보기 화면</h1>
           </StyledGlass>
+          // <Zoom />
         )}
       </StyledDiv>
     );
@@ -173,14 +175,14 @@ const StyledDiv = styled.div`
   height: 90vh;
   color: white;
   background-color: black;
+  position: relative;
 `;
 
 const StyledGlass = styled.div`
   width: 200px;
   height: 150px;
   position: absolute;
-  z-index: 20;
-  border: 3px green solid;
+  border: 5px yellow solid;
   border-radius: 15px;
   left: 0;
   top: 30;
@@ -189,6 +191,7 @@ const StyledGlass = styled.div`
 const TwoDiv = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
 `;
 
 const TwoDiv2 = styled.div`
@@ -198,6 +201,7 @@ const TwoDiv2 = styled.div`
   margin-top: 100px;
   margin-left: 13px;
   margin-right: 13px;
+  position: relative;
 `;
 
 const ThreeDiv = styled.div`

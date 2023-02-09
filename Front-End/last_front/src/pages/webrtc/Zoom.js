@@ -1,9 +1,23 @@
 import React from "react";
-// import ZoomImage from "./ZoomImage";
+import styled from "styled-components";
 
-const PZoomImage = () => {
-  // return <ZoomImage zoomRate={5} width={350} height={300} />;
-  return <div>image</div>;
-};
+function Zoom() {
+  return (
+    <StyledGlass>
+      <h3>돋보기 화면</h3>
+    </StyledGlass>
+  );
+}
 
-export default PZoomImage;
+const StyledGlass = styled.div`
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  z-index: 10;
+  border: 5px red solid;
+  border-radius: 15px;
+  left: 0;
+  top: 30;
+`;
+
+export default Zoom;
