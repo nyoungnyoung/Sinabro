@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,12 +14,13 @@ import org.springframework.stereotype.Service;
 import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.repository.LectureCategoryRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
+import com.ssafy.osws.lecture.dto.response.ResponseLectureDetail;
+import com.ssafy.osws.lecture.service.LectureService;
 import com.ssafy.osws.main.data.entity.Category;
 import com.ssafy.osws.main.data.entity.SubCategory;
 import com.ssafy.osws.main.data.repository.MainRepository;
 import com.ssafy.osws.main.data.repository.SubCategoryRepository;
 import com.ssafy.osws.main.dto.response.ResponseCategory;
-import com.ssafy.osws.main.dto.response.ResponseLecture;
 import com.ssafy.osws.main.dto.response.ResponsePriorityNotice;
 import com.ssafy.osws.main.dto.response.ResponseSubCategory;
 import com.ssafy.osws.notice.data.entity.Notice;
@@ -42,6 +45,9 @@ public class MainServiceImpl implements MainService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private LectureService lectureService;
 
 	@Override
 	public ResponsePriorityNotice getPriorityNotice() throws Exception {
@@ -76,25 +82,32 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<ResponseLecture> getLectureListByCategory(String categoryNumber) {
+	public List<ResponseLectureDetail> getLectureListByCategory(String categoryNumber, HttpServletRequest request) {
 		List<Lecture> lectureList = null;
-		List<ResponseLecture> resultList = null;
+		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		// 대분류가 전체일 경우 모든 강의 반환. (1이면 저장된 강의를 no값 오름차순으로 반환함) (jw) 
 		if(Integer.parseInt(categoryNumber) == 1) {
 			lectureList = lectureRepository.findAllLectures(PageRequest.of(0,6));
-			resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
+			for(Lecture lecture: lectureList) {
+				int lectureNo = lecture.getNo();
+				resultList.add(lectureService.getLecture(lectureNo,request));
+			}
 		}
 		else {
 			lectureList = lectureRepository.findLectureByCategory(Integer.parseInt(categoryNumber), PageRequest.of(0,6));
-			resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
+			//resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
+			for(Lecture lecture: lectureList) {
+				int lectureNo = lecture.getNo();
+				resultList.add(lectureService.getLecture(lectureNo,request));
+			}
 		} 
 		return resultList; 
 	}
 
 	@Override
-	public List<ResponseLecture> getLectureListBySubCategory(String subCategoryNumberList) {
+	public List<ResponseLectureDetail> getLectureListBySubCategory(String subCategoryNumberList, HttpServletRequest request) {
 		List<Lecture> lectureList = null;
-		List<ResponseLecture> resultList = null;
+		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		
 		// subCategoryNumberList 는 , 기준으로 나눠야 한다.
 		List<String> list = Arrays.asList(subCategoryNumberList.split(","));
@@ -105,19 +118,27 @@ public class MainServiceImpl implements MainService {
 		}
 		
 		lectureList = lectureRepository.findLectureBySubCategory(intList, PageRequest.of(0,6));
-		resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
+		for(Lecture lecture: lectureList) {
+			int lectureNo = lecture.getNo();
+			resultList.add(lectureService.getLecture(lectureNo,request));
+		}
+//		resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 		return resultList;
 	}
 
 	@Override
-	public List<ResponseLecture> searchLectureList(String query) {
+	public List<ResponseLectureDetail> searchLectureList(String query, HttpServletRequest request) {
 		List<Lecture> lectureList = null;
-		List<ResponseLecture> resultList = null;
+		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		
 		// subCategoryNumberList 는 , 기준으로 나눠야 한다.
 		lectureList = lectureRepository.findBySubjectContaining(query, PageRequest.of(0,6));
 		System.out.println(lectureList);
-		resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
+		for(Lecture lecture: lectureList) {
+			int lectureNo = lecture.getNo();
+			resultList.add(lectureService.getLecture(lectureNo, request));
+		}
+		
 		return resultList;
 	}
 }
