@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   width: 100%;
   align-items: center;
   border-bottom: solid rgba(248, 208, 83, 0.5);
-  background-color: #583e26;
+  background-color: #fbc300;
   z-index: 999;
 `;
 
@@ -48,14 +48,13 @@ const LeftWrapper = styled.div`
 `;
 
 const StyledP = styled.p`
-  color: white;
+  color: black;
   font-weight: 700;
 `;
 
 const StyledButton = styled.button`
   font-family: "Chilgok_Cye";
-  background-color: #583e26;
-  color: white;
+  background-color: #fbc300;
   font-size: 30px;
   width: 150px;
   height: 40px;
@@ -64,7 +63,8 @@ const StyledButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   :hover {
-    color: yellow;
+    background-color: #583e26;
+    color: white;
   }
 `;
 export default Navbar;
