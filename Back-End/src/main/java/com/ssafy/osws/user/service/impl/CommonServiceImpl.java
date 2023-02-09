@@ -53,6 +53,7 @@ public class CommonServiceImpl implements CommonService {
 		ResponseSignIn responseSignIn = null;
 		if(user != null && passwordEncoder.matches(requestSignIn.getPassword(), user.getPassword())) {
 			responseSignIn = new ResponseSignIn();
+			responseSignIn.setRole(user.getRole().split("_")[1]);
 			responseSignIn.setAccessToken(jwtProvider.createAccessToken(user.getPhone()));
 			responseSignIn.setRefreshToken(jwtProvider.createRefreshToken(user.getPhone()));
 			userRepository.save(responseSignIn.toEntitiy(user));
