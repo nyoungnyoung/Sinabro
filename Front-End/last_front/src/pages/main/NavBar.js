@@ -15,6 +15,9 @@ const StyledDiv = styled.div`
 const StyledImg = styled.img`
   width: 80px;
   height: 80px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledBtn = styled.button`
@@ -42,15 +45,19 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onClick = () => {
+  const onClickLogOut = () => {
     navigate("/");
     dispatch(loginActions.logOut());
   };
 
+  const moveToMain = () => {
+    navigate("/main");
+  };
+
   return (
     <StyledDiv>
-      <StyledImg src="/img/logo.png" alt="logo" />
-      <StyledBtn onClick={onClick}>로그아웃</StyledBtn>
+      <StyledImg src="/img/logo.png" alt="logo" onClick={moveToMain} />
+      <StyledBtn onClick={onClickLogOut}>로그아웃</StyledBtn>
     </StyledDiv>
   );
 }

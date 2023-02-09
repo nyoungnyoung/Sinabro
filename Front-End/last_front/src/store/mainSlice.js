@@ -9,7 +9,7 @@ export const mainSlice = createSlice({
         no: 1,
       },
     ],
-    mainNo: "0",
+    mainNo: "1",
     subCategory: [
       {
         name: "",
@@ -36,6 +36,12 @@ export const mainSlice = createSlice({
         savedName: "",
       },
     ],
+    TeacherCard: [
+      {
+        no: 0,
+        subject: "",
+      },
+    ],
   },
   reducers: {
     changeMain: (state, action) => {
@@ -53,6 +59,9 @@ export const mainSlice = createSlice({
     changeMyPage: (state, action) => {
       state.MyPageCard = action.payload;
     },
+    changeTeacher: (state, action) => {
+      state.MyPageCard = action.payload;
+    },
   },
 });
 
@@ -62,5 +71,6 @@ export const {
   changeLecture,
   changeMainNo,
   changeMyPage,
+  changeTeacher,
 } = mainSlice.actions;
 export default mainSlice.reducer;

@@ -22,14 +22,14 @@ const CardDiv = styled.div`
   }
 `;
 
-function MyPageList() {
-  // 내가 신청한 강의 리스트 store에서 가져오기
+function TeacherPage() {
+  // 내가 강의 중인 리스트 store에서 가져오기
   const cardData = useSelector(state => state.main.MyPageCard);
 
   return (
     <StyledDiv>
-      <h1>나의배움터</h1>
-      <p>신청한 강의 목록을 모두 표시합니다</p>
+      <h1>내 강의 목록</h1>
+      <p>내가 강의하고 있는 강의 목록을 모두 표시합니다</p>
       <CardDiv>
         {cardData.map(data => (
           <MyPageCard
@@ -47,4 +47,4 @@ function MyPageList() {
   );
 }
 
-export default MyPageList;
+export default TeacherPage;

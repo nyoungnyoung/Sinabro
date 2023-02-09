@@ -38,6 +38,7 @@ function LectureList() {
   // 강의 리스트 store에서 가져오기
   const cardData = useSelector(state => state.main.lectureCard);
 
+  console.log(cardData);
   return (
     <StyledDiv>
       <h1>강의 신청</h1>

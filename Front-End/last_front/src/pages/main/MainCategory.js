@@ -41,6 +41,9 @@ const StyledDiv = styled.div`
   align-items: center;
   margin-bottom: 20px;
   cursor: pointer;
+  :hover {
+    transform: scale(1.2);
+  }
 `;
 
 const ImgDiv = styled.div`
@@ -62,7 +65,7 @@ function MainCategory() {
 
   // 메인카테고리 리스트 store에서 가져오기
   const mainCategory = useSelector(state => state.main.mainCategory);
-  const [selectedNo, setSelectedNo] = useState("0");
+  const [selectedNo, setSelectedNo] = useState("1");
 
   // 대분류 클릭 시 selectedNo 변경
   const onClick = e => {
@@ -85,6 +88,19 @@ function MainCategory() {
     });
   }, [selectedNo]);
 
+  // 대분류에 들어갈 아이콘 리스트
+  const imgs = [
+    "all.png",
+    "excercise.png",
+    "art.png",
+    "cooking.png",
+    "language.png",
+    "digital.png",
+    "writing.png",
+    "music.png",
+    "money.png",
+  ];
+
   return (
     <CategoryDiv>
       {/* <Slider {...settings}> */}
@@ -96,7 +112,16 @@ function MainCategory() {
           onClick={onClick}
         >
           <ImgDiv id={category.no}>
-            <StyledImg id={category.no} src="/img/all.png" alt="all" />
+            {/* <StyledImg
+              id={category.no}
+              src={require(`/img/${imgs[category.no - 1]}`).default}
+              alt="icon"
+            /> */}
+            <StyledImg
+              id={category.no}
+              src={"/img/" + imgs[category.no - 1]}
+              alt="all"
+            />
           </ImgDiv>
           <span id={category.no}>{category.name}</span>
         </StyledDiv>

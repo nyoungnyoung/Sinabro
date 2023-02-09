@@ -45,6 +45,10 @@ const StyledDiv = styled.div`
   font-weight: bolder;
   font-size: large;
   cursor: pointer;
+  :hover {
+    transform: scale(1.2);
+    background-color: #ff5f2e;
+  }
 `;
 
 // const StyledSlider = styled(Slider)`
