@@ -3,8 +3,9 @@ import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLecture } from "../../store/detailSlice";
-// import { changeLecture, changeMainNo } from "../../store/mainSlice";
 import { useLocation } from "react-router-dom";
+import NavBar from "./NavBar";
+// import { changeLecture, changeMainNo } from "../../store/mainSlice";
 // import axios from "axios";
 
 const DetailPageDiv = styled.div`
@@ -55,6 +56,11 @@ const StyledBtn = styled.button`
   font-size: larger;
   font-weight: 1000;
   color: black;
+  :hover {
+    transform: scale(1.2);
+    background-color: #ff5f2e;
+    color: white;
+  }
 `;
 
 function LectureDetail() {
@@ -64,10 +70,11 @@ function LectureDetail() {
   // Access Token, 강의 상세정보 스토어에서 가져오기
   const loginToken = useSelector(state => state.login.token.accessToken);
   const lectureData = useSelector(state => state.detail.lectureData);
+  const registInfo = useSelector(state => state.detail.lectureData.isEnrolled);
   // const enrollInfo = useSelector(state => state.detail.lectureData.isEnrolled);
 
   // isEnrolled 저장할 state생성
-  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(registInfo);
 
   // LectureNo 주소에서 받아오기
   const lectureNo = Number(useLocation().pathname.slice(8));
@@ -117,27 +124,30 @@ function LectureDetail() {
   console.log(isEnrolled);
 
   return (
-    <DetailPageDiv>
-      <h1>LectureDetail</h1>
-      <StyledDiv>
-        <StyledImg src={lectureData.savedName} alt="img"></StyledImg>
-        <TableDiv>
-          <h1>{lectureData.subject}</h1>
-          <p>{lectureData.content}</p>
-          <p>
-            수강기간 {lectureData.startDate} ~ {lectureData.endDate}
-          </p>
-          <p>강사명 {lectureData.name}</p>
-          <div>
-            {isEnrolled ? (
-              <StyledBtn onClick={deleteLecture}>수강신청완료</StyledBtn>
-            ) : (
-              <StyledBtn onClick={registLecture}>수강신청하기</StyledBtn>
-            )}
-          </div>
-        </TableDiv>
-      </StyledDiv>
-    </DetailPageDiv>
+    <div>
+      <NavBar />
+      <DetailPageDiv>
+        <h1>LectureDetail</h1>
+        <StyledDiv>
+          <StyledImg src={lectureData.savedName} alt="img"></StyledImg>
+          <TableDiv>
+            <h1>{lectureData.subject}</h1>
+            <p>{lectureData.content}</p>
+            <p>
+              수강기간 {lectureData.startDate} ~ {lectureData.endDate}
+            </p>
+            <p>강사명 {lectureData.name}</p>
+            <div>
+              {isEnrolled ? (
+                <StyledBtn onClick={deleteLecture}>수강신청완료</StyledBtn>
+              ) : (
+                <StyledBtn onClick={registLecture}>수강신청하기</StyledBtn>
+              )}
+            </div>
+          </TableDiv>
+        </StyledDiv>
+      </DetailPageDiv>
+    </div>
   );
 }
 

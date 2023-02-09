@@ -8,6 +8,9 @@ const LectureDiv = styled.div`
   border-radius: 10px;
   box-shadow: -1px 15px 30px -12px black;
   margin-bottom: 50px;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledImg = styled.img`
@@ -25,7 +28,12 @@ const StyledBtn = styled.button`
   background-color: #f7c815;
   font-size: larger;
   font-weight: 1000;
-  color: black;
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: #ff5f2e;
+    color: white;
+  }
 `;
 
 const StyledLink = styled(Link)`

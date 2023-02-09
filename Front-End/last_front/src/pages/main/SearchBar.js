@@ -38,7 +38,8 @@ const StyledButton = styled.button`
   border-left: 0px;
   &:hover {
     cursor: pointer;
-    background-color: #ffd739;
+    background-color: #ff5f2e;
+    border: 3px solid #ff5f2e;
     /* outline: 3px solid #ffd739; */
     /* border-left: 2px solid black; */
   }
