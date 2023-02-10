@@ -310,6 +310,20 @@ class App extends Component {
                                     onClick={this.turnOffMic}
                                     value="Turn off Mic"
                                 />
+                                <input
+                                    className="btn btn-large btn-success"
+                                    type="button"
+                                    id="buttonTurnOnVideo"
+                                    onClick={this.turnOnVideo}
+                                    value="Turn on Video"
+                                />
+                                <input
+                                    className="btn btn-large btn-success"
+                                    type="button"
+                                    id="buttonTurnOffVideo"
+                                    onClick={this.turnOffVideo}
+                                    value="Turn off Video"
+                                />
                             </div>
                         ) : null}
                         <div id="video-container" className="col-md-6">
