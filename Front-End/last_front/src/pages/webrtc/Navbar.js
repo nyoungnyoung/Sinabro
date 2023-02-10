@@ -2,25 +2,44 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Navbar() {
+function Navbar({ changeShare, changeJoin, changeTogether }) {
+  const role = "teacher";
+
   const navigate = useNavigate();
 
   const moveToMain = () => {
     navigate("/main");
   };
-  return (
-    <Wrapper>
-      <HeaderWrapper>
-        <StyledButton onClick={moveToMain}>시나브로</StyledButton>
-      </HeaderWrapper>
 
-      <LeftWrapper>
-        <StyledP>
-          현재 수강하고 계신 강의는 000 강사님의 00000 교실입니다 :){" "}
-        </StyledP>
-      </LeftWrapper>
-    </Wrapper>
-  );
+  if (role === "teacher") {
+    return (
+      <Wrapper>
+        <HeaderWrapper>
+          <StyledButton onClick={moveToMain}>시나브로</StyledButton>
+        </HeaderWrapper>
+
+        <LeftWrapper>
+          <ModeButton onClick={changeShare}>share</ModeButton>
+          <ModeButton onClick={changeJoin}>join</ModeButton>
+          <ModeButton onClick={changeTogether}>together</ModeButton>
+        </LeftWrapper>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <HeaderWrapper>
+          <StyledButton onClick={moveToMain}>시나브로</StyledButton>
+        </HeaderWrapper>
+
+        <LeftWrapper>
+          <StyledP>
+            현재 수강하고 계신 강의는 000 강사님의 00000 교실입니다 :){" "}
+          </StyledP>
+        </LeftWrapper>
+      </Wrapper>
+    );
+  }
 }
 const Wrapper = styled.div`
   margin: 0;
@@ -65,6 +84,22 @@ const StyledButton = styled.button`
   :hover {
     background-color: #583e26;
     color: white;
+  }
+`;
+
+const ModeButton = styled.button`
+  width: 110px;
+  height: 40px;
+  margin-left: 10px;
+  border-radius: 15px;
+  border: 0px solid red;
+  background-color: #331400;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  :hover {
+    background-color: red;
   }
 `;
 export default Navbar;

@@ -15,8 +15,8 @@ function SignUpPw2({ signUpData }) {
     setPw2(event);
   };
 
-  const moveToComplete = () => {
-    navigate("/signup/complete");
+  const moveToCheck = () => {
+    navigate("/signup/agree");
   };
 
   const backToPassword2 = () => {
@@ -40,7 +40,7 @@ function SignUpPw2({ signUpData }) {
   const checkPassword = () => {
     if (pw2 === signUpData.password) {
       apiSignUpData();
-      moveToComplete();
+      moveToCheck();
     } else {
       backToPassword2();
       setPw2("");

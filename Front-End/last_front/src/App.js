@@ -31,7 +31,7 @@ function App() {
           <Route path="/main/*" element={<Main />} />
           <Route path="/detail/:lectureId" element={<LectureDetail />} />
           <Route path="/teacher/*" element={<TeacherMain />} />
-          <Route path="/webrtc/:lectureId" element={<WebRtcMain />} />
+          <Route path="/webrtc/:lectureId/*" element={<WebRtcMain />} />
           <Route path="/cs" element={<Cs />} />
         </Routes>
       </BrowserRouter>

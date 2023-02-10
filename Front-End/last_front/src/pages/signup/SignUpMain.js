@@ -8,6 +8,7 @@ import SignUpPw1 from "./SignUpPw1";
 import SignUpPw2 from "./SignUpPw2";
 import CompleteSignUp from "./CompleteSignUp";
 import AlreadyExisted from "./AlreadyExisted";
+import Agree from "./Agree";
 
 function SignUpMain() {
   const [signUp, setSignUp] = useState({
@@ -57,6 +58,7 @@ function SignUpMain() {
           element={<SignUpPw1 HandleSignUp={HandleSignUp} />}
         ></Route>
         <Route path="/pw2" element={<SignUpPw2 signUpData={signUp} />}></Route>
+        <Route path="/agree" element={<Agree />}></Route>
         <Route
           path="/complete"
           element={<CompleteSignUp signUpData={signUp} />}

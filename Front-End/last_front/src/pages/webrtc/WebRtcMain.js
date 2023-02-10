@@ -1,23 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./Navbar";
-import SideBar from "./SideBar";
+
 import Focus from "./Focus";
+import ShareScreen from "./ShareScreen";
+import TogetherScreen from "./TogetherScreen";
+import SideBar from "./SideBar";
 // import Zoom from "./Zoom";
 
 function WebRtcMain() {
-  const [glassOn, setGlassOn] = useState(false);
-
-  const handleGlass = (data) => {
-    setGlassOn(data);
-  };
   // console.log(glassOn);
+  const location = useLocation();
+
+  console.log(location);
+  const navigate = useNavigate();
+
+  const id = location.pathname.slice(8, 9);
+
+  // console.log(id);
+  // console.log(typeof id);
+
+  const changeShare = () => {
+    navigate(`/webrtc/${id}/share`);
+  };
+
+  const changeJoin = () => {
+    navigate(`/webrtc/${id}/join`);
+  };
+
+  const changeTogether = () => {
+    navigate(`/webrtc/${id}/together`);
+  };
+
   return (
     <StyledDiv>
-      <Navbar />
+      <Navbar
+        changeShare={changeShare}
+        changeJoin={changeJoin}
+        changeTogether={changeTogether}
+      />
       <StyledDiv2>
-        <Focus glassOn={glassOn} />
-        <SideBar handleGlass={handleGlass} />
+        <Routes>
+          <Route
+            path="/share"
+            element={<ShareScreen changeShare={changeShare} />}
+          ></Route>
+          <Route
+            path="/join"
+            element={<Focus changeJoin={changeJoin} />}
+          ></Route>
+          <Route
+            path="/together"
+            element={<TogetherScreen changetogether={changeTogether} />}
+          ></Route>
+        </Routes>
+        <SideBar />
       </StyledDiv2>
       {/* <Zoom /> */}
     </StyledDiv>
