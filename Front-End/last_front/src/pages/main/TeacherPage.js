@@ -24,7 +24,7 @@ const CardDiv = styled.div`
 
 function TeacherPage() {
   // 내가 강의 중인 리스트 store에서 가져오기
-  const cardData = useSelector(state => state.main.MyPageCard);
+  const cardData = useSelector(state => state.main.TeacherCard);
 
   return (
     <StyledDiv>

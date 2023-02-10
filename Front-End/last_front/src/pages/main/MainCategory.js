@@ -52,6 +52,7 @@ const ImgDiv = styled.div`
   border: none;
   border-radius: 50%;
   background-color: white;
+  margin-bottom: 8px;
 `;
 
 const StyledImg = styled.img`
@@ -63,8 +64,9 @@ function MainCategory() {
   // dispatch 사용하기 위해 정의해주기
   const dispatch = useDispatch();
 
-  // 메인카테고리 리스트 store에서 가져오기
+  // Access Token, 메인카테고리 리스트 store에서 가져오기
   const mainCategory = useSelector(state => state.main.mainCategory);
+  const loginToken = useSelector(state => state.login.token.accessToken);
   const [selectedNo, setSelectedNo] = useState("1");
 
   // 대분류 클릭 시 selectedNo 변경
@@ -83,9 +85,13 @@ function MainCategory() {
 
   // 대분류 버튼 클릭시 변경되는 selectedNo에 맞는 강의정보 가져오는 axios 요청
   useEffect(() => {
-    axios.get("/main/lecture/" + selectedNo).then(lecture => {
-      dispatch(changeLecture(lecture.data));
-    });
+    axios
+      .get("/main/lecture/" + selectedNo, {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      })
+      .then(lecture => {
+        dispatch(changeLecture(lecture.data));
+      });
   }, [selectedNo]);
 
   // 대분류에 들어갈 아이콘 리스트
