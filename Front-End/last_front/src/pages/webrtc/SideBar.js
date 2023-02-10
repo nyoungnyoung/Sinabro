@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useLinkClickHandler, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
 
 function SideBar({ handleGlass }) {

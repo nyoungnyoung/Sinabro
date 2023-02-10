@@ -25,8 +25,8 @@ function Focus({ glassOn }) {
     const pageY = event.pageY;
 
     // StyledGlass.style.left = clientX + console.log("clientX", clientX);
-    console.log("pageX", pageX);
-    console.log("pageY", pageY);
+    // console.log("pageX", pageX);
+    // console.log("pageY", pageY);
 
     // const left = glassDiv.current.pageX + pageX;
     // const top = glassDiv.current.pageY + pageY;
