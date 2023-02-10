@@ -10,6 +10,7 @@ import {
   leaveSession,
 } from "./modules";
 import ShareScreen from "../ShareScreen";
+import Focus from "../Focus";
 import SideBar from "../SideBar";
 import Navbar from "../Navbar";
 import styled from "styled-components";
@@ -96,7 +97,7 @@ function App() {
             let publisher = await OV.initPublisherAsync(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: undefined, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
               frameRate: 30, // The frame rate of your video
@@ -267,20 +268,13 @@ function App() {
           </div>
           <Navbar />
           <StyledDiv2>
-            <ShareScreen info={ info } />
-          <SideBar info={ info } />
+            <Focus info={ info } />
+            <SideBar info={ info } />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
             <div id="main-video" className="col-md-6">
               <UserVideoComponent streamManager={info.mainStreamManager} />
-              {/* <input
-                className="btn btn-large btn-success"
-                type="button"
-                id="buttonSwitchCamera"
-                onClick={switchCamera}
-                value="Switch Camera"
-              /> */}
             </div>
           ) : null}
           <div id="video-container" className="col-md-6">
@@ -290,16 +284,6 @@ function App() {
                 onClick={() => handleMainVideoStream(info.publisher)}
               >
                 <UserVideoComponent streamManager={info.publisher} />
-                {/* <button
-                  onClick={() =>
-                    selectInterviwee(
-                      info.publisher.stream.connection.connectionId,
-                      info.mySessionId
-                    )
-                  }
-                >
-                  면접자 지정
-                </button> */}
               </div>
             ) : null}
             {info.subscribers.map((sub, i) => (
@@ -309,13 +293,6 @@ function App() {
                 onClick={() => handleMainVideoStream(sub)}
               >
                 <UserVideoComponent streamManager={sub} />
-                {/* <button
-                  onClick={() =>
-                    selectInterviwee(sub.stream.connection.connectionId)
-                  }
-                >
-                  면접자 지정
-                </button> */}
               </div>
             ))}
           </div>
