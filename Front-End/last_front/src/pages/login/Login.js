@@ -13,10 +13,9 @@ function Login() {
     navigate("/main");
   };
 
-  const moveToLogin = () => {
-    navigate("/login");
+  const moveToLobby = () => {
+    navigate("/");
   };
-
   const [login, setLogin] = useState({
     number: "",
     password: "",
@@ -47,7 +46,13 @@ function Login() {
           isLogined(response.data);
           moveToMain();
         } else {
-          moveToLogin();
+          alert(
+            "전화번호가 없거나, 비밀번호가 틀렸습니다! 다시 시도해주세요 :)"
+          );
+          setLogin({
+            number: "",
+            password: "",
+          });
         }
       })
       .catch((error) => {
@@ -92,6 +97,7 @@ function Login() {
         >
           로그인
         </StyledButton>
+        <StyledButton onClick={moveToLobby}>홈으로</StyledButton>
       </div>
     </StyledDiv>
   );
@@ -116,9 +122,9 @@ const StyledInput = styled.input`
   border-radius: 15px;
 `;
 const StyledButton = styled.button`
-  width: 200px;
+  width: 180px;
   height: 50px;
-  margin-left: auto;
+  margin-left: 20px;
   margin-right: auto;
   margin-top: 20px;
   font-size: 15px;

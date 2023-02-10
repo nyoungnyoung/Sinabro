@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 const Agree = () => {
+  const navigate = useNavigate();
   // 약관동의 여부 변수
   const [agree, setAgree] = useState(false);
 
   // 약관동의 변경 함수
   const changeAgree = () => {
     setAgree(!agree);
-    setAgree(!agree);
   };
 
+  const moveToNumber = () => {
+    navigate("/signup/number");
+  };
   // console.log(agree);
 
   return (
@@ -22,6 +26,9 @@ const Agree = () => {
           <input type="checkbox" onClick={changeAgree} />
           <p>약관에 동의합니다</p>
         </StyledDiv3>
+        {agree && (
+          <StyledButton onClick={moveToNumber}>다음 단계로</StyledButton>
+        )}
       </StyledDiv2>
     </StyledDiv>
   );
@@ -38,7 +45,7 @@ const StyledDiv2 = styled.div`
   border-radius: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   width: 90vh;
-  height: 40vh;
+  height: 50vh;
   text-align: left;
   margin: auto;
 `;
@@ -60,5 +67,29 @@ const StyledDiv3 = styled.div`
   display: flex;
   justify-content: end;
   margin-right: 50px;
+`;
+
+const StyledButton = styled.button`
+  width: 200px;
+  height: 50px;
+  margin-left: 50px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #f7c815;
+  font-size: 15px;
+  font-family: "Chilgok_Cye";
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  :hover {
+    letter-spacing: 2px;
+    transform: scale(1.2);
+    cursor: pointer;
+    background-color: #ff5f2e;
+    color: white;
+    outline: 0;
+  }
 `;
 export default Agree;
