@@ -7,6 +7,7 @@ import { changeMain, changeMyPage, changeTeacher } from "../../store/mainSlice";
 import LectureList from "./LectureList";
 import MyPageList from "./MyPageList";
 import NavBar from "./NavBar";
+// import MagnifyingGlass from "./MagnifyingGlass";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,9 +22,12 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Access Token 스토어에서 가져오기
+  // Access Token, Role 스토어에서 가져오기
   const loginToken = useSelector(state => state.login.token.accessToken);
-  // const main = useSelector(state => state.main);
+  const role = useSelector(state => state.login.token.role);
+  // const loginInfo = useSelector(state => state.login.token);
+
+  const main = useSelector(state => state.main);
 
   // 처음 마운트 됐을 때 메인 카테고리 데이터 받아와서 store에 저장해주기
   // http://localhost:5000/main/category 로컬
@@ -35,6 +39,9 @@ function Main() {
     };
     getMainData();
   }, []);
+
+  // console.log(role);
+  console.log(main);
 
   // 처음 마운트 됐을 때 강의 목록 axios 받아서 store에 저장해주기
   // useEffect(() => {
@@ -75,22 +82,22 @@ function Main() {
   };
 
   // console.log(main);
-  if (loginToken) {
-    return (
-      <div>
-        <NavBar />
-        {/* <h1>Main</h1>
+
+  return (
+    <div>
+      <NavBar />
+      {/* <MagnifyingGlass /> */}
+      {/* <h1>Main</h1>
       <p>로그인 후 보여지는 첫번째 페이지!</p>
       <p>왼쪽에 신청 가능한 강의목록, 오른쪽에 마이페이지</p> */}
-        <StyledDiv>
-          <LectureList />
-          <MyPageList />
-          {/* <LectureList changeValue={changeValue} lecture={lecture} /> */}
-          {/* <MyPageList changeValue={changeValue} /> */}
-        </StyledDiv>
-      </div>
-    );
-  }
+      <StyledDiv>
+        <LectureList />
+        <MyPageList />
+        {/* <LectureList changeValue={changeValue} lecture={lecture} /> */}
+        {/* <MyPageList changeValue={changeValue} /> */}
+      </StyledDiv>
+    </div>
+  );
 }
 
 export default Main;

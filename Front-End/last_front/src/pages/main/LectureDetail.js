@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLecture } from "../../store/detailSlice";
+import { updateisEnrolled } from "../../store/mainSlice";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 // import { changeLecture, changeMainNo } from "../../store/mainSlice";
@@ -101,11 +102,16 @@ function LectureDetail() {
         }
       );
       setIsEnrolled(true);
+      dispatch(updateisEnrolled());
+      console.log("수강신청");
       // console.log(lecture.data);
     } catch (e) {
       console.log(e);
     }
   };
+
+  console.log(registInfo);
+  console.log(isEnrolled);
 
   // 수강신청취소 버튼 누르면 취소하는 axios
   const deleteLecture = async () => {
@@ -114,14 +120,17 @@ function LectureDetail() {
         headers: { "X-ACCESS-TOKEN": loginToken },
       });
       setIsEnrolled(false);
+      dispatch(updateisEnrolled());
+      console.log("수강취소");
       // console.log(lecture.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(lectureData);
-  console.log(isEnrolled);
+  // console.log(lectureData);
+  // console.log(isEnrolled);
+  // console.log(registInfo);
 
   return (
     <div>
@@ -139,7 +148,7 @@ function LectureDetail() {
             <p>강사명 {lectureData.name}</p>
             <div>
               {isEnrolled ? (
-                <StyledBtn onClick={deleteLecture}>수강신청완료</StyledBtn>
+                <StyledBtn onClick={deleteLecture}>수강신청취소</StyledBtn>
               ) : (
                 <StyledBtn onClick={registLecture}>수강신청하기</StyledBtn>
               )}
