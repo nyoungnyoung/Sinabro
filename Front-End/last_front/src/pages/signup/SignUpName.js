@@ -10,8 +10,8 @@ function SignUpName({ HandleSignUp }) {
   const changeName = (event) => {
     setName(event);
   };
-  const moveToNumber = () => {
-    navigate("/signup/number");
+  const moveToAgree = () => {
+    navigate("/signup/agree");
   };
 
   // console.log(name);
@@ -31,7 +31,7 @@ function SignUpName({ HandleSignUp }) {
         <br />
         <StyledButton
           onClick={() => {
-            moveToNumber();
+            moveToAgree();
             HandleSignUp(name, "name");
           }}
         >

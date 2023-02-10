@@ -15,8 +15,8 @@ function SignUpPw2({ signUpData }) {
     setPw2(event);
   };
 
-  const moveToCheck = () => {
-    navigate("/signup/agree");
+  const moveToComplete = () => {
+    navigate("/signup/complete");
   };
 
   const backToPassword2 = () => {
@@ -40,8 +40,9 @@ function SignUpPw2({ signUpData }) {
   const checkPassword = () => {
     if (pw2 === signUpData.password) {
       apiSignUpData();
-      moveToCheck();
+      moveToComplete();
     } else {
+      alert("비밀번호가 일치하지 않습니다! 다시 입력해주세요 :)");
       backToPassword2();
       setPw2("");
     }
@@ -101,7 +102,7 @@ const StyledInput = styled.input`
   border-radius: 5px;
   width: 50vh;
   height: 30px;
-  font-size: 20px;
+  font-size: 15px;
   padding: 10px;
   margin-right: 15px;
   margin-left: 50px;
