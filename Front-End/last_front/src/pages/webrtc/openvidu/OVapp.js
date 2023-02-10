@@ -2,7 +2,7 @@ import { OpenVidu} from 'openvidu-browser';
 
 import axios from 'axios';
 import React, { Component } from 'react';
-import './App.css';
+import './OVapp.css';
 import UserVideoComponent from './UserVideoComponent';
 
 const APPLICATION_SERVER_URL = "http://localhost:5000/";

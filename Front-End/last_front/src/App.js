@@ -8,6 +8,7 @@ import LectureDetail from "./pages/main/LectureDetail";
 import TeacherMain from "./pages/teacher/TeacherMain";
 import WebRtcMain from "./pages/webrtc/WebRtcMain";
 import Cs from "./pages/cs/Cs";
+import OVapp from "./pages/webrtc/openvidu/OVapp";
 // import CompleteSignUp from "./pages/signup/CompleteSignUp";
 // import TeacherClassCreate from "./pages/teacher/TeacherClassCreate";
 // import TeacherClassDetail from "./pages/teacher/TeacherClassDetail";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/teacher/*" element={<TeacherMain />} />
           <Route path="/webrtc/:lectureId/*" element={<WebRtcMain />} />
           <Route path="/cs" element={<Cs />} />
+          <Route path="/test" element={<OVapp />} />
         </Routes>
       </BrowserRouter>
     </StyledFonts>
