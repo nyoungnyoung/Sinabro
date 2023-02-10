@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import UserVideoComponent from "./openvidu/UserVideoComponent";
 
-const ShareScreen = () => {
+const ShareScreen = ({ info}) => {
   return (
     <StyledDiv>
       <h1>Share Mode</h1>
       <StyledDiv2>
-        <TeacherDiv>강사님</TeacherDiv>
+        <TeacherDiv><UserVideoComponent streamManager={info.publisher} /></TeacherDiv>
         <ShareDiv>화면공유</ShareDiv>
       </StyledDiv2>
     </StyledDiv>

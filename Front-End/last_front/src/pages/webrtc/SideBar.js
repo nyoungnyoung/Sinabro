@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
 
-function SideBar({ handleGlass }) {
+function SideBar({ handleGlass, info }) {
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -61,7 +61,7 @@ function SideBar({ handleGlass }) {
               style={
                 mic ? { backgroundColor: "green" } : { backgroundColor: "gray" }
               }
-              onClick={changeMicOn}
+              onClick={() => { changeMicOn(); info.publisher.publishAudio(true); }}
             >
               켜짐
             </OnButton>
@@ -69,7 +69,7 @@ function SideBar({ handleGlass }) {
               style={
                 !mic ? { backgroundColor: "red" } : { backgroundColor: "gray" }
               }
-              onClick={changeMicOff}
+              onClick={() => { changeMicOff(); info.publisher.publishAudio(false) }}
             >
               꺼짐
             </OffButton>
@@ -88,7 +88,7 @@ function SideBar({ handleGlass }) {
                   ? { backgroundColor: "green" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeVideoOn}
+              onClick={() => { changeVideoOn(); info.publisher.publishVideo(true); }}
             >
               켜짐
             </OnButton>
@@ -98,7 +98,7 @@ function SideBar({ handleGlass }) {
                   ? { backgroundColor: "red" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeVideoOff}
+              onClick={() => { changeVideoOff(); info.publisher.publishVideo(false); }}
             >
               꺼짐
             </OffButton>
