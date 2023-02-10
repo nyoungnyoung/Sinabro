@@ -42,6 +42,7 @@ function Main() {
 
   // console.log(role);
   console.log(main);
+  console.log(loginToken);
 
   // 처음 마운트 됐을 때 강의 목록 axios 받아서 store에 저장해주기
   // useEffect(() => {
