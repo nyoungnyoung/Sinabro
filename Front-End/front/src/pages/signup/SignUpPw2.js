@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+import { useSelector, useDispatch } from "react-redux";
+import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpPw2() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const moveToName = () => {
     navigate("/signup/name");
   };
 
+  // 😀password2 저장
   const [password2, setPassword2] = useState("");
+
+  // 😀store의 password2 불러오기
+  const state = useSelector((state) => state);
+
+  // 😀password2 : 전역으로 보내기
+  const sendPw2 = () => {
+    dispatch(signUpActions.addPw2(password2));
+  };
+
+  // 😀statePw2 갱신 여부 확인 콘솔
+  console.log("state", state);
 
   return (
     <div>
@@ -27,12 +42,10 @@ function SignUpPw2() {
             value={password2}
             placeholder="비밀번호를 한 번 더 입력해주세요 :)"
             onChange={(e) => {
-              console.log(e.target.value);
               setPassword2(e.target.value);
-              console.log(password2);
             }}
           />
-          <StyledButton1>확인</StyledButton1>
+          <StyledButton1 onClick={sendPw2}>확인</StyledButton1>
         </StyledDiv2>
         <div>
           <StyledButton2 onClick={moveToName}>다음 단계로</StyledButton2>

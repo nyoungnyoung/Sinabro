@@ -1,4 +1,4 @@
-// 아이디가 유효성 검사를 통과하지 못했을 때
+// 아이디가 중복체크를 통과하지 못했을 때
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";

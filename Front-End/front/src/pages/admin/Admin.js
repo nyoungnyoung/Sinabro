@@ -1,11 +1,22 @@
-import React from 'react';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AdminMain from "./AdminMain";
+import AdminTeacherManage from "./AdminTeacherManage";
+import AdminUserManage from "./AdminUserManage";
+import CreateTeacher from "./CreateTeacher";
 
 function Admin() {
-    return (
-        <div className='Admin'>
-            <h1>Admin</h1>
-        </div>
-    )
+  return (
+    <div className="Admin">
+      <h1>관리자 게시판</h1>
+      <Routes>
+        <Route path="/" element={<AdminMain />}></Route>
+        <Route path="/teacher" element={<AdminTeacherManage />}></Route>
+        <Route path="/teacher/create" element={<CreateTeacher />}></Route>
+        <Route path="/user" element={<AdminUserManage />}></Route>
+      </Routes>
+    </div>
+  );
 }
 
-export default Admin
+export default Admin;
