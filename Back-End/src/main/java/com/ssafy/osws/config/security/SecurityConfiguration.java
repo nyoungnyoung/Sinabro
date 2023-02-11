@@ -69,7 +69,7 @@ public class SecurityConfiguration {
 	        .antMatchers("/teacher/**").hasAnyRole("teacher", "admin")
 	        .antMatchers(HttpMethod.DELETE).hasAnyRole("teacher", "admin")
 	        .antMatchers("/common/sign-out").hasAnyRole("teacher", "admin", "normal")
-	        .antMatchers("/common/**", "/login/**").permitAll()
+	        .antMatchers("/common/**", "/login/**", "/api/**").permitAll()
 	        //.antMatchers("/oauth2/**").authenticated() 소셜 로그인
 	    	.and()
 	    	//== 필터 설정 == //
