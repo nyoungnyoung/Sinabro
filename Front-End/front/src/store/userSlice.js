@@ -5,22 +5,19 @@ export const userSlice = createSlice({
   initialState: {
     loginInfo: { id: "", password: "" },
     loginAccess: { accessToken: "", refreshToken: "" },
-    findIdInfo: { phone: "", authNum: "", inputNum: "", id: "" },
-    findPwInfo: { phone: "", authNum: "", inputNum: "", newPw: "" },
+    findId: { phone: "", authNum: "", inputNum: "", id: "" },
+    findPw: { phone: "", authNum: "", inputNum: "", newPw: "" },
   },
   reducers: {
     login: (state, action) => {
       state.loginInfo = action.payload;
     },
-    findId: (state, action) => {
-      state.findIdInfo = action.payload;
-    },
-    findPw: (state, action) => {
-      state.findPwInfo = action.payload;
-    },
+    // loginPw: (state, action) => {
+    //   state = action.payload;
+    // },
   },
 });
 
-export const { login, findId, findPw } = userSlice.actions;
+export const { login } = userSlice.actions;
 
 export default userSlice.reducer;

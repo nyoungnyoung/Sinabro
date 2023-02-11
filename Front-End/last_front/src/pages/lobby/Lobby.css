@@ -1,0 +1,11 @@
+.image {
+  display: inline-block;
+  justify-content: center;
+  background-image: url(./blackboard.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
+  width: 200vh;
+  height: 90vh;
+}

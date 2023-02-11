@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import CsBtn from "../../components/CsBtn";
 import styled from "styled-components";
+import CsBtn from "../../components/CsBtn";
+import { useSelector, useDispatch } from "react-redux";
+import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpName() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const moveToBirth = () => {
     navigate("/signup/birth");
   };
 
-  // 이름 저장
+  // 😀이름 저장
   const [name, setName] = useState("");
+
+  // 😀store의 state불러오기
+  const state = useSelector((state) => state);
+
+  // 😀name: 전역으로 보내기
+  const sendName = () => {
+    dispatch(signUpActions.addName(name));
+  };
+
+  // 😀stateName 갱신 여부 확인 콘솔
+  console.log("state", state);
 
   return (
     <div>
@@ -27,14 +41,17 @@ function SignUpName() {
             placeholder="고객님의 이름을 적어주세요 :)"
             onChange={(e) => {
               setName(e.target.value);
-              console.log(name);
             }}
           />
-          <StyledButton1>확인</StyledButton1>
+          <StyledButton1
+            onClick={() => {
+              sendName();
+              moveToBirth();
+            }}
+          >
+            확인
+          </StyledButton1>
         </StyledDiv2>
-        <div>
-          <StyledButton2 onClick={moveToBirth}>다음 단계로</StyledButton2>
-        </div>
       </StyledDiv1>
       <LoginDiv>
         <StyledLink to="/cs">
@@ -62,6 +79,7 @@ const StyledDiv1 = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
 `;
 
 const StyledInput = styled.input`
@@ -75,10 +93,4 @@ const StyledButton1 = styled.button`
   padding: 10px;
 `;
 
-const StyledButton2 = styled.button`
-  margin-top: 15px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  padding: 10px;
-`;
 export default SignUpName;

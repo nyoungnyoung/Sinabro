@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+import { useSelector } from "react-redux";
 
 function SignUpMsg(props) {
   const navigate = useNavigate();
@@ -9,13 +10,16 @@ function SignUpMsg(props) {
   const moveToLogin = () => {
     navigate("/login/id");
   };
+
+  const id = useSelector((state) => state.signUp.id);
+
   return (
     <div>
       {/* <h1>SignUpMsg</h1> */}
       <StyledDiv1>
         <div>
           <p>안녕하세요 000님 :)</p>
-          <p>아이디 : </p>
+          <p>아이디 : {id}</p>
           <p>가입이 완료되었습니다!</p>
           <p>다시 한 번 로그인하셔서 사이트를 이용해주세요!</p>
         </div>

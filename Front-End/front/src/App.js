@@ -36,7 +36,7 @@ function App() {
           </Route>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/manage/*" element={<Manage />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/*" element={<Admin />} />
           <Route path="/cs" element={<Cs />} />
           <Route path="/realtime" element={<RealTime />} />
         </Routes>
