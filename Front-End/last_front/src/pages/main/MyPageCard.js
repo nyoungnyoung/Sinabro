@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
 
 const LectureDiv = styled.div`
   width: 100%;
@@ -42,27 +43,6 @@ const StyledLink = styled(Link)`
 `;
 
 function MyPageCard({ no, subject, startDate, endDate, content, savedName }) {
-  // 강의 신청 여부 판단해줄 state 만들기
-  // const [isRegist, setIsRegist] = useState()
-
-  //   // 강의신청 버튼 클릭 시 신청 요청 보내는 axios!
-  // const registLecture = async() => {
-  //   try {
-  //     const regist = await axios.get("/normal/lecture/" +no )
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
-
-  //   const getSearchData = async () => {
-  //     try {
-  //       const lecture = await axios.get("/main/search/" + search);
-  //       dispatch(changeLecture(lecture.data));
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-
   return (
     <div>
       <LectureDiv>
@@ -76,14 +56,6 @@ function MyPageCard({ no, subject, startDate, endDate, content, savedName }) {
           <StyledBtn>강의입장</StyledBtn>
         </StyledLink>
       </LectureDiv>
-      {/* <p>
-        로그인 후 메인페이지에서 강의 목록 내부에 카드 형식으로 들어갈 컴포넌트
-      </p>
-      <p>
-        왼쪽페이지:신청가능한 강의(신청하기)/오른쪽페이지:내가 신청한
-        강의(입장하기)
-      </p>
-      <p>얘를 클릭했을 때 LectureDetail이 나와야함!</p> */}
     </div>
   );
 }
