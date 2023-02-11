@@ -61,15 +61,17 @@ public class Controller {
 		
 		// 강의 번호를 이용해 세션을 만든다. 강의 번호를 이용해 강의 이름을 조회하고 그 값을 반환한다. 
 		// 강의 이름을 프론트 myClassName에 박아 강의실 이름처럼 사용할 수 있다.
-		String subject = openViduService.getLectureName(Integer.parseInt((String) params.get("customSessionId")));
-		if(subject == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
+//		String subject = openViduService.getLectureName(Integer.parseInt((String) params.get("customSessionId")));
+//		if(subject == null)
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		String subject = session.getSessionId();
 		// 강의를 만든 강사나 수강중인 학생이 아니라면 forbidden 에러 발생
-		ResponseCreateConnection response = openViduService.getUserName(Integer.parseInt(session.getSessionId()), request);
-		if(response == null)
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		
+//		ResponseCreateConnection response = openViduService.getUserName(Integer.parseInt(session.getSessionId()), request);
+//		if(response == null)
+//			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		ResponseCreateConnection response = new ResponseCreateConnection();
+		response.setName("test connection");
+		response.setRole("test");
 		response.setSubject(subject);
 		// clientData에 값을 넣어주는게 이 과정에서는 안되고 프론트에서 openvidu 서버에 커넥트 요청을 할 때 가능하다. 
 		// 따라서 토큰과 사용자 이름 반환으로 변경
