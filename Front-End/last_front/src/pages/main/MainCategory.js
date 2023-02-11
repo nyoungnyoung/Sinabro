@@ -91,6 +91,7 @@ function MainCategory() {
       })
       .then(lecture => {
         dispatch(changeLecture(lecture.data));
+        console.log("강의카드", lecture.data);
       });
   }, [selectedNo]);
 

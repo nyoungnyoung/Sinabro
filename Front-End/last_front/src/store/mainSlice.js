@@ -64,16 +64,14 @@ export const mainSlice = createSlice({
     changeTeacher: (state, action) => {
       state.MyPageCard = action.payload;
     },
-    updateisEnrolled: state => {
-      const Enrollstate = state.lectureCard.isEnrolled;
-      const newCardData = { ...state, isEnrolled: !Enrollstate };
-      state.lectureCard = newCardData;
-    },
     updateLecture: (state, action) => {
       const Enrollstate = state.lectureCard[action.payload - 1].isEnrolled;
       state.lectureCard[action.payload - 1].isEnrolled = !Enrollstate;
       // const newCardData = {...state, state[action.payload].}
     },
+    // updateMyPage: (state, action) => {
+    //   const Enrollstate = state.
+    // }
   },
 });
 
@@ -84,7 +82,6 @@ export const {
   changeMainNo,
   changeMyPage,
   changeTeacher,
-  updateisEnrolled,
   updateLecture,
 } = mainSlice.actions;
 export default mainSlice.reducer;

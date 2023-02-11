@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { changeLecture } from "../../store/detailSlice";
-import { updateisEnrolled, updateLecture } from "../../store/mainSlice";
+import { updateLecture } from "../../store/mainSlice";
+import { changeMyPage } from "../../store/mainSlice";
 
 const LectureDiv = styled.div`
   width: 100%;
@@ -96,7 +96,6 @@ function LectureItemCard({
 
   // Access Token, registorInfo 스토어에서 가져오기
   const loginToken = useSelector(state => state.login.token.accessToken);
-  // const registInfo = useSelector(state => state.main.);
 
   // isEnrolled 저장할 state생성
   const [registInfo, setRegistInfo] = useState(isEnrolled);
@@ -106,10 +105,10 @@ function LectureItemCard({
     navigate(`/detail/${no}`);
   };
 
-  // console.log(loginToken);
+  // console.log("registInfo", registInfo);
+  // console.log("isEnrolled", isEnrolled);
   // console.log(isEnrolled);
 
-  // 수강신청하기 버튼 누르면 신청하는 axios
   // 수강신청하기 버튼 누르면 신청하는 axios
   const registLecture = async no => {
     try {
@@ -143,6 +142,40 @@ function LectureItemCard({
     }
   };
 
+  // 수강신청/취소 버튼 눌렀을 때 내 강의 목록 업데이트 하는 axios요청 보내기
+  // useEffect(() => {
+  //   axios
+  //     .get("/normal/lecture/", {
+  //       headers: { "X-ACCESS-TOKEN": loginToken },
+  //     })
+  //     .then(info => {
+  //       dispatch(changeMyPage(info.data));
+  //     });
+  // }, [registInfo]);
+
+  // const updateMyPage = async () => {
+  //   try {
+  //     const res = await axios.get("/normal/lecture/", {
+  //       headers: { "X-ACCESS-TOKEN": loginToken },
+  //     });
+  //     dispatch(changeMyPage(res.data));
+  //     console.log("강의목록업데이트");
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // 수강신청/취소 버튼 눌렀을 때(registInfo바뀔 때) MyPageCard 업데이트 해주기
+  useEffect(() => {
+    axios
+      .get("normal/lecture/", {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      })
+      .then(info => {
+        dispatch(changeMyPage(info.data));
+      });
+  }, [registInfo]);
+
   return (
     <div>
       <LectureDiv>
@@ -156,9 +189,21 @@ function LectureItemCard({
         </StyledLink>
         <div>
           {registInfo ? (
-            <StyledBtn3 onClick={() => deleteLecture(no)}>수강취소</StyledBtn3>
+            <StyledBtn3
+              onClick={() => {
+                deleteLecture(no);
+              }}
+            >
+              수강취소
+            </StyledBtn3>
           ) : (
-            <StyledBtn1 onClick={() => registLecture(no)}>수강신청</StyledBtn1>
+            <StyledBtn1
+              onClick={() => {
+                registLecture(no);
+              }}
+            >
+              수강신청
+            </StyledBtn1>
           )}
 
           {/* {isEnrolled ? (

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLecture } from "../../store/detailSlice";
-import { updateisEnrolled } from "../../store/mainSlice";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 // import { changeLecture, changeMainNo } from "../../store/mainSlice";
@@ -71,11 +70,10 @@ function LectureDetail() {
   // Access Token, 강의 상세정보 스토어에서 가져오기
   const loginToken = useSelector(state => state.login.token.accessToken);
   const lectureData = useSelector(state => state.detail.lectureData);
-  const registInfo = useSelector(state => state.detail.lectureData.isEnrolled);
-  // const enrollInfo = useSelector(state => state.detail.lectureData.isEnrolled);
+  const isEnrolled = useSelector(state => state.detail.lectureData.isEnrolled);
 
-  // isEnrolled 저장할 state생성
-  const [isEnrolled, setIsEnrolled] = useState(registInfo);
+  // isEnrolled 상태 저장할 state생성
+  const [registInfo, setRegistInfo] = useState(isEnrolled);
 
   // LectureNo 주소에서 받아오기
   const lectureNo = Number(useLocation().pathname.slice(8));
@@ -91,7 +89,7 @@ function LectureDetail() {
       });
   }, []);
 
-  // 수강신청하기 버튼 누르면 신청하는 axios
+  // 수강신청하기 버튼 누르면 신청하는 axios 요청
   const registLecture = async () => {
     try {
       await axios.post(
@@ -101,17 +99,16 @@ function LectureDetail() {
           headers: { "X-ACCESS-TOKEN": loginToken },
         }
       );
-      setIsEnrolled(true);
-      dispatch(updateisEnrolled());
+      setRegistInfo(!registInfo);
       console.log("수강신청");
-      // console.log(lecture.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(registInfo);
-  console.log(isEnrolled);
+  // console.log("lectureData", lectureData);
+  // console.log("registInfo", registInfo);
+  // console.log("isEnrolled", isEnrolled);
 
   // 수강신청취소 버튼 누르면 취소하는 axios
   const deleteLecture = async () => {
@@ -119,18 +116,23 @@ function LectureDetail() {
       await axios.delete("/normal/lecture/" + lectureNo, {
         headers: { "X-ACCESS-TOKEN": loginToken },
       });
-      setIsEnrolled(false);
-      dispatch(updateisEnrolled());
+      setRegistInfo(!registInfo);
       console.log("수강취소");
-      // console.log(lecture.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  // console.log(lectureData);
-  // console.log(isEnrolled);
-  // console.log(registInfo);
+  // 수강신청/취소 버튼 눌렀을 때(registInfo바뀔 때) lectureData 업데이트 해주기
+  useEffect(() => {
+    axios
+      .get("/lecture/" + lectureNo, {
+        headers: { "X-ACCESS-TOKEN": loginToken },
+      })
+      .then(info => {
+        dispatch(changeLecture(info.data));
+      });
+  }, [registInfo]);
 
   return (
     <div>
