@@ -84,10 +84,10 @@ function App() {
         deleteSubscriber(e.stream.streamManager);
       });
 
-      mySession.on("micOff", (e) => {
-        console.log("마이크 통제: 꺼짐" + e.data);
-        info.publisher.publishAudio(false);
-      });
+      // mySession.on("micOff", (e) => {
+      //   console.log("마이크 통제: 꺼짐" + e.data);
+      //   info.publisher.publishAudio(false);
+      // });
 
       mySession.on("broadcast-interviewee", (e) => {
         console.log("면접자 : " + e.data);
