@@ -34,7 +34,7 @@ const createToken = async (sessionId) => {
 
 export const leaveSession = (session, handler) => {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
+  console.log(session);
     const mySession = session;
 
     if (mySession) {

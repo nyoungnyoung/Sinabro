@@ -27,6 +27,18 @@ function App() {
   const [session, setSession] = useState(null);
   const [OV, setOV] = useState(new OpenVidu());
 
+  //info state를 하위 컴포넌트에서 변경하기 위한 함수
+  const handleInfo = (event, type) => {
+    setInfo({
+      ...info,
+      [type]: event,
+    });
+  };
+
+  const handleOV = (event) => {
+    console.log(event);
+  };
+
   //componentDidMount
   useEffect(() => {
     window.addEventListener("beforeunload", () => {
@@ -70,6 +82,11 @@ function App() {
         console.log(e);
         console.log("커넥션 ID: " + e.stream.connection.connectionId);
         deleteSubscriber(e.stream.streamManager);
+      });
+
+      mySession.on("micOff", (e) => {
+        console.log("마이크 통제: 꺼짐" + e.data);
+        info.publisher.publishAudio(false);
       });
 
       mySession.on("broadcast-interviewee", (e) => {
@@ -262,19 +279,19 @@ function App() {
               className="btn btn-large btn-danger"
               type="button"
               id="buttonLeaveSession"
-              onClick={leaveSession}
+              onClick={() => { leaveSession(session, handleOV); setOV(null); }}
               value="Leave session"
             />
           </div>
           <Navbar />
           <StyledDiv2>
-            <Focus info={info} OV={OV} session={session} setInfo={setInfo} />
+            <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} />
             <SideBar info={ info } />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
             <div id="main-video" className="col-md-6">
-              <UserVideoComponent streamManager={info.mainStreamManager} />
+              {/* <UserVideoComponent streamManager={info.mainStreamManager} /> */}
             </div>
           ) : null}
           <div id="video-container" className="col-md-6">
@@ -283,7 +300,7 @@ function App() {
                 className="stream-container col-md-6 col-xs-6"
                 onClick={() => handleMainVideoStream(info.publisher)}
               >
-                <UserVideoComponent streamManager={info.publisher} />
+                {/* <UserVideoComponent streamManager={info.publisher} /> */}
               </div>
             ) : null}
             {info.subscribers.map((sub, i) => (
@@ -292,7 +309,7 @@ function App() {
                 className="stream-container col-md-6 col-xs-6"
                 onClick={() => handleMainVideoStream(sub)}
               >
-                <UserVideoComponent streamManager={sub} />
+                {/* <UserVideoComponent streamManager={sub} /> */}
               </div>
             ))}
           </div>

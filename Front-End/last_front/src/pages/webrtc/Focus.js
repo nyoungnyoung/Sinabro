@@ -3,7 +3,7 @@ import styled from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 // import Zoom from "./Zoom";
 
-function Focus({ glassOn, info, OV, session }) {
+function Focus({ glassOn, info, OV, session, handleInfo }) {
 
   const screenShare = async () => {
     try {
@@ -34,11 +34,14 @@ function Focus({ glassOn, info, OV, session }) {
 
               await session.unpublish(info.publisher);
               await session.publish(newPublisher);
+
+              handleInfo(newPublisher, "publisher");
               
             });
-        });
-      await session.unpublish(info.publisher);
-      await session.publish(newPublisher);
+          });
+          await session.unpublish(info.publisher);
+          await session.publish(newPublisher);
+          handleInfo(newPublisher, "publisher");
     } catch (e) {
         console.error(e);
     }
