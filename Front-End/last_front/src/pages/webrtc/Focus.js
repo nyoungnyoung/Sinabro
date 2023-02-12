@@ -3,7 +3,46 @@ import styled from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 // import Zoom from "./Zoom";
 
-function Focus({ glassOn, info }) {
+function Focus({ glassOn, info, OV, session }) {
+
+  const screenShare = async () => {
+    try {
+      let newPublisher = await OV.initPublisherAsync(undefined, {
+        audioSource: undefined, // The source of audio. If undefined default microphone
+        videoSource: "screen", // The source of video. If undefined default webcam
+        publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+        publishVideo: true, // Whether you want to start publishing with your video enabled or not
+        resolution: "1280x960", // The resolution of your video
+        frameRate: 30, // The frame rate of your video
+        insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+        mirror: false, // Whether to mirror your local video or not
+      });
+        
+        newPublisher.once('accessAllowed', (event) => {
+            newPublisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', async () => {
+                console.log('User pressed the "Stop sharing" button');
+                let newPublisher = await OV.initPublisherAsync(undefined, {
+                  audioSource: undefined, // The source of audio. If undefined default microphone
+                  videoSource: undefined, // The source of video. If undefined default webcam
+                  publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+                  publishVideo: true, // Whether you want to start publishing with your video enabled or not
+                  resolution: "640x480", // The resolution of your video
+                  frameRate: 30, // The frame rate of your video
+                  insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+                  mirror: false, // Whether to mirror your local video or not
+                });
+
+              await session.unpublish(info.publisher);
+              await session.publish(newPublisher);
+              
+            });
+        });
+      await session.unpublish(info.publisher);
+      await session.publish(newPublisher);
+    } catch (e) {
+        console.error(e);
+    }
+  }
   // console.log(glassOn);
 
   const [over, setOver] = useState(false);
@@ -15,7 +54,8 @@ function Focus({ glassOn, info }) {
 
   const glassDiv = useRef();
 
-  const user = 2;
+  const user = info.subscribers.length;
+  console.log("참여자 수: "+user);
 
   const mouseMove = (event) => {
     // console.log(event);
@@ -38,6 +78,10 @@ function Focus({ glassOn, info }) {
 
   return (
     <StyledDiv>
+      <div>
+        <UserVideoComponent streamManager={info.publisher} />
+        <button onClick={screenShare}>화면공유</button>
+      </div>
       {info.subscribers.map((sub, i) => (
               <div key={i}>
                 <UserVideoComponent streamManager={sub} />

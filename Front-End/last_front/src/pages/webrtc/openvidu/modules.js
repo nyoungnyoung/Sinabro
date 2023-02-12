@@ -5,6 +5,7 @@ export const APPLICATION_SERVER_URL = "http://localhost:5000/";
 export const getToken = async (mySessionId) => {
   const sessionId = await createSession(mySessionId);
   return await createToken(sessionId);
+  // return await createSession(mySessionId);
 };
 
 const createSession = async (sessionId) => {

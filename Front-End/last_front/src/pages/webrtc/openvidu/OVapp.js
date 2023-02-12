@@ -268,7 +268,7 @@ function App() {
           </div>
           <Navbar />
           <StyledDiv2>
-            <Focus info={ info } />
+            <Focus info={info} OV={OV} session={session} setInfo={setInfo} />
             <SideBar info={ info } />
           </StyledDiv2>
 
