@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 // import Zoom from "./Zoom";
 
 function Focus({ glassOn, info, OV, session, handleInfo }) {
-
   const screenShare = async () => {
     try {
       let newPublisher = await OV.initPublisherAsync(undefined, {
@@ -17,35 +16,37 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
         insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
         mirror: false, // Whether to mirror your local video or not
       });
-        
-        newPublisher.once('accessAllowed', (event) => {
-            newPublisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', async () => {
-                console.log('User pressed the "Stop sharing" button');
-                let newPublisher = await OV.initPublisherAsync(undefined, {
-                  audioSource: undefined, // The source of audio. If undefined default microphone
-                  videoSource: undefined, // The source of video. If undefined default webcam
-                  publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                  publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                  resolution: "640x480", // The resolution of your video
-                  frameRate: 30, // The frame rate of your video
-                  insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                  mirror: false, // Whether to mirror your local video or not
-                });
 
-              await session.unpublish(info.publisher);
-              await session.publish(newPublisher);
-
-              handleInfo(newPublisher, "publisher");
-              
+      newPublisher.once("accessAllowed", event => {
+        newPublisher.stream
+          .getMediaStream()
+          .getVideoTracks()[0]
+          .addEventListener("ended", async () => {
+            console.log('User pressed the "Stop sharing" button');
+            let newPublisher = await OV.initPublisherAsync(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: undefined, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: "640x480", // The resolution of your video
+              frameRate: 30, // The frame rate of your video
+              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video or not
             });
+
+            await session.unpublish(info.publisher);
+            await session.publish(newPublisher);
+
+            handleInfo(newPublisher, "publisher");
           });
-          await session.unpublish(info.publisher);
-          await session.publish(newPublisher);
-          handleInfo(newPublisher, "publisher");
+      });
+      await session.unpublish(info.publisher);
+      await session.publish(newPublisher);
+      handleInfo(newPublisher, "publisher");
     } catch (e) {
-        console.error(e);
+      console.error(e);
     }
-  }
+  };
   // console.log(glassOn);
 
   const [over, setOver] = useState(false);
@@ -58,9 +59,9 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
   const glassDiv = useRef();
 
   const user = info.subscribers.length;
-  console.log("참여자 수: "+user);
+  console.log("참여자 수: " + user);
 
-  const mouseMove = (event) => {
+  const mouseMove = event => {
     // console.log(event);
 
     // 마우스 위치
@@ -77,19 +78,19 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
 
     // console.log("left", left);
     // console.log("top", top);
-  }; 
+  };
 
   return (
-    <StyledDiv>
+    <StyledDiv user={user}>
       <div>
         <UserVideoComponent streamManager={info.publisher} />
-        <button onClick={screenShare}>화면공유</button>
+        {/* <button onClick={screenShare}>화면공유</button> */}
       </div>
       {info.subscribers.map((sub, i) => (
-              <div key={i}>
-                <UserVideoComponent streamManager={sub} />
-              </div>
-            ))}
+        <div key={i}>
+          <UserVideoComponent streamManager={sub} />
+        </div>
+      ))}
     </StyledDiv>
   );
   // if (user <= 2) {
@@ -233,7 +234,44 @@ const StyledDiv = styled.div`
   color: white;
   background-color: black;
   position: relative;
+  display: grid;
+
+  ${({ user }) => {
+    if (user === 1) {
+      return css`
+        grid-template-columns: 1fr;
+      `;
+    } else if (user === 2) {
+      return css`
+        grid-template-columns: 1fr 1fr;
+      `;
+    } else if (user === 3) {
+      return css`
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      `;
+    } else if (user === 4) {
+      return css`
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      `;
+    } else if (user === 5) {
+      return css`
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      `;
+    } else if (user >= 6) {
+      return css`
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      `;
+    }
+  }};
 `;
+
+// const TeacherDiv = styled.div`
+
+// `
 
 const StyledGlass = styled.div`
   width: 200px;
