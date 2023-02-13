@@ -6,7 +6,9 @@ const ShareScreen = ({ info }) => {
   return (
     <StyledDiv>
       <StyledDiv2>
-        <ShareDiv><UserVideoComponent streamManager={info.mainStreamManager} /></ShareDiv>
+        <ShareDiv>
+          <UserVideoComponent streamManager={info.mainStreamManager} />
+        </ShareDiv>
       </StyledDiv2>
     </StyledDiv>
   );

@@ -8,7 +8,7 @@ const StyledVideo = styled.div`
   /* padding-left: 15%; */
 `;
 
-const UserVideoComponent = ({ streamManager, user }) => {
+const UserVideoComponent = ({ streamManager, user, mode }) => {
   const getNicknameTag = () => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
   };
@@ -17,7 +17,11 @@ const UserVideoComponent = ({ streamManager, user }) => {
     <div>
       {streamManager !== undefined ? (
         <StyledVideo className="streamcomponent">
-          <OpenViduVideoComponent streamManager={streamManager} user={user} />
+          <OpenViduVideoComponent
+            streamManager={streamManager}
+            user={user}
+            mode={mode}
+          />
           <div>
             <p>{getNicknameTag()}</p>
           </div>

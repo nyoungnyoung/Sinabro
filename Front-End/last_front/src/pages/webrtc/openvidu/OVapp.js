@@ -20,13 +20,16 @@ function App() {
   const sendMainStreamManager = (newPublisher) => {
     console.log("@@@@@@@@@@@@");
     console.log(newPublisher.stream.streamId);
-    session.signal({
-      data: JSON.stringify(newPublisher.id),
-      to: [],
-      type: 'changeMainStreamManager'
-    }).then(() => {
-      console.log("received signal changeMainStreamManager");
-    }).catch((error) => console.log(error));
+    session
+      .signal({
+        data: JSON.stringify(newPublisher.id),
+        to: [],
+        type: "changeMainStreamManager",
+      })
+      .then(() => {
+        console.log("received signal changeMainStreamManager");
+      })
+      .catch((error) => console.log(error));
   };
 
   const screenShare = async () => {
@@ -42,7 +45,7 @@ function App() {
         mirror: false, // Whether to mirror your local video or not
       });
 
-      newPublisher.once("accessAllowed", event => {
+      newPublisher.once("accessAllowed", (event) => {
         newPublisher.stream
           .getMediaStream()
           .getVideoTracks()[0]
@@ -80,7 +83,7 @@ function App() {
   const handleScreenShare = async () => {
     await screenShare();
     handleMode("share");
-  }
+  };
 
   const [info, setInfo] = useState({
     mySessionId: "SessionA",
@@ -98,13 +101,15 @@ function App() {
 
   // 모드 변경을 위한 함수 (Navbar로 prop해줄 함수)
   const handleMode = (event) => {
-    session.signal({
-      data: 'test mode',
-      to: [],
-      type: `${event}`
-    }).then(() => {
-      console.log("success");
-    });
+    session
+      .signal({
+        data: "test mode",
+        to: [],
+        type: `${event}`,
+      })
+      .then(() => {
+        console.log("success");
+      });
     setMode(event);
   };
   console.log(mode);
@@ -120,7 +125,7 @@ function App() {
     leaveSession(session, handleOV);
     setOV(null);
     setSession(null);
-  }
+  };
 
   const handleOV = (event) => {
     console.log(event);
@@ -312,13 +317,13 @@ function App() {
 
   const handleMainVideoStream = (stream) => {
     // if (info.mainStreamManager !== stream) {
-      setInfo((prev) => {
-        return {
-          ...prev,
-          mainStreamManager: stream,
-        };
-      });
-      handleMode("together");
+    setInfo((prev) => {
+      return {
+        ...prev,
+        mainStreamManager: stream,
+      };
+    });
+    handleMode("together");
     // }
   };
 
@@ -388,17 +393,29 @@ function App() {
               value="Leave session"
             />
           </div>
-          <Navbar info={info} handleMode={handleMode} handleScreenShare={handleScreenShare} />
+          <Navbar
+            info={info}
+            handleMode={handleMode}
+            handleScreenShare={handleScreenShare}
+          />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
             {mode === "focus" ? (
-              <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} handleMainVideoStream={handleMainVideoStream} />
+              <Focus
+                info={info}
+                OV={OV}
+                session={session}
+                handleInfo={handleInfo}
+                handleMainVideoStream={handleMainVideoStream}
+                mode={mode}
+              />
             ) : mode === "share" ? (
               <ShareScreen
                 info={info}
                 OV={OV}
                 session={session}
                 setInfo={setInfo}
+                mode={mode}
               />
             ) : (
               <TogetherScreen
@@ -407,6 +424,7 @@ function App() {
                 session={session}
                 setInfo={setInfo}
                 handleMainVideoStream={handleMainVideoStream}
+                mode={mode}
               />
             )}
             <SideBar handleLeaveSession={handleLeaveSession} info={info} />
