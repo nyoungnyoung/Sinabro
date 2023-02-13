@@ -5,6 +5,7 @@ import "./UserVideo.css";
 
 const StyledVideo = styled.div`
   width: 100%;
+  /* padding-left: 15%; */
 `;
 
 const UserVideoComponent = ({ streamManager }) => {

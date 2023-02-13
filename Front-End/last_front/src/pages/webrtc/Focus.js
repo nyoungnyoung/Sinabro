@@ -82,10 +82,9 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
 
   return (
     <StyledDiv user={user}>
-      <div>
-        <UserVideoComponent streamManager={info.publisher} />
-        {/* <button onClick={screenShare}>화면공유</button> */}
-      </div>
+      <UserVideoComponent streamManager={info.publisher} />
+      {/* <button onClick={screenShare}>화면공유</button> */}
+
       {info.subscribers.map((sub, i) => (
         <div key={i}>
           <UserVideoComponent streamManager={sub} />
@@ -229,42 +228,44 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
 }
 
 const StyledDiv = styled.div`
-  width: 80%;
-  height: 90vh;
+  width: 100%;
+  /* height: 90vh; */
   color: white;
   background-color: black;
-  position: relative;
+  /* position: relative; */
+  /* justify-items: center;
+  justify-content: center; */
   display: grid;
 
   ${({ user }) => {
-    if (user === 1) {
+    if (user + 1 === 1) {
       return css`
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
       `;
-    } else if (user === 2) {
+    } else if (user + 1 === 2) {
       return css`
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
+        grid-template-columns: 50% 50%;
+        /* grid-template-rows: 1fr; */
       `;
-    } else if (user === 3) {
+    } else if (user + 1 === 3) {
       return css`
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 50% 50%;
+        /* grid-template-rows: 1fr 1fr; */
       `;
-    } else if (user === 4) {
+    } else if (user + 1 === 4) {
       return css`
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 50% 50%;
+        /* grid-template-rows: 1fr 1fr; */
       `;
-    } else if (user === 5) {
+    } else if (user + 1 === 5) {
       return css`
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        /* grid-template-rows: 1fr 1fr; */
       `;
-    } else if (user >= 6) {
+    } else if (user + 1 >= 6) {
       return css`
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        /* grid-template-rows: 1fr 1fr; */
       `;
     }
   }};
