@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
 
-function SideBar({ handleGlass, info }) {
+function SideBar({ handleGlass, info, handleLeaveSession }) {
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -154,7 +154,7 @@ function SideBar({ handleGlass, info }) {
           <OnChatButton onClick={changeChatOn}>채팅장 열기</OnChatButton>
         </ChatDiv>
 
-        <StyledButton onClick={moveToMain}>메인으로 나가기</StyledButton>
+        <StyledButton onClick={() => { handleLeaveSession(); moveToMain() }}>메인으로 나가기</StyledButton>
       </StyledDiv>
     );
   } else {
