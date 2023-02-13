@@ -1,9 +1,76 @@
-import React, { useRef, useState } from "react";
+import { set } from "date-fns";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-// import Zoom from "./Zoom";
+// import ZoomView from '@components/ZoomView';
 
 function Focus({ glassOn }) {
-  // console.log(glassOn);
+  const [ratio, setRatio] = useState(1);
+  const [Screen, setScreen] = useState({top: 0, left: 0});
+  const imageRectRef = useRef();
+  let containerDiv = useRef();
+  const twoDiv = useRef();
+
+  const wheelHandler = e => {
+    setRatio(ratio => {
+      if(ratio >= 1 && ratio <= 3)
+        return (ratio >= 0.2 ? ratio + 0.001 * e.deltaY : 0.2)
+      else if(ratio < 1)
+        return 1;
+      else
+        return 3;
+      });
+  };
+  
+  let posX;
+  let posY;
+
+  const moveScreenStart = e => {
+    const img = new Image();
+    e.dataTransfer.setDragImage(img, 0, 0);
+  
+    posX = e.clientX;
+    posY = e.clientY;
+  };
+
+  const moveScreen = e => {
+    const minX = e.target.offsetLeft + (e.clientX - posX) <= 0;
+    const minY = e.target.offsetTop + (e.clientY - posY) <= 0;
+    
+    if (e.target.offsetWidth * ratio + e.target.offsetLeft < imageRectRef.current.offsetWidth) {
+      e.target.style.left = `${imageRectRef.current.offsetWidth - e.target.offsetWidth * ratio}px`;
+    }
+
+    if ((e.target.offsetHeight * ratio) + e.target.offsetTop < imageRectRef.current.offsetHeight) {
+      e.target.style.top = `${imageRectRef.current.offsetHeight - e.target.offsetHeight * ratio}px`;
+    }
+
+    if(e.target.offsetLeft + (e.clientX - posX) <= 0) {
+      e.target.style.left  = `${e.target.offsetLeft + (e.clientX - posX)}px`;
+    } else {
+      e.target.style.left  = `0px`;
+    }
+    
+    e.target.style.top = minY
+      ? `${e.target.offsetTop + (e.clientY - posY)}px`
+      : '0px';
+  
+    posX = minX ? e.clientX : 0;
+    posY = minY ? e.clientY : 0;
+  };
+
+  const moveScreenEnd = e => {
+    const limitX = e.target.offsetLeft + (e.clientX - posX) <= 0;
+    const limitY = e.target.offsetTop + (e.clientY - posY) <= 0;
+
+    e.target.style.left = limitX
+      ? `${e.target.offsetLeft + (e.clientX - posX)}px`
+      : '0px';
+    e.target.style.top = limitY
+      ? `${e.target.offsetTop + (e.clientY - posY)}px`
+      : '0px';
+  
+    setScreen({ top: e.target.style.top, left: e.target.style.left });
+  };
 
   const [over, setOver] = useState(false);
 
@@ -16,45 +83,30 @@ function Focus({ glassOn }) {
 
   const user = 2;
 
-  const mouseMove = (event) => {
-    // console.log(event);
-
-    // 마우스 위치
-    // console.log(event);
-    const pageX = event.pageX;
-    const pageY = event.pageY;
-
-    // StyledGlass.style.left = clientX + console.log("clientX", clientX);
-    // console.log("pageX", pageX);
-    // console.log("pageY", pageY);
-
-    // const left = glassDiv.current.pageX + pageX;
-    // const top = glassDiv.current.pageY + pageY;
-
-    // console.log("left", left);
-    // console.log("top", top);
-  };
-
   if (user <= 2) {
     // 2명 이하
     return (
       <StyledDiv
-        onMouseMove={(event) => {
-          mouseMove(event);
-        }}
+        ref={imageRectRef}
       >
         {/* <h1>Focus</h1> */}
         {/* <p>2명</p> */}
-        <TwoDiv>
-          <TwoDiv2>1번 user</TwoDiv2>
-          <TwoDiv2>2번 user</TwoDiv2>
-        </TwoDiv>
-        {glassOn && (
-          <StyledGlass ref={glassDiv}>
-            <h1>돋보기 화면</h1>
-          </StyledGlass>
-          // <Zoom />
-        )}
+        <ContainerDiv
+          ref={containerDiv}
+          ratio={ratio}
+          onWheel={wheelHandler}
+          onDragStart={moveScreenStart}
+          onDrag={moveScreen}
+          onDragEnd={moveScreenEnd}
+          draggable
+        >
+          <TwoDiv
+            ref={twoDiv}
+          >
+            <TwoDiv2>1번 user</TwoDiv2>
+            <TwoDiv2>2번 user</TwoDiv2>
+          </TwoDiv>
+        </ContainerDiv>
       </StyledDiv>
     );
   } else if (user === 3) {
@@ -171,11 +223,23 @@ function Focus({ glassOn }) {
 }
 
 const StyledDiv = styled.div`
+  overflow: hidden;
   width: 80%;
   height: 90vh;
   color: white;
   background-color: black;
   position: relative;
+`;
+
+const ContainerDiv = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: ${props => 100 * props.ratio}%;
+  height: ${props => 100 * props.ratio}%;
+  transform: scale(${props => props.ratio});
+  transform-origin: left top;
+  display: table;
 `;
 
 const StyledGlass = styled.div`
@@ -189,7 +253,7 @@ const StyledGlass = styled.div`
 `;
 
 const TwoDiv = styled.div`
-  display: flex;
+  display: table-row;
   justify-content: center;
   position: relative;
 `;
