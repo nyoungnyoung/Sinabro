@@ -43,7 +43,7 @@ function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }
       {/* <button onClick={screenShare}>화면공유</button> */}
 
       {info.subscribers.map((sub, i) => (
-        <div key={i}>
+        <div key={i} onClick={() => { handleMainVideoStream(sub) }}>
           <UserVideoComponent streamManager={sub} user={user} />
         </div>
       ))}
