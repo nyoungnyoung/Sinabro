@@ -244,6 +244,7 @@ const StyledDiv = styled.div`
     } else if (user === 2) {
       return css`
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
       `;
     } else if (user === 3) {
       return css`

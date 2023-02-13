@@ -3,6 +3,10 @@ import styled from "styled-components";
 import OpenViduVideoComponent from "./OvVideo";
 import "./UserVideo.css";
 
+const StyledVideo = styled.div`
+  width: 100%;
+`;
+
 const UserVideoComponent = ({ streamManager }) => {
   const getNicknameTag = () => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
@@ -11,12 +15,12 @@ const UserVideoComponent = ({ streamManager }) => {
   return (
     <div>
       {streamManager !== undefined ? (
-        <div className="streamcomponent">
+        <StyledVideo className="streamcomponent">
           <OpenViduVideoComponent streamManager={streamManager} />
           <div>
             <p>{getNicknameTag()}</p>
           </div>
-        </div>
+        </StyledVideo>
       ) : null}
     </div>
   );
