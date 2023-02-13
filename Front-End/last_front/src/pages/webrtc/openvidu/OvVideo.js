@@ -1,21 +1,73 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from "react";
+import styled, { css } from "styled-components";
 
-const OvVideo = ({streamManager}) => {
-    const videoRef = useRef()
+const StyledVideo = styled.video`
+  width: 90%;
+  ${({ user }) => {
+    if (user + 1 === 1) {
+      return css`
+        width: 65%;
+        margin-top: 4vh;
+        margin-left: 2vw;
+      `;
+    } else if (user + 1 === 2) {
+      return css`
+        width: 90%;
+        padding-left: 2vw;
+        margin-top: 15vh;
+        /* grid-template-columns: 50% 50%; */
+        /* grid-template-rows: 1fr; */
+      `;
+    } else if (user + 1 === 3) {
+      return css`
+        width: 65%;
+        margin-top: 2vh;
+        padding-left: 8vw;
+        /* grid-template-columns: 50% 50%; */
+        /* grid-template-rows: 1fr 1fr; */
+      `;
+    } else if (user + 1 === 4) {
+      return css`
+        width: 65%;
+        margin-top: 2vh;
+        padding-left: 8vw;
+      `;
+    } else if (user + 1 === 5) {
+      return css`
+        margin-top: 3vh;
+        padding-left: 23px;
+        /* grid-template-columns: 1fr 1fr 1fr; */
+        /* grid-template-rows: 1fr 1fr; */
+      `;
+    } else if (user + 1 >= 6) {
+      return css`
+        margin-top: 3vh;
+        padding-left: 23px;
+        /* grid-template-columns: 1fr 1fr 1fr; */
+        /* grid-template-rows: 1fr 1fr; */
+      `;
+    }
+  }};
+`;
 
-    useEffect(()=>{
-        if (streamManager && !!videoRef) {
-            streamManager.addVideoElement(videoRef.current);
-        }
-    },[])
+const OvVideo = ({ streamManager, user }) => {
+  const videoRef = useRef();
 
-    useEffect(()=>{
-        if (streamManager && !!videoRef) {
-            streamManager.addVideoElement(videoRef.current);
-        }
-    }, [streamManager])
+  console.log("비디오입니당", user);
 
-    return <video autoPlay={true} ref={videoRef} />;
-}
+  useEffect(() => {
+    if (streamManager && !!videoRef) {
+      streamManager.addVideoElement(videoRef.current);
+    }
+  }, []);
 
-export default OvVideo
+  useEffect(() => {
+    if (streamManager && !!videoRef) {
+      streamManager.addVideoElement(videoRef.current);
+    }
+  }, [streamManager]);
+
+  return <StyledVideo autoPlay={true} ref={videoRef} user={user} />;
+};
+
+export default OvVideo;

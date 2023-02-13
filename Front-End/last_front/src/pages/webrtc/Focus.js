@@ -82,12 +82,12 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
 
   return (
     <StyledDiv user={user}>
-      <UserVideoComponent streamManager={info.publisher} />
+      <UserVideoComponent streamManager={info.publisher} user={user} />
       {/* <button onClick={screenShare}>화면공유</button> */}
 
       {info.subscribers.map((sub, i) => (
         <div key={i}>
-          <UserVideoComponent streamManager={sub} />
+          <UserVideoComponent streamManager={sub} user={user} />
         </div>
       ))}
     </StyledDiv>
