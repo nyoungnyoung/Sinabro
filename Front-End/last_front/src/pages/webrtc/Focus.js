@@ -17,7 +17,7 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
         mirror: false, // Whether to mirror your local video or not
       });
 
-      newPublisher.once("accessAllowed", event => {
+      newPublisher.once("accessAllowed", (event) => {
         newPublisher.stream
           .getMediaStream()
           .getVideoTracks()[0]
@@ -61,7 +61,7 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  const mouseMove = event => {
+  const mouseMove = (event) => {
     // console.log(event);
 
     // 마우스 위치
@@ -92,139 +92,6 @@ function Focus({ glassOn, info, OV, session, handleInfo }) {
       ))}
     </StyledDiv>
   );
-  // if (user <= 2) {
-  //   // 2명 이하
-  //   return (
-  //     <StyledDiv
-  //       onMouseMove={(event) => {
-  //         mouseMove(event);
-  //       }}
-  //     >
-  //       {/* <h1>Focus</h1> */}
-  //       {/* <p>2명</p> */}
-  //       <TwoDiv>
-  //         <TwoDiv2>1번 user</TwoDiv2>
-  //         <TwoDiv2>2번 user</TwoDiv2>
-  //       </TwoDiv>
-  //       {glassOn && (
-  //         <StyledGlass ref={glassDiv}>
-  //           <h1>돋보기 화면</h1>
-  //         </StyledGlass>
-  //         // <Zoom />
-  //       )}
-  //     </StyledDiv>
-  //   );
-  // } else if (user === 3) {
-  //   // 3명
-  //   return (
-  //     <StyledDiv>
-  //       {/* <h1>Focus</h1> */}
-  //       {/* <p>3명</p> */}
-  //       <ThreeDiv>
-  //         <ThreeDiv2>1번 user</ThreeDiv2>
-  //         <ThreeDiv2>2번 user</ThreeDiv2>
-  //       </ThreeDiv>
-  //       <ThreeDiv>
-  //         <ThreeDiv2>3번 user</ThreeDiv2>
-  //       </ThreeDiv>
-  //     </StyledDiv>
-  //   );
-  // } else if (user === 4) {
-  //   // 4명
-  //   return (
-  //     <StyledDiv>
-  //       {/* <h1>Focus</h1> */}
-  //       {/* <p>4명</p> */}
-  //       <FourDiv>
-  //         <FourDiv2>1번 user</FourDiv2>
-  //         <FourDiv2>2번 user</FourDiv2>
-  //       </FourDiv>
-  //       <FourDiv>
-  //         <FourDiv2>3번 user</FourDiv2>
-  //         <FourDiv2>4번 user</FourDiv2>
-  //       </FourDiv>
-  //     </StyledDiv>
-  //   );
-  // } else if (user === 5) {
-  //   // 5명
-  //   return (
-  //     <StyledDiv>
-  //       {/* <h1>Focus</h1> */}
-  //       {/* <p>5명</p> */}
-  //       <FiveDiv>
-  //         <FiveDiv2>1번 user</FiveDiv2>
-  //         <FiveDiv2>2번 user</FiveDiv2>
-  //         <FiveDiv2>3번 user</FiveDiv2>
-  //       </FiveDiv>
-  //       <FiveDiv>
-  //         <FiveDiv2>4번 user</FiveDiv2>
-  //         <FiveDiv2>5번 user</FiveDiv2>
-  //       </FiveDiv>
-  //     </StyledDiv>
-  //   );
-  // } else if (user === 6) {
-  //   // 6명
-  //   return (
-  //     <StyledDiv>
-  //       {/* <h1>Focus</h1> */}
-  //       {/* <p>6명</p> */}
-  //       <SixDiv>
-  //         <SixDiv2>1번 user</SixDiv2>
-  //         <SixDiv2>2번 user</SixDiv2>
-  //         <SixDiv2>3번 user</SixDiv2>
-  //       </SixDiv>
-  //       <SixDiv>
-  //         <SixDiv2>4번 user</SixDiv2>
-  //         <SixDiv2>5번 user</SixDiv2>
-  //         <SixDiv2>6번 user</SixDiv2>
-  //       </SixDiv>
-  //     </StyledDiv>
-  //   );
-  // } else if (user > 6) {
-  //   if (over === false) {
-  //     return (
-  //       <StyledDiv>
-  //         {/* <h1>Focus</h1> */}
-  //         {/* <p>7명 이상</p> */}
-  //         <SixDiv>
-  //           <SixDiv2>1번 user</SixDiv2>
-  //           <SixDiv2>2번 user</SixDiv2>
-  //           <SixDiv2>3번 user</SixDiv2>
-  //         </SixDiv>
-  //         <SixDiv>
-  //           <SixDiv2>4번 user</SixDiv2>
-  //           <SixDiv2>5번 user</SixDiv2>
-  //           <SixDiv2>6번 user</SixDiv2>
-  //         </SixDiv>
-  //         <SevenDiv>
-  //           <SevenButton>◀</SevenButton>
-  //           <SevenButton onClick={changeToSecond}>▶</SevenButton>
-  //         </SevenDiv>
-  //       </StyledDiv>
-  //     );
-  //   } else {
-  //     return (
-  //       <StyledDiv>
-  //         {/* <h1>Focus</h1> */}
-  //         {/* <p>7명 이상</p> */}
-  //         <SixDiv>
-  //           <SixDiv2>7번 user</SixDiv2>
-  //           <SixDiv2>8번 user</SixDiv2>
-  //           <SixDiv2>9번 user</SixDiv2>
-  //         </SixDiv>
-  //         <SixDiv>
-  //           <SixDiv2>10번 user</SixDiv2>
-  //           <SixDiv2>11번 user</SixDiv2>
-  //           <SixDiv2>12번 user</SixDiv2>
-  //         </SixDiv>
-  //         <SevenDiv>
-  //           <SevenButton onClick={changeToSecond}>◀</SevenButton>
-  //           <SevenButton>▶</SevenButton>
-  //         </SevenDiv>
-  //       </StyledDiv>
-  //     );
-  //   }
-  // }
 }
 
 const StyledDiv = styled.div`
