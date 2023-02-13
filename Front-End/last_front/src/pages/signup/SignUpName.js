@@ -7,7 +7,7 @@ function SignUpName({ HandleSignUp }) {
 
   const navigate = useNavigate();
 
-  const changeName = (event) => {
+  const changeName = event => {
     setName(event);
   };
   const moveToAgree = () => {
@@ -23,7 +23,7 @@ function SignUpName({ HandleSignUp }) {
         <StyledInput
           type="text"
           value={name}
-          onChange={(event) => {
+          onChange={event => {
             changeName(event.target.value);
           }}
           placeholder="여기에 이름을 적어주세요 :)"
@@ -43,9 +43,9 @@ function SignUpName({ HandleSignUp }) {
 }
 
 const StyledDiv = styled.div`
-  background-color: #fff9be;
+  /* background-color: #fff9be; */
   // background-color: white;
-  height: 100vh;
+  height: 72vh;
 `;
 const StyledDiv2 = styled.div`
   background-color: white;

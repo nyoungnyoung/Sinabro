@@ -26,14 +26,14 @@ function SignUpMain() {
     });
   };
 
-  const HandleAuthCode = (event) => {
+  const HandleAuthCode = event => {
     setAuthCode(event);
   };
 
   console.log(signUp);
 
   return (
-    <div>
+    <StyledDiv>
       <StyledH1>회원가입</StyledH1>
       <Routes>
         <Route
@@ -65,7 +65,7 @@ function SignUpMain() {
         ></Route>
         <Route path="/existed" element={<AlreadyExisted />}></Route>
       </Routes>
-    </div>
+    </StyledDiv>
   );
 }
 
@@ -74,5 +74,11 @@ const StyledH1 = styled.h1`
   margin: 0px;
   background-color: #fff9be;
   /* background-color: white; */
+`;
+
+const StyledDiv = styled.div`
+  background-color: #fff9be;
+  padding-top: 15vh;
+  /* height: 100vh; */
 `;
 export default SignUpMain;

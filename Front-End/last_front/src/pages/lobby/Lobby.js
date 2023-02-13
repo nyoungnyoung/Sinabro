@@ -34,6 +34,12 @@ const StyledDiv = styled.div`
   /* background-color: whitesmoke; */
   /* background-size: cover; */
   height: 100vh;
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 100vw;
+  }
 `;
 
 // const StyledDiv2 = styled.div`

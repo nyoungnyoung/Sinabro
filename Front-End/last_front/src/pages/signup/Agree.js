@@ -36,7 +36,7 @@ const Agree = () => {
 const StyledDiv = styled.div`
   background-color: #fff9be;
   // background-color: white;
-  height: 100vh;
+  height: 540px;
 `;
 
 const StyledDiv2 = styled.div`

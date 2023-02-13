@@ -28,7 +28,7 @@ function Login() {
     });
   };
 
-  const isLogined = (data) => {
+  const isLogined = data => {
     dispatch(loginActions.addToken(data));
   };
 
@@ -38,7 +38,7 @@ function Login() {
         phone: login.number,
         password: login.password,
       })
-      .then((response) => {
+      .then(response => {
         console.log(response.data);
         // response.data : 토큰
         // 토큰은 전역변수로 관리해줘야한다.
@@ -55,24 +55,24 @@ function Login() {
           });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
 
-  const token = useSelector((state) => state);
+  const token = useSelector(state => state);
   console.log(token);
   // console.log(login);
   return (
     <StyledDiv>
-      <StyledH1>로그인</StyledH1>
-      <div>
+      <CardDiv>
+        <StyledH1>로그인</StyledH1>
         <StyledDiv2>
           <StyledLabel>전화번호 : </StyledLabel>
           <StyledInput
             type="text"
             value={login.number}
-            onChange={(event) => {
+            onChange={event => {
               changeLogin(event, "number");
             }}
             placeholder="전화번호를 입력해주세요 :)"
@@ -83,7 +83,7 @@ function Login() {
           <StyledInput
             type="password"
             value={login.password}
-            onChange={(event) => {
+            onChange={event => {
               changeLogin(event, "password");
             }}
             placeholder="비밀번호를 입력해주세요 :)"
@@ -98,14 +98,24 @@ function Login() {
           로그인
         </StyledButton>
         <StyledButton onClick={moveToLobby}>홈으로</StyledButton>
-      </div>
+      </CardDiv>
     </StyledDiv>
   );
 }
 
+const CardDiv = styled.div`
+  background-color: white;
+  width: 50%;
+  margin-left: 25vw;
+  border: none;
+  border-radius: 20px;
+  padding-bottom: 40px;
+`;
+
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  height: 100vh;
+  height: 75vh;
+  padding-top: 25vh;
 `;
 
 const StyledDiv2 = styled.div`
