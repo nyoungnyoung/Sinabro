@@ -2,32 +2,32 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Navbar({ handleMode }) {
+function Navbar({ handleMode, handleScreenShare }) {
+
   const role = "teacher";
 
-  const [mode, setMode] = useState("focus");
+  // const [mode, setMode] = useState("focus");
 
-  const changeShare = () => {
-    setMode("share");
-    // handleMode(mode);
+  const changeShare = async () => {
+    await handleScreenShare();
+    // setMode("share");
+    handleMode("share");
   };
   // console.log(mode);
 
   const changeFocus = () => {
-    setMode("focus");
-    // handleMode(mode);
+    handleMode("focus");
   };
   // console.log(mode);
 
   const changeTogether = () => {
-    setMode("together");
-    // handleMode(mode);
+    handleMode("together");
   };
   // console.log(mode);
 
-  useEffect(() => {
-    handleMode(mode);
-  }, [mode]);
+  // useEffect(() => {
+  //   handleMode(mode);
+  // }, [mode]);
 
   const navigate = useNavigate();
 

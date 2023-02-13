@@ -3,50 +3,7 @@ import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 // import Zoom from "./Zoom";
 
-function Focus({ glassOn, info, OV, session, handleInfo }) {
-  const screenShare = async () => {
-    try {
-      let newPublisher = await OV.initPublisherAsync(undefined, {
-        audioSource: undefined, // The source of audio. If undefined default microphone
-        videoSource: "screen", // The source of video. If undefined default webcam
-        publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-        publishVideo: true, // Whether you want to start publishing with your video enabled or not
-        resolution: "1280x960", // The resolution of your video
-        frameRate: 30, // The frame rate of your video
-        insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-        mirror: false, // Whether to mirror your local video or not
-      });
-
-      newPublisher.once("accessAllowed", (event) => {
-        newPublisher.stream
-          .getMediaStream()
-          .getVideoTracks()[0]
-          .addEventListener("ended", async () => {
-            console.log('User pressed the "Stop sharing" button');
-            let newPublisher = await OV.initPublisherAsync(undefined, {
-              audioSource: undefined, // The source of audio. If undefined default microphone
-              videoSource: undefined, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-              publishVideo: true, // Whether you want to start publishing with your video enabled or not
-              resolution: "640x480", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
-              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-              mirror: false, // Whether to mirror your local video or not
-            });
-
-            await session.unpublish(info.publisher);
-            await session.publish(newPublisher);
-
-            handleInfo(newPublisher, "publisher");
-          });
-      });
-      await session.unpublish(info.publisher);
-      await session.publish(newPublisher);
-      handleInfo(newPublisher, "publisher");
-    } catch (e) {
-      console.error(e);
-    }
-  };
+function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }) {
   // console.log(glassOn);
 
   const [over, setOver] = useState(false);

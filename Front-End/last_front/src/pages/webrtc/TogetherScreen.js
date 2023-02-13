@@ -1,13 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import UserVideoComponent from "./openvidu/UserVideoComponent";
 
-const TogetherScreen = () => {
+const TogetherScreen = ({ info, handleMainVideoStream }) => {
   return (
     <StyledDiv>
       {/* <h1>together</h1> */}
       <StageDiv>
-        <MainDiv>주인공</MainDiv>
+        <MainDiv><UserVideoComponent streamManager={info.mainStreamManager} /></MainDiv>
         <StageImg src="/img/stage2.png" alt="stage" />
+        <div>
+          <UserVideoComponent streamManager={info.publisher}/>
+        </div>
+        {info.subscribers.map((sub, i) => (
+        <div key={i} onClick={() => handleMainVideoStream(sub)}>
+          <UserVideoComponent streamManager={sub} />
+        </div>
+      ))}
       </StageDiv>
     </StyledDiv>
   );

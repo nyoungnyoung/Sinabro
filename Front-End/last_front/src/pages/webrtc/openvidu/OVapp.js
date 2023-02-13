@@ -17,6 +17,71 @@ import styled from "styled-components";
 import TogetherScreen from "../TogetherScreen";
 
 function App() {
+  const sendMainStreamManager = (newPublisher) => {
+    console.log("@@@@@@@@@@@@");
+    console.log(newPublisher.stream.streamId);
+    session.signal({
+      data: JSON.stringify(newPublisher.id),
+      to: [],
+      type: 'changeMainStreamManager'
+    }).then(() => {
+      console.log("received signal changeMainStreamManager");
+    }).catch((error) => console.log(error));
+  };
+
+  const screenShare = async () => {
+    try {
+      let newPublisher = await OV.initPublisherAsync(undefined, {
+        audioSource: undefined, // The source of audio. If undefined default microphone
+        videoSource: "screen", // The source of video. If undefined default webcam
+        publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+        publishVideo: true, // Whether you want to start publishing with your video enabled or not
+        resolution: "1280x960", // The resolution of your video
+        frameRate: 30, // The frame rate of your video
+        insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+        mirror: false, // Whether to mirror your local video or not
+      });
+
+      newPublisher.once("accessAllowed", event => {
+        newPublisher.stream
+          .getMediaStream()
+          .getVideoTracks()[0]
+          .addEventListener("ended", async () => {
+            handleMode("focus");
+            console.log('User pressed the "Stop sharing" button');
+            let newPublisher = await OV.initPublisherAsync(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: undefined, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: "640x480", // The resolution of your video
+              frameRate: 30, // The frame rate of your video
+              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video or not
+            });
+
+            await session.unpublish(info.publisher);
+            await session.publish(newPublisher);
+
+            handleInfo(newPublisher, "publisher");
+            // handleInfo(info.mainStreamManager, "publisher");
+          });
+      });
+      await session.unpublish(info.publisher);
+      await session.publish(newPublisher);
+      handleInfo(newPublisher, "mainStreamManager");
+      sendMainStreamManager(newPublisher);
+      // handleInfo(info.mainStreamManager, "publisher");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleScreenShare = async () => {
+    await screenShare();
+    handleMode("share");
+  }
+
   const [info, setInfo] = useState({
     mySessionId: "SessionA",
     myUserName: "Participant" + Math.floor(Math.random() * 100),
@@ -33,6 +98,13 @@ function App() {
 
   // 모드 변경을 위한 함수 (Navbar로 prop해줄 함수)
   const handleMode = (event) => {
+    session.signal({
+      data: 'test mode',
+      to: [],
+      type: `${event}`
+    }).then(() => {
+      console.log("success");
+    });
     setMode(event);
   };
   console.log(mode);
@@ -43,6 +115,12 @@ function App() {
       [type]: event,
     });
   };
+
+  const handleLeaveSession = () => {
+    leaveSession(session, handleOV);
+    setOV(null);
+    setSession(null);
+  }
 
   const handleOV = (event) => {
     console.log(event);
@@ -91,6 +169,17 @@ function App() {
         console.log(e);
         console.log("커넥션 ID: " + e.stream.connection.connectionId);
         deleteSubscriber(e.stream.streamManager);
+      });
+
+      mySession.on("signal:changeMainStreamManager", (event) => {
+        console.log(event.data);
+        handleInfo(JSON.parse(event.data), "mainStreamManager");
+      });
+
+      mySession.on("signal:share", (event) => {
+        console.log(event.data);
+        // handleInfo([강사의publisher객체], "mainStreamManager");
+        setMode("share");
       });
 
       // mySession.on("micOff", (e) => {
@@ -222,14 +311,15 @@ function App() {
   };
 
   const handleMainVideoStream = (stream) => {
-    if (info.mainStreamManager !== stream) {
+    // if (info.mainStreamManager !== stream) {
       setInfo((prev) => {
         return {
           ...prev,
           mainStreamManager: stream,
         };
       });
-    }
+      handleMode("together");
+    // }
   };
 
   return (
@@ -298,16 +388,11 @@ function App() {
               value="Leave session"
             />
           </div>
-          <Navbar handleMode={handleMode} />
+          <Navbar info={info} handleMode={handleMode} handleScreenShare={handleScreenShare} />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
             {mode === "focus" ? (
-              <Focus
-                info={info}
-                OV={OV}
-                session={session}
-                handleInfo={handleInfo}
-              />
+              <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} handleMainVideoStream={handleMainVideoStream} />
             ) : mode === "share" ? (
               <ShareScreen
                 info={info}
@@ -321,9 +406,10 @@ function App() {
                 OV={OV}
                 session={session}
                 setInfo={setInfo}
+                handleMainVideoStream={handleMainVideoStream}
               />
             )}
-            <SideBar info={info} />
+            <SideBar handleLeaveSession={handleLeaveSession} info={info} />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
