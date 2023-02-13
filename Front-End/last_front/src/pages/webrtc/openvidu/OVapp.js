@@ -290,7 +290,11 @@ function App() {
               className="btn btn-large btn-danger"
               type="button"
               id="buttonLeaveSession"
-              onClick={() => { leaveSession(session, handleOV); setOV(null); }}
+              onClick={() => {
+                leaveSession(session, handleOV);
+                setOV(null);
+                setSession(null);
+              }}
               value="Leave session"
             />
           </div>
@@ -298,7 +302,12 @@ function App() {
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
             {mode === "focus" ? (
-              <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} />
+              <Focus
+                info={info}
+                OV={OV}
+                session={session}
+                handleInfo={handleInfo}
+              />
             ) : mode === "share" ? (
               <ShareScreen
                 info={info}
