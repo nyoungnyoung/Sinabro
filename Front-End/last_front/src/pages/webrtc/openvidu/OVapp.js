@@ -14,6 +14,7 @@ import Focus from "../Focus";
 import SideBar from "../SideBar";
 import Navbar from "../Navbar";
 import styled from "styled-components";
+import TogetherScreen from "../TogetherScreen";
 
 function App() {
   const [info, setInfo] = useState({
@@ -27,7 +28,15 @@ function App() {
   const [session, setSession] = useState(null);
   const [OV, setOV] = useState(new OpenVidu());
 
-  //info state를 하위 컴포넌트에서 변경하기 위한 함수
+  // 모드 변경을 위한 변수 (share, focus, together)
+  const [mode, setMode] = useState("focus");
+
+  // 모드 변경을 위한 함수 (Navbar로 prop해줄 함수)
+  const handleMode = (event) => {
+    setMode(event);
+  };
+  console.log(mode);
+
   const handleInfo = (event, type) => {
     setInfo({
       ...info,
@@ -225,6 +234,7 @@ function App() {
 
   return (
     <div className="container">
+      {/* 세션이 열리기 전 */}
       {session === null ? (
         <div id="join">
           <div id="img-div">
@@ -271,6 +281,7 @@ function App() {
         </div>
       ) : null}
 
+      {/* 세션이 열린 후 화상회의 시작 */}
       {session !== null ? (
         <div id="session">
           <div id="session-header">
@@ -283,10 +294,27 @@ function App() {
               value="Leave session"
             />
           </div>
-          <Navbar />
+          <Navbar handleMode={handleMode} />
           <StyledDiv2>
-            <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} />
-            <SideBar info={ info } />
+            {/* 모드별로 다른 컴포넌트 보여주기 */}
+            {mode === "focus" ? (
+              <Focus info={info} OV={OV} session={session} handleInfo={handleInfo} />
+            ) : mode === "share" ? (
+              <ShareScreen
+                info={info}
+                OV={OV}
+                session={session}
+                setInfo={setInfo}
+              />
+            ) : (
+              <TogetherScreen
+                info={info}
+                OV={OV}
+                session={session}
+                setInfo={setInfo}
+              />
+            )}
+            <SideBar info={info} />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
