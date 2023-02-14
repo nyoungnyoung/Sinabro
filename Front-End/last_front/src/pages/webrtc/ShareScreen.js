@@ -6,7 +6,9 @@ const ShareScreen = ({ info }) => {
   return (
     <StyledDiv>
       <StyledDiv2>
-        <ShareDiv><UserVideoComponent streamManager={info.mainStreamManager} /></ShareDiv>
+        <ShareDiv>
+          <UserVideoComponent streamManager={info.mainStreamManager} />
+        </ShareDiv>
       </StyledDiv2>
     </StyledDiv>
   );
@@ -23,12 +25,12 @@ const StyledDiv = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
 `;
-const TeacherDiv = styled.div`
-  margin-left: 30px;
-  width: 33%;
-  height: 35vh;
-  background-color: green;
-`;
+// const TeacherDiv = styled.div`
+//   margin-left: 30px;
+//   width: 33%;
+//   height: 35vh;
+//   background-color: green;
+// `;
 
 const ShareDiv = styled.div`
   margin: auto;

@@ -23,7 +23,7 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
   };
 
   // 비디오
-  const [video, setVideo] = useState(false);
+  const [video, setVideo] = useState(true);
   const changeVideoOn = () => {
     setVideo(true);
   };

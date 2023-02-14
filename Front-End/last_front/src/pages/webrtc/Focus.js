@@ -10,22 +10,23 @@ function Focus({
   session,
   handleInfo,
   handleMainVideoStream,
+  mode,
 }) {
   // console.log(glassOn);
 
   const [over, setOver] = useState(false);
 
-  const changeToSecond = () => {
-    setOver(!over);
-    console.log(over);
-  };
+  // const changeToSecond = () => {
+  //   setOver(!over);
+  //   console.log(over);
+  // };
 
   const glassDiv = useRef();
 
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  const mouseMove = event => {
+  const mouseMove = (event) => {
     // console.log(event);
 
     // 마우스 위치
@@ -46,7 +47,11 @@ function Focus({
 
   return (
     <StyledDiv user={user}>
-      <UserVideoComponent streamManager={info.publisher} user={user} />
+      <UserVideoComponent
+        streamManager={info.publisher}
+        user={user}
+        mode={mode}
+      />
       {/* <button onClick={screenShare}>화면공유</button> */}
 
       {info.subscribers.map((sub, i) => (
@@ -56,7 +61,7 @@ function Focus({
             handleMainVideoStream(sub);
           }}
         >
-          <UserVideoComponent streamManager={sub} user={user} />
+          <UserVideoComponent streamManager={sub} user={user} mode={mode} />
         </div>
       ))}
     </StyledDiv>
@@ -111,103 +116,103 @@ const StyledDiv = styled.div`
 
 // `
 
-const StyledGlass = styled.div`
-  width: 200px;
-  height: 150px;
-  position: absolute;
-  border: 5px yellow solid;
-  border-radius: 15px;
-  left: 0;
-  top: 30;
-`;
+// const StyledGlass = styled.div`
+//   width: 200px;
+//   height: 150px;
+//   position: absolute;
+//   border: 5px yellow solid;
+//   border-radius: 15px;
+//   left: 0;
+//   top: 30;
+// `;
 
-const TwoDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  position: relative;
-`;
+// const TwoDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   position: relative;
+// `;
 
-const TwoDiv2 = styled.div`
-  width: 600px;
-  height: 50vh;
-  background-color: green;
-  margin-top: 100px;
-  margin-left: 13px;
-  margin-right: 13px;
-  position: relative;
-`;
+// const TwoDiv2 = styled.div`
+//   width: 600px;
+//   height: 50vh;
+//   background-color: green;
+//   margin-top: 100px;
+//   margin-left: 13px;
+//   margin-right: 13px;
+//   position: relative;
+// `;
 
-const ThreeDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const ThreeDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
-const ThreeDiv2 = styled.div`
-  width: 40%;
-  height: 280px;
-  background-color: green;
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
+// const ThreeDiv2 = styled.div`
+//   width: 40%;
+//   height: 280px;
+//   background-color: green;
+//   margin-top: 30px;
+//   margin-left: 20px;
+//   margin-right: 20px;
+// `;
 
-const FourDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const FourDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
-const FourDiv2 = styled.div`
-  width: 40%;
-  height: 280px;
-  background-color: green;
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
+// const FourDiv2 = styled.div`
+//   width: 40%;
+//   height: 280px;
+//   background-color: green;
+//   margin-top: 30px;
+//   margin-left: 20px;
+//   margin-right: 20px;
+// `;
 
-const FiveDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const FiveDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
-const FiveDiv2 = styled.div`
-  width: 32%;
-  height: 250px;
-  background-color: green;
-  margin-top: 40px;
-  margin-left: 15px;
-  margin-right: 15px;
-`;
-const SixDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const FiveDiv2 = styled.div`
+//   width: 32%;
+//   height: 250px;
+//   background-color: green;
+//   margin-top: 40px;
+//   margin-left: 15px;
+//   margin-right: 15px;
+// `;
+// const SixDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
-const SixDiv2 = styled.div`
-  width: 32%;
-  height: 250px;
-  background-color: green;
-  margin-top: 40px;
-  margin-left: 15px;
-  margin-right: 15px;
-`;
+// const SixDiv2 = styled.div`
+//   width: 32%;
+//   height: 250px;
+//   background-color: green;
+//   margin-top: 40px;
+//   margin-left: 15px;
+//   margin-right: 15px;
+// `;
 
-const SevenDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
+// const SevenDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   margin-top: 20px;
+// `;
 
-const SevenButton = styled.div`
-  color: white;
-  font-size: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
-  cursor: pointer;
-  :hover {
-    // text-shadow: 3px 3px 3px yellow;
-    color: red;
-  }
-`;
+// const SevenButton = styled.div`
+//   color: white;
+//   font-size: 30px;
+//   margin-left: 20px;
+//   margin-right: 20px;
+//   cursor: pointer;
+//   :hover {
+//     // text-shadow: 3px 3px 3px yellow;
+//     color: red;
+//   }
+// `;
 
 export default Focus;
