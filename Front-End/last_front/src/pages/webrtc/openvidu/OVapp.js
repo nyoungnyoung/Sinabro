@@ -449,6 +449,7 @@ function App() {
                 session={session}
                 setInfo={setInfo}
                 mode={mode}
+                ratio={ratio}
               />
             ) : (
               <TogetherScreen
