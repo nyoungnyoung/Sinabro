@@ -3,8 +3,8 @@ import axios from "axios";
 export const APPLICATION_SERVER_URL = "http://localhost:5000/";
 
 export const getToken = async mySessionId => {
-  const sessionId = await createSession(mySessionId);
-  return await sessionId.token;
+  const responseDto = await createSession(mySessionId);
+  return await responseDto;
 };
 
 // export const getUserName = async (mySessionId) => {

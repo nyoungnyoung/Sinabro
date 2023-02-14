@@ -92,12 +92,13 @@ function App() {
   };
 
   const [info, setInfo] = useState({
-    mySessionId: "SessionA",
+    mySessionId: undefined,
     myUserName: "Participant" + Math.floor(Math.random() * 100),
     session: undefined,
     mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
     publisher: undefined,
     subscribers: [],
+    myClassroom: undefined,
   });
   const [session, setSession] = useState(null);
   const [OV, setOV] = useState(new OpenVidu());
@@ -228,11 +229,11 @@ function App() {
         console.warn(exception);
       });
 
-      getToken(info.mySessionId).then(token => {
+      getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
         mySession
-          .connect(token, { clientData: info.myUserName })
+          .connect(dto.token, { clientData: dto.name })
           .then(async () => {
             // --- 5) Get your own camera stream ---
 
@@ -276,6 +277,7 @@ function App() {
                 currentVideoDevice: currentVideoDevice,
                 mainStreamManager: publisher,
                 publisher: publisher,
+                myClassroom: dto.subject,
               };
             });
           })
@@ -387,7 +389,7 @@ function App() {
                   className="form-control"
                   type="text"
                   id="sessionId"
-                  value={info.mySessionId}
+                  value={info.myClassroom}
                   onChange={handleChangeSessionId}
                   required
                 />
@@ -409,7 +411,7 @@ function App() {
       {session !== null ? (
         <div id="session">
           <div id="session-header">
-            <h1 id="session-title">{info.mySessionId}</h1>
+            <h1 id="session-title">{info.myClassroom}</h1>
             <input
               className="btn btn-large btn-danger"
               type="button"
