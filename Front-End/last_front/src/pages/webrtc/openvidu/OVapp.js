@@ -18,10 +18,8 @@ import TogetherScreen from "../TogetherScreen";
 
 function App() {
   const sendMainStreamManager = (newPublisher) => {
-    console.log("@@@@@@@@@@@@");
-    console.log(newPublisher.stream.streamId);
     session.signal({
-      data: JSON.stringify(newPublisher.id),
+      data: newPublisher.stream.streamId,
       to: [],
       type: 'changeMainStreamManager'
     }).then(() => {
@@ -172,14 +170,32 @@ function App() {
       });
 
       mySession.on("signal:changeMainStreamManager", (event) => {
-        console.log(event.data);
-        handleInfo(JSON.parse(event.data), "mainStreamManager");
+        for (let index = 0; index < info.subscribers.length; index++) {
+          console.log(info.subscribers[index].stream.streamId);
+          if (info.subscribers[index].stream.streamId === event.data) {
+            handleInfo(info.subscribers[index], "mainStreamManager");
+          }
+        }
+
+        // handleInfo(event.data, "mainStreamManager");
       });
 
       mySession.on("signal:share", (event) => {
         console.log(event.data);
         // handleInfo([강사의publisher객체], "mainStreamManager");
         setMode("share");
+      });
+
+      mySession.on("signal:focus", (event) => {
+        console.log(event.data);
+        // handleInfo([강사의publisher객체], "mainStreamManager");
+        setMode("focus");
+      });
+
+      mySession.on("signal:together", (event) => {
+        console.log(event.data);
+        // handleInfo([강사의publisher객체], "mainStreamManager");
+        setMode("together");
       });
 
       // mySession.on("micOff", (e) => {
@@ -318,6 +334,7 @@ function App() {
           mainStreamManager: stream,
         };
       });
+      sendMainStreamManager(stream);
       handleMode("together");
     // }
   };
