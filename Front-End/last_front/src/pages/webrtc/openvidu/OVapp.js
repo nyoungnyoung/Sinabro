@@ -110,7 +110,7 @@ function App() {
       });
     setMode(event);
   };
-  console.log(mode);
+  // console.log(mode);
 
   const handleInfo = (event, type) => {
     setInfo({
