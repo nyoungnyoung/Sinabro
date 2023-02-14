@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -11,6 +11,11 @@ function SideBar({
   ratio,
   info,
   handleLeaveSession,
+  flag, 
+  handleAudio, 
+  muteAll, 
+  micState, 
+  micInfo
 }) {
   // 사용자 role 스토어에서 가져오기
   // const role = useSelector(state => state.login.token.role);
@@ -23,9 +28,11 @@ function SideBar({
   // 마이크
   const [mic, setMic] = useState(false);
   const changeMicOn = () => {
+    handleAudio(true);
     setMic(true);
   };
   const changeMicOff = () => {
+    handleAudio(false);
     setMic(false);
   };
 
@@ -65,6 +72,16 @@ function SideBar({
     setAllMic(false);
   };
 
+  // 음소거 상태 업데이트 
+  useEffect(() => {
+    setMic(flag);
+  }, [flag]);  
+
+  // 선생님 '전체마이크 제어 상태 업데이트' 
+  useEffect(() => {
+    setAllMic(micInfo);
+  }, [micInfo]);
+
   // 채팅장이 꺼져있을 때
   if (chat === false) {
     return (
@@ -84,6 +101,7 @@ function SideBar({
               onClick={() => {
                 changeMicOn();
                 info.publisher.publishAudio(true);
+                micState(true);
               }}
             >
               켜짐
@@ -152,6 +170,7 @@ function SideBar({
               <h3>전체마이크</h3>
             </MicDiv2>
             <div>
+              {/* <OnButton
               <OnButton
                 style={
                   allMic
@@ -164,7 +183,7 @@ function SideBar({
                 }}
               >
                 켜짐
-              </OnButton>
+              </OnButton> */}
               <OffButton
                 style={
                   !allMic
@@ -173,6 +192,7 @@ function SideBar({
                 }
                 onClick={() => {
                   allMicOff();
+                  muteAll();
                   // info.publisher.publishVideo(false);
                 }}
               >

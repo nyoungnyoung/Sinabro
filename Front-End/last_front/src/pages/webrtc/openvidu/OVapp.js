@@ -1,6 +1,7 @@
 import { OpenVidu } from "openvidu-browser";
 
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
 import {
@@ -17,6 +18,12 @@ import styled from "styled-components";
 import TogetherScreen from "../TogetherScreen";
 
 function App() {
+  const [audioValue, setAudio] = useState(false);
+  const handleAudio = (state) => {
+    setAudio(state);
+  };
+  const [micInfo, setMicInfo] = useState(true);
+
   const [ratio, setRatio] = useState(1);
   const handleRatio = ratio => {
     console.log(ratio);
@@ -224,11 +231,34 @@ function App() {
         });
       });
 
+      mySession.on('signal:mute', (e) => {
+        if(role !== "teacher"){
+          setAudio(false);
+          publisher.publishAudio(false);
+        }
+      });
+
+      // 특정 인원만 음소거 해제 
+      mySession.on('signal:unmute', (e) => {
+        setAudio(true);
+        console.log("음소거 해제 완료!" + audioValue);
+        publisher.publishAudio(true);
+      });
+
+      // 수강생이 마이크를 켜면 선생님의 전체 음소거 버튼이 회색으로 갱신됨 
+      mySession.on('signal:mute-cancelled', (e) => {
+        console.log("role확인!:" + role);
+        if(role === "teacher"){
+          console.log("수강생이 마이크 켰다!")
+          setMicInfo(true);
+        }
+      });
+
       // On every asynchronous exception...
       mySession.on("exception", exception => {
         console.warn(exception);
       });
-
+      let publisher;
       getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
@@ -239,7 +269,7 @@ function App() {
 
             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
             // element: we will manage it on our own) and with the desired properties
-            let publisher = await OV.initPublisherAsync(undefined, {
+            publisher = await OV.initPublisherAsync(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: undefined, // The source of video. If undefined default webcam
               publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
@@ -354,6 +384,45 @@ function App() {
     // }
   };
 
+  const muteAll = () => {
+    session.signal({
+      data: 'mute All',
+      // to: [subscriber.stream.connection],
+      to: [],
+      type: 'mute'
+    }).then(()=>{
+      console.log('message successfully sent');
+    }).catch(error => {
+      console.error(error);
+    });
+  };
+
+  const unmuteOne = (subscriber) => {
+    session.signal({
+      data: 'unmute One',
+      to: [subscriber.stream.connection],
+      type: 'unmute'
+    }).then(()=>{
+      console.log('message successfully sent');
+    }).catch(error => {
+      console.error(error);
+    });
+  };
+
+  const micState = (flag) => {
+    // console.log(flag);
+    session.signal({
+      data: 'mute Cancelled',
+      // to: [subscriber.stream.connection],
+      to: [],
+      type: 'mute-cancelled'
+    }).then(()=>{
+      console.log('mute-cancelled: message successfully sent');
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
   // 사용자 role 스토어에서 가져오기
   // const role = useSelector(state => state.login.token.role);
   const role = "teacher";
@@ -463,12 +532,16 @@ function App() {
                 role={role}
               />
             )}
-            <SideBar
-              handleLeaveSession={handleLeaveSession}
-              handleRatio={handleRatio}
-              info={info}
+            <SideBar 
+              handleLeaveSession={handleLeaveSession} 
+              handleRatio={handleRatio} 
+              info={info} 
               ratio={ratio}
-            />
+              flag={audioValue} 
+              handleAudio={handleAudio} 
+              muteAll={muteAll} 
+              micState={micState} 
+              micInfo={micInfo}/>
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
@@ -489,8 +562,10 @@ function App() {
               <div
                 key={i}
                 className="stream-container col-md-6 col-xs-6"
-                onClick={() => handleMainVideoStream(sub)}
-              >
+                // onClick={() => handleMainVideoStream(sub)}
+                >
+                {/* <button onClick={() => muteOne(sub)}> 한 사람만 음소거 </button> */}
+                <button onClick={() => unmuteOne(sub)}> 한 사람만 음소거 해제 </button>
                 {/* <UserVideoComponent streamManager={sub} /> */}
               </div>
             ))}
