@@ -6,7 +6,8 @@ import ChattingBar from "./ChattingBar";
 
 function SideBar({ handleGlass, info, handleLeaveSession }) {
   // 사용자 role 스토어에서 가져오기
-  const role = useSelector(state => state.login.token.role);
+  // const role = useSelector(state => state.login.token.role);
+  const role = "teacher";
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
