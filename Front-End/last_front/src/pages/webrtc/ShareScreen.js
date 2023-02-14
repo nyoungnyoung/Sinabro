@@ -33,9 +33,11 @@ const StyledDiv2 = styled.div`
 // `;
 
 const ShareDiv = styled.div`
-  margin: auto;
   width: 95%;
   height: 70vh;
   background-color: black;
+  margin-top: 50px;
+  margin-right: 50px;
+  justify-content: center;
 `;
 export default ShareScreen;
