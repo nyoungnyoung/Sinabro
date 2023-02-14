@@ -19,6 +19,7 @@ import TogetherScreen from "../TogetherScreen";
 function App() {
   const [ratio, setRatio] = useState(1);
   const handleRatio = ratio => {
+    console.log(ratio);
     if (ratio > 3) setRatio(3);
     else if (ratio < 1) setRatio(1);
     else setRatio(ratio);
@@ -463,6 +464,7 @@ function App() {
               handleLeaveSession={handleLeaveSession}
               handleRatio={handleRatio}
               info={info}
+              ratio={ratio}
             />
           </StyledDiv2>
 
