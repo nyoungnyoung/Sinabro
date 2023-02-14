@@ -11,6 +11,7 @@ function Focus({
   handleInfo,
   handleMainVideoStream,
   mode,
+  role,
 }) {
   // console.log(glassOn);
 
@@ -26,7 +27,7 @@ function Focus({
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  const mouseMove = (event) => {
+  const mouseMove = event => {
     // console.log(event);
 
     // 마우스 위치
@@ -51,6 +52,7 @@ function Focus({
         streamManager={info.publisher}
         user={user}
         mode={mode}
+        role={role}
       />
       {/* <button onClick={screenShare}>화면공유</button> */}
 
@@ -61,7 +63,12 @@ function Focus({
             handleMainVideoStream(sub);
           }}
         >
-          <UserVideoComponent streamManager={sub} user={user} mode={mode} />
+          <UserVideoComponent
+            streamManager={sub}
+            user={user}
+            mode={mode}
+            role={role}
+          />
         </div>
       ))}
     </StyledDiv>
