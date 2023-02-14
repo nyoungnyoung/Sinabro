@@ -22,7 +22,6 @@ import com.ssafy.osws.lecture.data.repository.LectureQueryDSLRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.lecture.data.repository.LectureTimeRepository;
 import com.ssafy.osws.user.data.entity.User;
-import com.ssafy.osws.user.data.repository.LectureWeeklyInfoRepository;
 import com.ssafy.osws.user.data.repository.UserRepository;
 import com.ssafy.osws.user.dto.request.RequestCreateLecture;
 import com.ssafy.osws.user.dto.request.RequestLectureTime;
@@ -35,9 +34,6 @@ import com.ssafy.osws.user.service.TeacherService;
 public class TeacherServiceImpl implements TeacherService{
 	@Autowired
 	private LectureRepository lectureRepository;
-
-	@Autowired
-	private LectureWeeklyInfoRepository lectureWeeklyInfoRepository;
 	
 	@Autowired
 	private LectureTimeRepository lectureTimeRepository;
@@ -113,7 +109,7 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<ResponseNormalInfo> getEnrollmentList(int lectureNo, HttpServletRequest request) {
-		if(!isMine(lectureNo, request)) {
+		if(!isMyLecture(lectureNo, request)) {
 			return null;
 		}
 		
@@ -126,7 +122,7 @@ public class TeacherServiceImpl implements TeacherService{
 	@Transactional(rollbackOn = RuntimeException.class)
 	public Boolean modifyLecture(RequestModifyLecture requestModifyLecture, HttpServletRequest request) throws RuntimeException{
 		
-		if(!isMine(requestModifyLecture.getNo(), request)) {
+		if(!isMyLecture(requestModifyLecture.getNo(), request)) {
 			return false;
 		}
 			
@@ -157,6 +153,15 @@ public class TeacherServiceImpl implements TeacherService{
 		lectureTimeRepository.saveAll(lectureTimeList);
 		
 		return true;
+	}
+	
+	public boolean isMyLecture(int lectureNo, HttpServletRequest request) {
+		Lecture foundLecture = lectureRepository.findByNo(lectureNo);
+		if(foundLecture == null) {
+			return false;
+		}
+		
+		return foundLecture.getUser().getPhone().equals(findPhone(request));
 	}
 	
 	public boolean isMine(int lectureNo, HttpServletRequest request) {
