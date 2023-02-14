@@ -19,7 +19,7 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
   };
 
   // 비디오
-  const [video, setVideo] = useState(false);
+  const [video, setVideo] = useState(true);
   const changeVideoOn = () => {
     setVideo(true);
   };
@@ -61,7 +61,10 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
               style={
                 mic ? { backgroundColor: "green" } : { backgroundColor: "gray" }
               }
-              onClick={() => { changeMicOn(); info.publisher.publishAudio(true); }}
+              onClick={() => {
+                changeMicOn();
+                info.publisher.publishAudio(true);
+              }}
             >
               켜짐
             </OnButton>
@@ -69,7 +72,10 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
               style={
                 !mic ? { backgroundColor: "red" } : { backgroundColor: "gray" }
               }
-              onClick={() => { changeMicOff(); info.publisher.publishAudio(false) }}
+              onClick={() => {
+                changeMicOff();
+                info.publisher.publishAudio(false);
+              }}
             >
               꺼짐
             </OffButton>
@@ -88,7 +94,10 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
                   ? { backgroundColor: "green" }
                   : { backgroundColor: "gray" }
               }
-              onClick={() => { changeVideoOn(); info.publisher.publishVideo(true); }}
+              onClick={() => {
+                changeVideoOn();
+                info.publisher.publishVideo(true);
+              }}
             >
               켜짐
             </OnButton>
@@ -98,7 +107,10 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
                   ? { backgroundColor: "red" }
                   : { backgroundColor: "gray" }
               }
-              onClick={() => { changeVideoOff(); info.publisher.publishVideo(false); }}
+              onClick={() => {
+                changeVideoOff();
+                info.publisher.publishVideo(false);
+              }}
             >
               꺼짐
             </OffButton>
@@ -154,7 +166,14 @@ function SideBar({ handleGlass, info, handleLeaveSession }) {
           <OnChatButton onClick={changeChatOn}>채팅장 열기</OnChatButton>
         </ChatDiv>
 
-        <StyledButton onClick={() => { handleLeaveSession(); moveToMain() }}>메인으로 나가기</StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleLeaveSession();
+            moveToMain();
+          }}
+        >
+          메인으로 나가기
+        </StyledButton>
       </StyledDiv>
     );
   } else {

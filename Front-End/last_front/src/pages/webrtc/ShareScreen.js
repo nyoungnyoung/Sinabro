@@ -25,12 +25,12 @@ const StyledDiv = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
 `;
-const TeacherDiv = styled.div`
-  margin-left: 30px;
-  width: 33%;
-  height: 35vh;
-  background-color: green;
-`;
+// const TeacherDiv = styled.div`
+//   margin-left: 30px;
+//   width: 33%;
+//   height: 35vh;
+//   background-color: green;
+// `;
 
 const ShareDiv = styled.div`
   margin: auto;
