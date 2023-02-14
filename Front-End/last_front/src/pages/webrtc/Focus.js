@@ -3,7 +3,14 @@ import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 // import Zoom from "./Zoom";
 
-function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }) {
+function Focus({
+  glassOn,
+  info,
+  OV,
+  session,
+  handleInfo,
+  handleMainVideoStream,
+}) {
   // console.log(glassOn);
 
   const [over, setOver] = useState(false);
@@ -18,7 +25,7 @@ function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  const mouseMove = (event) => {
+  const mouseMove = event => {
     // console.log(event);
 
     // 마우스 위치
@@ -43,7 +50,12 @@ function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }
       {/* <button onClick={screenShare}>화면공유</button> */}
 
       {info.subscribers.map((sub, i) => (
-        <div key={i} onClick={() => { handleMainVideoStream(sub) }}>
+        <div
+          key={i}
+          onClick={() => {
+            handleMainVideoStream(sub);
+          }}
+        >
           <UserVideoComponent streamManager={sub} user={user} />
         </div>
       ))}
@@ -52,7 +64,7 @@ function Focus({ glassOn, info, OV, session, handleInfo, handleMainVideoStream }
 }
 
 const StyledDiv = styled.div`
-  width: 100%;
+  width: 80%;
   /* height: 90vh; */
   color: white;
   background-color: black;
