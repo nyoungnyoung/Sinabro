@@ -41,13 +41,23 @@ const StyledDiv = styled.div`
 `;
 
 const TableDiv = styled.div`
+  padding-top: 60px;
   width: 50%;
   display: flex;
   flex-direction: column;
 `;
 
+const StyledH3 = styled.h3`
+  height: 80px;
+  /* width: 200px; */
+`;
+
+const StyledInfo = styled.div`
+  /* margin-top: 80px; */
+`;
+
 const StyledBtn = styled.button`
-  margin-top: 15px;
+  margin-top: 20px;
   width: 80%;
   height: 60px;
   border: none;
@@ -100,7 +110,7 @@ function LectureDetail() {
         }
       );
       setRegistInfo(!registInfo);
-      console.log("수강신청");
+      // console.log("수강신청");
     } catch (e) {
       console.log(e);
     }
@@ -117,7 +127,7 @@ function LectureDetail() {
         headers: { "X-ACCESS-TOKEN": loginToken },
       });
       setRegistInfo(!registInfo);
-      console.log("수강취소");
+      // console.log("수강취소");
     } catch (e) {
       console.log(e);
     }
@@ -138,16 +148,19 @@ function LectureDetail() {
     <div>
       <NavBar />
       <DetailPageDiv>
-        <h1>LectureDetail</h1>
+        <h1>강의 상세정보</h1>
         <StyledDiv>
           <StyledImg src={lectureData.savedName} alt="img"></StyledImg>
           <TableDiv>
             <h1>{lectureData.subject}</h1>
-            <p>{lectureData.content}</p>
-            <p>
-              수강기간 {lectureData.startDate} ~ {lectureData.endDate}
-            </p>
-            <p>강사명 {lectureData.name}</p>
+            <StyledH3>{lectureData.content}</StyledH3>
+            <StyledInfo>
+              <h4>
+                수강기간 {lectureData.startDate.substring(0, 10)} ~{" "}
+                {lectureData.endDate.substring(0, 10)}
+              </h4>
+              <p>강사명 {lectureData.name}</p>
+            </StyledInfo>
             <div>
               {isEnrolled ? (
                 <StyledBtn onClick={deleteLecture}>수강신청취소</StyledBtn>

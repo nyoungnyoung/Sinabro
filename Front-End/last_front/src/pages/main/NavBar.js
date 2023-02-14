@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginActions } from "../../store/loginSlice";
 
@@ -42,6 +42,9 @@ const StyledBtn = styled.button`
 `;
 
 function NavBar() {
+  // detail일때만 돌아오기 버튼 표시하기 위해 주소 받아오기
+  const url = useLocation().pathname.slice(1);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -57,7 +60,14 @@ function NavBar() {
   return (
     <StyledDiv>
       <StyledImg src="/img/logo.png" alt="logo" onClick={moveToMain} />
-      <StyledBtn onClick={onClickLogOut}>로그아웃</StyledBtn>
+      {url === "main" ? (
+        <StyledBtn onClick={onClickLogOut}>로그아웃</StyledBtn>
+      ) : (
+        <div>
+          <StyledBtn onClick={moveToMain}>돌아가기</StyledBtn>
+          <StyledBtn onClick={onClickLogOut}>로그아웃</StyledBtn>
+        </div>
+      )}
     </StyledDiv>
   );
 }

@@ -182,7 +182,7 @@ function LectureItemCard({
         <StyledLink to={`/detail/${no}`}>
           <StyledImg src={savedName} alt="img" />
           <h2>{subject}</h2>
-          <p>{content}</p>
+          {/* <p>{content}</p> */}
           <p>
             {startDate.slice(0, 10)} ~ {endDate.slice(0, 10)}
           </p>

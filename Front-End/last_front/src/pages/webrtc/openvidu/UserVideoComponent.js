@@ -5,45 +5,27 @@ import "./UserVideo.css";
 
 const StyledVideo = styled.div`
   width: 100%;
-  /* position: relative; */
+  position: relative;
 `;
 
-// const StyledBtn1 = styled.button`
-//   font-weight: 700;
-//   font-size: 20px;
-//   ${({ user }) => {
-//     if (user + 1 === 1) {
-//       return css`
-//         position: absolute;
-//         left: -200px;
-//         /* top: 300px; */
-//       `;
-//     } else if (user + 1 === 2) {
-//       return css``;
-//     } else if (user + 1 === 3) {
-//       return css``;
-//     } else if (user + 1 === 4) {
-//       return css``;
-//     } else if (user + 1 === 5) {
-//       return css``;
-//     } else if (user + 1 >= 6) {
-//       return css``;
-//     }
-//   }};
-// `;
+const StyledBtn1 = styled.button`
+  font-weight: 700;
+  font-size: 20px;
+  position: absolute;
+  left: 43%;
+`;
 
-// const StyledBtn2 = styled.button`
-//   position: absolute;
-//   left: 46%;
-//   font-weight: 700;
-//   font-size: 20px;
-// `;
+const StyledBtn2 = styled.button`
+  position: absolute;
+  left: 50%;
+  font-weight: 700;
+  font-size: 20px;
+`;
 
 const UserVideoComponent = ({ streamManager, user, mode, role }) => {
   const getNicknameTag = () => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
   };
-
   return (
     <div>
       {streamManager !== undefined ? (
