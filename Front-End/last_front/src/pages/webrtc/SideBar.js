@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ChattingBar from "./ChattingBar";
 import GlassBtn from "./Btn/GlassBtn";
-function SideBar({ handleGlass, handleRatio, ratio }) {
+
+function SideBar({ handleGlass, handleRatio, ratio, info, handleLeaveSession }) {
+  // 사용자 role 스토어에서 가져오기
+  const role = useSelector(state => state.login.token.role);
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -19,7 +23,7 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
   };
 
   // 비디오
-  const [video, setVideo] = useState(false);
+  const [video, setVideo] = useState(true);
   const changeVideoOn = () => {
     setVideo(true);
   };
@@ -45,6 +49,15 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
     setChat(false);
   };
 
+  // 마이크 전체 제어(강사에게만 보이는 버튼)
+  const [allMic, setAllMic] = useState(true);
+  const allMicOn = () => {
+    setAllMic(true);
+  };
+  const allMicOff = () => {
+    setAllMic(false);
+  };
+
   // 채팅장이 꺼져있을 때
   if (chat === false) {
     return (
@@ -61,7 +74,10 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
               style={
                 mic ? { backgroundColor: "green" } : { backgroundColor: "gray" }
               }
-              onClick={changeMicOn}
+              onClick={() => {
+                changeMicOn();
+                info.publisher.publishAudio(true);
+              }}
             >
               켜짐
             </OnButton>
@@ -69,7 +85,10 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
               style={
                 !mic ? { backgroundColor: "red" } : { backgroundColor: "gray" }
               }
-              onClick={changeMicOff}
+              onClick={() => {
+                changeMicOff();
+                info.publisher.publishAudio(false);
+              }}
             >
               꺼짐
             </OffButton>
@@ -88,7 +107,10 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
                   ? { backgroundColor: "green" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeVideoOn}
+              onClick={() => {
+                changeVideoOn();
+                info.publisher.publishVideo(true);
+              }}
             >
               켜짐
             </OnButton>
@@ -98,7 +120,10 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
                   ? { backgroundColor: "red" }
                   : { backgroundColor: "gray" }
               }
-              onClick={changeVideoOff}
+              onClick={() => {
+                changeVideoOff();
+                info.publisher.publishVideo(false);
+              }}
             >
               꺼짐
             </OffButton>
@@ -113,6 +138,43 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
           <GlassBtn handleRatio = {handleRatio} ratio = {ratio} />
         </GlassDiv>
 
+        {role === "teacher" ? (
+          <MicDiv>
+            <MicDiv2>
+              <VideoImg src="/img/mic_black.png" alt="mic" />
+              <h3>전체마이크</h3>
+            </MicDiv2>
+            <div>
+              <OnButton
+                style={
+                  allMic
+                    ? { backgroundColor: "green" }
+                    : { backgroundColor: "gray" }
+                }
+                onClick={() => {
+                  allMicOn();
+                  // info.publisher.publishVideo(true);
+                }}
+              >
+                켜짐
+              </OnButton>
+              <OffButton
+                style={
+                  !allMic
+                    ? { backgroundColor: "red" }
+                    : { backgroundColor: "gray" }
+                }
+                onClick={() => {
+                  allMicOff();
+                  // info.publisher.publishVideo(false);
+                }}
+              >
+                꺼짐
+              </OffButton>
+            </div>
+          </MicDiv>
+        ) : null}
+
         <ChatDiv>
           <ChatDiv2>
             <GlassImg src="/img/chatting_black.png" alt="chatting" />
@@ -121,7 +183,14 @@ function SideBar({ handleGlass, handleRatio, ratio }) {
           <OnChatButton onClick={changeChatOn}>채팅장 열기</OnChatButton>
         </ChatDiv>
 
-        <StyledButton onClick={moveToMain}>메인으로 나가기</StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleLeaveSession();
+            moveToMain();
+          }}
+        >
+          메인으로 나가기
+        </StyledButton>
       </StyledDiv>
     );
   } else {
@@ -139,11 +208,11 @@ const StyledDiv = styled.div`
 //   color: white;
 // `;
 const MicDiv = styled.div`
-  margin-top: 15%;
+  margin-top: 5%;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
-  height: 15%;
+  height: 13%;
   background-color: #fff3c6;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -168,7 +237,7 @@ const VideoDiv = styled.div`
   margin-right: 5%;
   margin-top: 5%;
   width: 90%;
-  height: 15%;
+  height: 13%;
   background-color: #fff3c6;
   border-radius: 10px;
   box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
@@ -192,7 +261,7 @@ const GlassDiv = styled.div`
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
-  height: 15%;
+  height: 13%;
   border-radius: 10px;
   background-color: #fff3c6;
   box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
@@ -217,7 +286,7 @@ const ChatDiv = styled.div`
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
-  height: 15%;
+  height: 13%;
   border-radius: 10px;
   background-color: #fff3c6;
   margin-bottom: 85px;

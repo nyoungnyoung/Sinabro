@@ -20,37 +20,37 @@ function WebRtcMain() {
       setRatio(ratio);
   };
   // console.log(glassOn);
-  const location = useLocation();
+  // const location = useLocation();
 
-  console.log(location);
-  const navigate = useNavigate();
+  // console.log(location);
+  // const navigate = useNavigate();
 
-  const id = location.pathname.slice(8, 9);
+  // const id = location.pathname.slice(8, 9);
 
   // console.log(id);
   // console.log(typeof id);
 
-  const changeShare = () => {
-    navigate(`/webrtc/${id}/share`);
-  };
+  // const changeShare = () => {
+  //   navigate(`/webrtc/${id}/share`);
+  // };
 
-  const changeJoin = () => {
-    navigate(`/webrtc/${id}/join`);
-  };
+  // const changeJoin = () => {
+  //   navigate(`/webrtc/${id}/join`);
+  // };
 
-  const changeTogether = () => {
-    navigate(`/webrtc/${id}/together`);
-  };
+  // const changeTogether = () => {
+  //   navigate(`/webrtc/${id}/together`);
+  // };
 
   return (
     <StyledDiv>
       <Navbar
-        changeShare={changeShare}
-        changeJoin={changeJoin}
-        changeTogether={changeTogether}
+      // changeShare={changeShare}
+      // changeJoin={changeJoin}
+      // changeTogether={changeTogether}
       />
       <StyledDiv2>
-        <Routes>
+        {/* <Routes>
           <Route
             path="/share"
             element={<ShareScreen changeShare={changeShare} />}
@@ -63,8 +63,8 @@ function WebRtcMain() {
             path="/together"
             element={<TogetherScreen changetogether={changeTogether} />}
           ></Route>
-        </Routes>
-        <SideBar handleRatio={handleRatio} ratio={ratio} />
+        </Routes> */}
+        <SideBar />
       </StyledDiv2>
       {/* <Zoom /> */}
     </StyledDiv>

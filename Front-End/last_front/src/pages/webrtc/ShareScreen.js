@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import UserVideoComponent from "./openvidu/UserVideoComponent";
 
-const ShareScreen = () => {
+const ShareScreen = ({ info }) => {
   return (
     <StyledDiv>
-      <h1>Share Mode</h1>
       <StyledDiv2>
-        <TeacherDiv>강사님</TeacherDiv>
-        <ShareDiv>화면공유</ShareDiv>
+        <ShareDiv>
+          <UserVideoComponent streamManager={info.mainStreamManager} />
+        </ShareDiv>
       </StyledDiv2>
     </StyledDiv>
   );
@@ -24,17 +25,19 @@ const StyledDiv = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
 `;
-const TeacherDiv = styled.div`
-  margin-left: 30px;
-  width: 33%;
-  height: 35vh;
-  background-color: green;
-`;
+// const TeacherDiv = styled.div`
+//   margin-left: 30px;
+//   width: 33%;
+//   height: 35vh;
+//   background-color: green;
+// `;
 
 const ShareDiv = styled.div`
-  margin-left: 30px;
-  width: 60%;
+  width: 95%;
   height: 70vh;
-  background-color: green;
+  background-color: black;
+  margin-top: 50px;
+  margin-right: 50px;
+  justify-content: center;
 `;
 export default ShareScreen;

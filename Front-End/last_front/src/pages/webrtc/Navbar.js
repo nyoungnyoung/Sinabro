@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Navbar({ changeShare, changeJoin, changeTogether }) {
+function Navbar({ handleMode, handleScreenShare }) {
+
   const role = "teacher";
+
+  // const [mode, setMode] = useState("focus");
+
+  const changeShare = async () => {
+    await handleScreenShare();
+    // setMode("share");
+    handleMode("share");
+  };
+  // console.log(mode);
+
+  const changeFocus = () => {
+    handleMode("focus");
+  };
+  // console.log(mode);
+
+  const changeTogether = () => {
+    handleMode("together");
+  };
+  // console.log(mode);
+
+  // useEffect(() => {
+  //   handleMode(mode);
+  // }, [mode]);
 
   const navigate = useNavigate();
 
@@ -13,6 +37,7 @@ function Navbar({ changeShare, changeJoin, changeTogether }) {
 
   if (role === "teacher") {
     return (
+      // 강사일때
       <Wrapper>
         <HeaderWrapper>
           <StyledButton onClick={moveToMain}>시나브로</StyledButton>
@@ -20,13 +45,14 @@ function Navbar({ changeShare, changeJoin, changeTogether }) {
 
         <LeftWrapper>
           <ModeButton onClick={changeShare}>share</ModeButton>
-          <ModeButton onClick={changeJoin}>join</ModeButton>
+          <ModeButton onClick={changeFocus}>focus</ModeButton>
           <ModeButton onClick={changeTogether}>together</ModeButton>
         </LeftWrapper>
       </Wrapper>
     );
   } else {
     return (
+      // 수강생일 때
       <Wrapper>
         <HeaderWrapper>
           <StyledButton onClick={moveToMain}>시나브로</StyledButton>
