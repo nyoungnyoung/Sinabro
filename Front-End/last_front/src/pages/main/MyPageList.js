@@ -11,6 +11,7 @@ const StyledDiv = styled.div`
 `;
 
 const CardDiv = styled.div`
+  margin-top: 20px;
   @media only screen and (max-width: 600px) {
     display: flex;
   }
