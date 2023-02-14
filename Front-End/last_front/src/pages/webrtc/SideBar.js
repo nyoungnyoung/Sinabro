@@ -5,9 +5,16 @@ import { useSelector } from "react-redux";
 import ChattingBar from "./ChattingBar";
 import GlassBtn from "./Btn/GlassBtn";
 
-function SideBar({ handleGlass, handleRatio, ratio, info, handleLeaveSession }) {
+function SideBar({
+  handleGlass,
+  handleRatio,
+  ratio,
+  info,
+  handleLeaveSession,
+}) {
   // 사용자 role 스토어에서 가져오기
-  const role = useSelector(state => state.login.token.role);
+  // const role = useSelector(state => state.login.token.role);
+  const role = "teacher";
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -135,7 +142,7 @@ function SideBar({ handleGlass, handleRatio, ratio, info, handleLeaveSession }) 
             <GlassImg src="/img/zoom_black.png" alt="glass" />
             <h3>돋보기</h3>
           </GlassDiv2>
-          <GlassBtn handleRatio = {handleRatio} ratio = {ratio} />
+          <GlassBtn handleRatio={handleRatio} ratio={ratio} />
         </GlassDiv>
 
         {role === "teacher" ? (

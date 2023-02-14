@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 
@@ -9,17 +9,32 @@ function Focus({
   handleMainVideoStream,
   mode,
   ratio,
+  role,
 }) {
   const imageRectRef = useRef();
   let containerDiv = useRef();
-  
+
   useEffect(() => {
-    if ((containerDiv.current.offsetWidth * ratio) + containerDiv.current.offsetLeft < imageRectRef.current.offsetWidth) {
-      containerDiv.current.style.left = `${imageRectRef.current.offsetWidth - (containerDiv.current.offsetHeight * ratio)}px`;
+    if (
+      containerDiv.current.offsetWidth * ratio +
+        containerDiv.current.offsetLeft <
+      imageRectRef.current.offsetWidth
+    ) {
+      containerDiv.current.style.left = `${
+        imageRectRef.current.offsetWidth -
+        containerDiv.current.offsetHeight * ratio
+      }px`;
     }
 
-    if ((containerDiv.current.offsetHeight * ratio) + containerDiv.current.offsetTop < imageRectRef.current.offsetHeight) {
-      containerDiv.current.style.top = `${imageRectRef.current.offsetHeight - (containerDiv.current.offsetHeight * ratio)}px`;
+    if (
+      containerDiv.current.offsetHeight * ratio +
+        containerDiv.current.offsetTop <
+      imageRectRef.current.offsetHeight
+    ) {
+      containerDiv.current.style.top = `${
+        imageRectRef.current.offsetHeight -
+        containerDiv.current.offsetHeight * ratio
+      }px`;
     }
   }, [ratio]);
 
@@ -29,7 +44,7 @@ function Focus({
   const moveScreenStart = e => {
     const img = new Image();
     e.dataTransfer.setDragImage(img, 0, 0);
-  
+
     posX = e.clientX;
     posY = e.clientY;
   };
@@ -37,25 +52,35 @@ function Focus({
   const moveScreen = e => {
     const minX = e.target.offsetLeft + (e.clientX - posX) <= 0;
     const minY = e.target.offsetTop + (e.clientY - posY) <= 0;
-    
-    if (e.target.offsetWidth * ratio + e.target.offsetLeft < imageRectRef.current.offsetWidth) {
-      e.target.style.left = `${imageRectRef.current.offsetWidth - e.target.offsetWidth * ratio}px`;
+
+    if (
+      e.target.offsetWidth * ratio + e.target.offsetLeft <
+      imageRectRef.current.offsetWidth
+    ) {
+      e.target.style.left = `${
+        imageRectRef.current.offsetWidth - e.target.offsetWidth * ratio
+      }px`;
     }
 
-    if ((e.target.offsetHeight * ratio) + e.target.offsetTop < imageRectRef.current.offsetHeight) {
-      e.target.style.top = `${imageRectRef.current.offsetHeight - e.target.offsetHeight * ratio}px`;
+    if (
+      e.target.offsetHeight * ratio + e.target.offsetTop <
+      imageRectRef.current.offsetHeight
+    ) {
+      e.target.style.top = `${
+        imageRectRef.current.offsetHeight - e.target.offsetHeight * ratio
+      }px`;
     }
 
-    if(e.target.offsetLeft + (e.clientX - posX) <= 0) {
-      e.target.style.left  = `${e.target.offsetLeft + (e.clientX - posX)}px`;
+    if (e.target.offsetLeft + (e.clientX - posX) <= 0) {
+      e.target.style.left = `${e.target.offsetLeft + (e.clientX - posX)}px`;
     } else {
-      e.target.style.left  = `0px`;
+      e.target.style.left = `0px`;
     }
-    
+
     e.target.style.top = minY
       ? `${e.target.offsetTop + (e.clientY - posY)}px`
-      : '0px';
-  
+      : "0px";
+
     posX = minX ? e.clientX : 0;
     posY = minY ? e.clientY : 0;
   };
@@ -66,47 +91,66 @@ function Focus({
 
     e.target.style.left = limitX
       ? `${e.target.offsetLeft + (e.clientX - posX)}px`
-      : '0px';
+      : "0px";
     e.target.style.top = limitY
       ? `${e.target.offsetTop + (e.clientY - posY)}px`
-      : '0px';
+      : "0px";
   };
 
   const [over, setOver] = useState(false);
 
-  const changeToSecond = () => {
-    setOver(!over);
-    console.log(over);
-  };
+  // const changeToSecond = () => {
+  //   setOver(!over);
+  //   console.log(over);
+  // };
 
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  return (
-    <StyledDiv user={user} ref={imageRectRef} >
-      <ContainerDiv
-          ref={containerDiv}
-          ratio={ratio}
-          onDragStart={moveScreenStart}
-          onDrag={moveScreen}
-          onDragEnd={moveScreenEnd}
-          draggable
-      >
-        <TwoDiv>
-          <UserVideoComponent streamManager={info.publisher} user={user} />
+  const mouseMove = event => {
+    // console.log(event);
 
-          {info.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              onClick={() => {
-                handleMainVideoStream(sub);
-              }}
-            >
-              <UserVideoComponent streamManager={sub} user={user} mode={mode} />
-            </div>
-          ))}
-        </TwoDiv>
-      </ContainerDiv>
+    // 마우스 위치
+    // console.log(event);
+    const pageX = event.pageX;
+    const pageY = event.pageY;
+
+    // StyledGlass.style.left = clientX + console.log("clientX", clientX);
+    // console.log("pageX", pageX);
+    // console.log("pageY", pageY);
+
+    // const left = glassDiv.current.pageX + pageX;
+    // const top = glassDiv.current.pageY + pageY;
+
+    // console.log("left", left);
+    // console.log("top", top);
+  };
+
+  return (
+    <StyledDiv user={user}>
+      <UserVideoComponent
+        streamManager={info.publisher}
+        user={user}
+        mode={mode}
+        role={role}
+      />
+      {/* <button onClick={screenShare}>화면공유</button> */}
+
+      {info.subscribers.map((sub, i) => (
+        <div
+          key={i}
+          onClick={() => {
+            handleMainVideoStream(sub);
+          }}
+        >
+          <UserVideoComponent
+            streamManager={sub}
+            user={user}
+            mode={mode}
+            role={role}
+          />
+        </div>
+      ))}
     </StyledDiv>
   );
 }
@@ -167,21 +211,25 @@ const ContainerDiv = styled.div`
   display: table;
 `;
 
-const StyledGlass = styled.div`
-  width: 200px;
-  height: 150px;
-  position: absolute;
-  border: 5px yellow solid;
-  border-radius: 15px;
-  left: 0;
-  top: 30;
-`;
+// const TeacherDiv = styled.div`
 
-const TwoDiv = styled.div`
-  display: table-row;
-  justify-content: center;
-  position: relative;
-`;
+// `
+
+// const StyledGlass = styled.div`
+//   width: 200px;
+//   height: 150px;
+//   position: absolute;
+//   border: 5px yellow solid;
+//   border-radius: 15px;
+//   left: 0;
+//   top: 30;
+// `;
+
+// const TwoDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   position: relative;
+// `;
 
 // const TwoDiv2 = styled.div`
 //   width: 600px;
@@ -194,20 +242,6 @@ const TwoDiv = styled.div`
 // `;
 
 // const ThreeDiv = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
-
-// const ThreeDiv2 = styled.div`
-//   width: 40%;
-//   height: 280px;
-//   background-color: green;
-//   margin-top: 30px;
-//   margin-left: 20px;
-//   margin-right: 20px;
-// `;
-
-// const FourDiv = styled.div`
 //   display: flex;
 //   justify-content: center;
 // `;

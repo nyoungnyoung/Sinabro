@@ -2,8 +2,11 @@ import { OpenVidu } from "openvidu-browser";
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import UserVideoComponent from "./UserVideoComponent";
 import {
+  selectInterviwee,
   getToken,
+  APPLICATION_SERVER_URL,
   leaveSession,
 } from "./modules";
 import ShareScreen from "../ShareScreen";
@@ -15,16 +18,13 @@ import TogetherScreen from "../TogetherScreen";
 
 function App() {
   const [ratio, setRatio] = useState(1);
-  const handleRatio = (ratio) => {
-    if(ratio > 3)
-      setRatio(3);
-    else if(ratio < 1)
-      setRatio(1);
-    else 
-      setRatio(ratio);
+  const handleRatio = ratio => {
+    if (ratio > 3) setRatio(3);
+    else if (ratio < 1) setRatio(1);
+    else setRatio(ratio);
   };
 
-  const sendMainStreamManager = (newPublisher) => {
+  const sendMainStreamManager = newPublisher => {
     session
       .signal({
         data: newPublisher.stream.streamId,
@@ -34,7 +34,7 @@ function App() {
       .then(() => {
         console.log("received signal changeMainStreamManager");
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   const screenShare = async () => {
@@ -50,7 +50,7 @@ function App() {
         mirror: false, // Whether to mirror your local video or not
       });
 
-      newPublisher.once("accessAllowed", (event) => {
+      newPublisher.once("accessAllowed", event => {
         newPublisher.stream
           .getMediaStream()
           .getVideoTracks()[0]
@@ -105,7 +105,7 @@ function App() {
   const [mode, setMode] = useState("focus");
 
   // 모드 변경을 위한 함수 (Navbar로 prop해줄 함수)
-  const handleMode = (event) => {
+  const handleMode = event => {
     session
       .signal({
         data: "test mode",
@@ -132,7 +132,7 @@ function App() {
     setSession(null);
   };
 
-  const handleOV = (event) => {
+  const handleOV = event => {
     console.log(event);
   };
 
@@ -159,7 +159,7 @@ function App() {
 
     // On every new Stream received...
     if (mySession !== null) {
-      mySession.on("streamCreated", (e) => {
+      mySession.on("streamCreated", e => {
         // Subscribe to the Stream to receive it. Second parameter is undefined
         // so OpenVidu doesn't create an HTML video by its own
         let subscriber = mySession.subscribe(e.stream, undefined);
@@ -167,13 +167,13 @@ function App() {
         subscribers.push(subscriber);
 
         // Update the state with the new subscribers
-        setInfo((prev) => {
+        setInfo(prev => {
           return { ...prev, subscribers: subscribers };
         });
       });
 
       // On every Stream destroyed...
-      mySession.on("streamDestroyed", (e) => {
+      mySession.on("streamDestroyed", e => {
         // Remove the stream from 'subscribers' array
         console.log("연결 해제");
         console.log(e);
@@ -181,7 +181,7 @@ function App() {
         deleteSubscriber(e.stream.streamManager);
       });
 
-      mySession.on("signal:changeMainStreamManager", (event) => {
+      mySession.on("signal:changeMainStreamManager", event => {
         for (let index = 0; index < info.subscribers.length; index++) {
           console.log(info.subscribers[index].stream.streamId);
           if (info.subscribers[index].stream.streamId === event.data) {
@@ -192,19 +192,19 @@ function App() {
         // handleInfo(event.data, "mainStreamManager");
       });
 
-      mySession.on("signal:share", (event) => {
+      mySession.on("signal:share", event => {
         console.log(event.data);
         // handleInfo([강사의publisher객체], "mainStreamManager");
         setMode("share");
       });
 
-      mySession.on("signal:focus", (event) => {
+      mySession.on("signal:focus", event => {
         console.log(event.data);
         // handleInfo([강사의publisher객체], "mainStreamManager");
         setMode("focus");
       });
 
-      mySession.on("signal:together", (event) => {
+      mySession.on("signal:together", event => {
         console.log(event.data);
         // handleInfo([강사의publisher객체], "mainStreamManager");
         setMode("together");
@@ -215,19 +215,19 @@ function App() {
       //   info.publisher.publishAudio(false);
       // });
 
-      mySession.on("broadcast-interviewee", (e) => {
+      mySession.on("broadcast-interviewee", e => {
         console.log("면접자 : " + e.data);
-        setInfo((prev) => {
+        setInfo(prev => {
           return { ...prev, interviewee: e.data };
         });
       });
 
       // On every asynchronous exception...
-      mySession.on("exception", (exception) => {
+      mySession.on("exception", exception => {
         console.warn(exception);
       });
 
-      getToken(info.mySessionId).then((token) => {
+      getToken(info.mySessionId).then(token => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
         mySession
@@ -255,7 +255,7 @@ function App() {
             // Obtain the current video device in use
             let devices = await OV.getDevices();
             let videoDevices = devices.filter(
-              (device) => device.kind === "videoinput"
+              device => device.kind === "videoinput"
             );
 
             let currentVideoDeviceId = publisher.stream
@@ -264,12 +264,12 @@ function App() {
               .getSettings().deviceId;
 
             let currentVideoDevice = videoDevices.find(
-              (device) => device.deviceId === currentVideoDeviceId
+              device => device.deviceId === currentVideoDeviceId
             );
 
             // Set the main video in the page to display our webcam and store our Publisher
 
-            setInfo((prev) => {
+            setInfo(prev => {
               return {
                 ...prev,
                 currentVideoDevice: currentVideoDevice,
@@ -278,7 +278,7 @@ function App() {
               };
             });
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(
               "There was an error connecting to the session:",
               error.code,
@@ -290,7 +290,7 @@ function App() {
   }, [session]);
 
   useEffect(() => {
-    setInfo((prev) => {
+    setInfo(prev => {
       return {
         ...prev,
         session: undefined,
@@ -309,19 +309,19 @@ function App() {
     setSession(OV.initSession());
   };
 
-  const deleteSubscriber = (streamManager) => {
+  const deleteSubscriber = streamManager => {
     let subscribers = info.subscribers;
     let index = subscribers.indexOf(streamManager, 0);
     if (index > -1) {
       subscribers.splice(index, 1);
-      setInfo((prev) => {
+      setInfo(prev => {
         return { ...prev, subscribers: subscribers };
       });
     }
   };
 
-  const handleChangeSessionId = (e) => {
-    setInfo((prev) => {
+  const handleChangeSessionId = e => {
+    setInfo(prev => {
       return {
         ...prev,
         mySessionId: e.target.value,
@@ -329,8 +329,8 @@ function App() {
     });
   };
 
-  const handleChangeUserName = (e) => {
-    setInfo((prev) => {
+  const handleChangeUserName = e => {
+    setInfo(prev => {
       return {
         ...prev,
         myUserName: e.target.value,
@@ -338,9 +338,9 @@ function App() {
     });
   };
 
-  const handleMainVideoStream = (stream) => {
+  const handleMainVideoStream = stream => {
     // if (info.mainStreamManager !== stream) {
-    setInfo((prev) => {
+    setInfo(prev => {
       return {
         ...prev,
         mainStreamManager: stream,
@@ -350,6 +350,10 @@ function App() {
     handleMode("together");
     // }
   };
+
+  // 사용자 role 스토어에서 가져오기
+  // const role = useSelector(state => state.login.token.role);
+  const role = "teacher";
 
   return (
     <div className="container">
@@ -433,6 +437,7 @@ function App() {
                 handleMainVideoStream={handleMainVideoStream}
                 mode={mode}
                 ratio={ratio}
+                role={role}
               />
             ) : mode === "share" ? (
               <ShareScreen
@@ -451,9 +456,14 @@ function App() {
                 handleMainVideoStream={handleMainVideoStream}
                 mode={mode}
                 ratio={ratio}
+                role={role}
               />
             )}
-            <SideBar handleLeaveSession={handleLeaveSession} handleRatio={handleRatio} info={info} />
+            <SideBar
+              handleLeaveSession={handleLeaveSession}
+              handleRatio={handleRatio}
+              info={info}
+            />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
