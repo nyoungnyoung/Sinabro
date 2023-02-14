@@ -24,7 +24,6 @@ function CompleteSignUp({ signUpData }) {
 }
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 100vh;
 `;
 

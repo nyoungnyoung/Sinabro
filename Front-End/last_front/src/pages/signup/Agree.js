@@ -4,18 +4,16 @@ import { useNavigate } from "react-router";
 
 const Agree = () => {
   const navigate = useNavigate();
-  // 약관동의 여부 변수
+
   const [agree, setAgree] = useState(false);
 
-  // 약관동의 변경 함수
   const changeAgree = () => {
     setAgree(!agree);
   };
 
-  const moveToNumber = () => {
-    navigate("/signup/number");
+  const moveToPw1 = () => {
+    navigate("/signup/pw1");
   };
-  // console.log(agree);
 
   return (
     <StyledDiv>
@@ -26,16 +24,13 @@ const Agree = () => {
           <input type="checkbox" onClick={changeAgree} />
           <p>약관에 동의합니다</p>
         </StyledDiv3>
-        {agree && (
-          <StyledButton onClick={moveToNumber}>다음 단계로</StyledButton>
-        )}
+        {agree && <StyledButton onClick={moveToPw1}>다음 단계로</StyledButton>}
       </StyledDiv2>
     </StyledDiv>
   );
 };
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 540px;
 `;
 

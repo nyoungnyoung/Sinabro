@@ -26,10 +26,8 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
       })
       .then((response) => {
         if (response.data === true) {
-          // 이미 있다고 페이지 바꿔야함
           moveToExisted();
         } else {
-          // send-auth-code api 실행
           axios
             .post("/common/send-auth-code/", {
               phone: phone,
@@ -40,19 +38,11 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
             })
             .catch((error) => console.log(error));
 
-          // 인증번호 입력 화면으로 전환
           moveToCheckNumber();
         }
       })
       .catch((error) => console.log(error));
   };
-
-  // const sendAuthCode = () => {
-  //   axios.post(baseUrl + '/common/send-auth-code', {
-  //     phone: axiosNumber,
-  //   }).then((response) => console.log(response.data))
-  //     .catch((error) => console.log(error));
-  // };
 
   return (
     <StyledDiv>
@@ -71,7 +61,6 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
           onClick={() => {
             HandleSignUp(phone, "phone");
             phoneCheck(phone);
-            // moveToCheckNumber();
           }}
         >
           인증번호 받기
@@ -83,7 +72,6 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
 
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 100vh;
 `;
 

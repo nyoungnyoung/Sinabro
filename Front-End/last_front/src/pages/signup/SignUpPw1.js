@@ -41,7 +41,6 @@ function SignUpPw1({ HandleSignUp }) {
 
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 100vh;
 `;
 

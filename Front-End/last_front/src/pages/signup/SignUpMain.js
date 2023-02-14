@@ -26,7 +26,7 @@ function SignUpMain() {
     });
   };
 
-  const HandleAuthCode = event => {
+  const HandleAuthCode = (event) => {
     setAuthCode(event);
   };
 
@@ -73,12 +73,10 @@ const StyledH1 = styled.h1`
   padding: 30px;
   margin: 0px;
   background-color: #fff9be;
-  /* background-color: white; */
 `;
 
 const StyledDiv = styled.div`
   background-color: #fff9be;
   padding-top: 15vh;
-  /* height: 100vh; */
 `;
 export default SignUpMain;
