@@ -14,6 +14,16 @@ import styled from "styled-components";
 import TogetherScreen from "../TogetherScreen";
 
 function App() {
+  const [ratio, setRatio] = useState(1);
+  const handleRatio = (ratio) => {
+    if(ratio > 3)
+      setRatio(3);
+    else if(ratio < 1)
+      setRatio(1);
+    else 
+      setRatio(ratio);
+  };
+
   const sendMainStreamManager = (newPublisher) => {
     session
       .signal({
@@ -422,6 +432,7 @@ function App() {
                 handleInfo={handleInfo}
                 handleMainVideoStream={handleMainVideoStream}
                 mode={mode}
+                ratio={ratio}
               />
             ) : mode === "share" ? (
               <ShareScreen
@@ -439,9 +450,10 @@ function App() {
                 setInfo={setInfo}
                 handleMainVideoStream={handleMainVideoStream}
                 mode={mode}
+                ratio={ratio}
               />
             )}
-            <SideBar handleLeaveSession={handleLeaveSession} info={info} />
+            <SideBar handleLeaveSession={handleLeaveSession} handleRatio={handleRatio} info={info} />
           </StyledDiv2>
 
           {info.mainStreamManager !== undefined ? (
