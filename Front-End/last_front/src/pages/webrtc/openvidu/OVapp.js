@@ -72,15 +72,17 @@ function App() {
             await session.unpublish(info.publisher);
             await session.publish(newPublisher);
 
-            handleInfo(newPublisher, "publisher");
-            // handleInfo(info.mainStreamManager, "publisher");
+            setInfo(prev => {
+              return { ...prev, publisher: newPublisher };
+            });
           });
       });
       await session.unpublish(info.publisher);
       await session.publish(newPublisher);
-      handleInfo(newPublisher, "mainStreamManager");
+      setInfo(prev => {
+        return { ...prev, mainStreamManager: newPublisher };
+      });
       sendMainStreamManager(newPublisher);
-      // handleInfo(info.mainStreamManager, "publisher");
     } catch (e) {
       console.error(e);
     }
@@ -187,7 +189,10 @@ function App() {
         for (let index = 0; index < info.subscribers.length; index++) {
           console.log(info.subscribers[index].stream.streamId);
           if (info.subscribers[index].stream.streamId === event.data) {
-            handleInfo(info.subscribers[index], "mainStreamManager");
+            // handleInfo(info.subscribers[index], "mainStreamManager");
+            setInfo(prev => {
+              return { ...prev, mainStreamManager: info.subscribers[index] };
+            });
           }
         }
 

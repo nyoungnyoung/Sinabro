@@ -144,8 +144,7 @@ function Focus({
         user={user}
         mode={mode}
         role={role}
-      />
-      {/* <button onClick={screenShare}>화면공유</button> */}
+          />
 
       {info.subscribers.map((sub, i) => (
         <div
