@@ -1,58 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
-// import Zoom from "./Zoom";
 
 function Focus({
-  glassOn,
   info,
   OV,
   session,
-  handleInfo,
   handleMainVideoStream,
   mode,
 }) {
-  // console.log(glassOn);
-
-  const [over, setOver] = useState(false);
-
-  // const changeToSecond = () => {
-  //   setOver(!over);
-  //   console.log(over);
-  // };
-
-  const glassDiv = useRef();
 
   const user = info.subscribers.length;
   console.log("참여자 수: " + user);
 
-  const mouseMove = (event) => {
-    // console.log(event);
-
-    // 마우스 위치
-    // console.log(event);
-    const pageX = event.pageX;
-    const pageY = event.pageY;
-
-    // StyledGlass.style.left = clientX + console.log("clientX", clientX);
-    // console.log("pageX", pageX);
-    // console.log("pageY", pageY);
-
-    // const left = glassDiv.current.pageX + pageX;
-    // const top = glassDiv.current.pageY + pageY;
-
-    // console.log("left", left);
-    // console.log("top", top);
-  };
-
   return (
     <StyledDiv user={user}>
-      <UserVideoComponent
-        streamManager={info.publisher}
-        user={user}
-        mode={mode}
-      />
-      {/* <button onClick={screenShare}>화면공유</button> */}
+      <UserVideoComponent streamManager={info.publisher} user={user} />
 
       {info.subscribers.map((sub, i) => (
         <div
@@ -112,19 +75,15 @@ const StyledDiv = styled.div`
   }};
 `;
 
-// const TeacherDiv = styled.div`
-
-// `
-
-// const StyledGlass = styled.div`
-//   width: 200px;
-//   height: 150px;
-//   position: absolute;
-//   border: 5px yellow solid;
-//   border-radius: 15px;
-//   left: 0;
-//   top: 30;
-// `;
+const StyledGlass = styled.div`
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  border: 5px yellow solid;
+  border-radius: 15px;
+  left: 0;
+  top: 30;
+`;
 
 // const TwoDiv = styled.div`
 //   display: flex;

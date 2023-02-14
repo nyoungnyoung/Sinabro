@@ -2,11 +2,8 @@ import { OpenVidu } from "openvidu-browser";
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import UserVideoComponent from "./UserVideoComponent";
 import {
-  selectInterviwee,
   getToken,
-  APPLICATION_SERVER_URL,
   leaveSession,
 } from "./modules";
 import ShareScreen from "../ShareScreen";

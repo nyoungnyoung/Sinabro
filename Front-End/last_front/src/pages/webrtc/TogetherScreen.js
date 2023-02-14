@@ -9,7 +9,6 @@ const TogetherScreen = ({ info, handleMainVideoStream, mode }) => {
   // console.log(user);
   return (
     <StyledDiv>
-      {/* <h1>together</h1> */}
       <StageDiv>
         <Flex1Div>
           <LightImg src="/img/light1.png" alt="light_left" />
