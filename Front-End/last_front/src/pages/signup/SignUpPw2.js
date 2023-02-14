@@ -4,9 +4,6 @@ import axios from "../../store/baseURL";
 import styled from "styled-components";
 
 function SignUpPw2({ signUpData }) {
-  //컴포넌트에서 props는 기본적으로 머냐...그...객체로 오는디
-  //거기서 구조분해할당해서 바로 키값 받아오는 게 위의 방법이거든요
-  //근데 중괄호가 안쳐져 있어서 함수가 없는 파라미터로 인식하고 undefined로 넣은거같아요
   const [pw2, setPw2] = useState("");
 
   const navigate = useNavigate();
@@ -48,9 +45,6 @@ function SignUpPw2({ signUpData }) {
     }
   };
 
-  // console.log("signUpData", signUpData);
-  // console.log("signUpData password", signUpData.password);
-
   return (
     <StyledDiv>
       <StyledDiv2>
@@ -77,7 +71,6 @@ function SignUpPw2({ signUpData }) {
 
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 100vh;
 `;
 

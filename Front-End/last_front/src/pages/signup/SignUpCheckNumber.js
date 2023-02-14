@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import axios from "axios";
 
 function SignUpCheckNumber({ authCode }) {
   const [checkNumber, setCheckNumber] = useState("");
@@ -12,19 +11,10 @@ function SignUpCheckNumber({ authCode }) {
     setCheckNumber(event);
   };
 
-  const moveToPw1 = () => {
-    navigate("/signup/pw1");
+  const moveToAgree = () => {
+    navigate("/signup/agree");
   };
 
-  //   const sendAuthCode = () => {
-  //     axios.post(baseUrl + '/common/send-auth-code', {
-  //       phone: axiosNumber,
-  //     }).then((response) => console.log(response.data))
-  //       .catch((error) => console.log(error));
-  // };
-
-  // console.log(checkNumber);
-  // console.log(authCode);
   return (
     <StyledDiv>
       <StyledDiv2>
@@ -41,7 +31,7 @@ function SignUpCheckNumber({ authCode }) {
         />
         <StyledButton
           onClick={() => {
-            moveToPw1();
+            moveToAgree();
           }}
         >
           인증번호 확인
@@ -53,7 +43,6 @@ function SignUpCheckNumber({ authCode }) {
 
 const StyledDiv = styled.div`
   background-color: #fff9be;
-  // background-color: white;
   height: 100vh;
 `;
 
