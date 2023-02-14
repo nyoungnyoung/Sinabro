@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./Navbar";
@@ -10,6 +10,15 @@ import SideBar from "./SideBar";
 // import Zoom from "./Zoom";
 
 function WebRtcMain() {
+  const [ratio, setRatio] = useState(1);
+  const handleRatio = (ratio) => {
+    if(ratio > 3)
+      setRatio(3);
+    else if(ratio < 1)
+      setRatio(1);
+    else 
+      setRatio(ratio);
+  };
   // console.log(glassOn);
   const location = useLocation();
 
@@ -48,14 +57,14 @@ function WebRtcMain() {
           ></Route>
           <Route
             path="/join"
-            element={<Focus changeJoin={changeJoin} />}
+            element={<Focus changeJoin={changeJoin} ratio={ratio} />}
           ></Route>
           <Route
             path="/together"
             element={<TogetherScreen changetogether={changeTogether} />}
           ></Route>
         </Routes>
-        <SideBar />
+        <SideBar handleRatio={handleRatio} ratio={ratio} />
       </StyledDiv2>
       {/* <Zoom /> */}
     </StyledDiv>

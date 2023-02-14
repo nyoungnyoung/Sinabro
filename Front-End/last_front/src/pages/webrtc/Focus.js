@@ -3,24 +3,20 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 // import ZoomView from '@components/ZoomView';
 
-function Focus({ glassOn }) {
-  const [ratio, setRatio] = useState(1);
-  const [Screen, setScreen] = useState({top: 0, left: 0});
+function Focus({ ratio }) {
   const imageRectRef = useRef();
   let containerDiv = useRef();
-  const twoDiv = useRef();
-
-  const wheelHandler = e => {
-    setRatio(ratio => {
-      if(ratio >= 1 && ratio <= 3)
-        return (ratio >= 0.2 ? ratio + 0.001 * e.deltaY : 0.2)
-      else if(ratio < 1)
-        return 1;
-      else
-        return 3;
-      });
-  };
   
+  useEffect(() => {
+    if ((containerDiv.current.offsetWidth * ratio) + containerDiv.current.offsetLeft < imageRectRef.current.offsetWidth) {
+      containerDiv.current.style.left = `${imageRectRef.current.offsetWidth - (containerDiv.current.offsetHeight * ratio)}px`;
+    }
+
+    if ((containerDiv.current.offsetHeight * ratio) + containerDiv.current.offsetTop < imageRectRef.current.offsetHeight) {
+      containerDiv.current.style.top = `${imageRectRef.current.offsetHeight - (containerDiv.current.offsetHeight * ratio)}px`;
+    }
+  }, [ratio]);
+
   let posX;
   let posY;
 
@@ -68,8 +64,6 @@ function Focus({ glassOn }) {
     e.target.style.top = limitY
       ? `${e.target.offsetTop + (e.clientY - posY)}px`
       : '0px';
-  
-    setScreen({ top: e.target.style.top, left: e.target.style.left });
   };
 
   const [over, setOver] = useState(false);
@@ -78,8 +72,6 @@ function Focus({ glassOn }) {
     setOver(!over);
     console.log(over);
   };
-
-  const glassDiv = useRef();
 
   const user = 2;
 
@@ -94,15 +86,12 @@ function Focus({ glassOn }) {
         <ContainerDiv
           ref={containerDiv}
           ratio={ratio}
-          onWheel={wheelHandler}
           onDragStart={moveScreenStart}
           onDrag={moveScreen}
           onDragEnd={moveScreenEnd}
           draggable
         >
-          <TwoDiv
-            ref={twoDiv}
-          >
+          <TwoDiv>
             <TwoDiv2>1번 user</TwoDiv2>
             <TwoDiv2>2번 user</TwoDiv2>
           </TwoDiv>

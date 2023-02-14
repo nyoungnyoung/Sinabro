@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
-
-function SideBar({ handleGlass }) {
+import GlassBtn from "./Btn/GlassBtn";
+function SideBar({ handleGlass, handleRatio, ratio }) {
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -110,40 +110,7 @@ function SideBar({ handleGlass }) {
             <GlassImg src="/img/zoom_black.png" alt="glass" />
             <h3>돋보기</h3>
           </GlassDiv2>
-          <div>
-            <OnButton
-              // onClick={() => {
-              //   handleGlass(true);
-              // }}
-              style={
-                glass
-                  ? { backgroundColor: "green" }
-                  : { backgroundColor: "gray" }
-              }
-              onClick={() => {
-                changeGlassOn();
-                handleGlass(true);
-              }}
-            >
-              켜짐
-            </OnButton>
-            <OffButton
-              // onClick={() => {
-              //   handleGlass(false);
-              // }}
-              style={
-                !glass
-                  ? { backgroundColor: "red" }
-                  : { backgroundColor: "gray" }
-              }
-              onClick={() => {
-                changeGlassOff();
-                handleGlass(false);
-              }}
-            >
-              꺼짐
-            </OffButton>
-          </div>
+          <GlassBtn handleRatio = {handleRatio} ratio = {ratio} />
         </GlassDiv>
 
         <ChatDiv>
