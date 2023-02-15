@@ -8,16 +8,10 @@ const StyledVideo = styled.div`
   position: relative;
 `;
 
-const StyledBtn1 = styled.button`
-  font-weight: 700;
-  font-size: 20px;
-  position: absolute;
-  left: 43%;
-`;
-
-const StyledBtn2 = styled.button`
+const StyledBtn = styled.button`
   position: absolute;
   left: 50%;
+  top: 30%
   font-weight: 700;
   font-size: 20px;
 `;
@@ -35,12 +29,12 @@ const UserVideoComponent = ({ streamManager, user, mode, role }) => {
             user={user}
             mode={mode}
           />
-          {/* <StyledBtn1>무대로</StyledBtn1>
-          <StyledBtn2>마이크켜기</StyledBtn2>
-          <StyledBtn2>마이크끄기</StyledBtn2> */}
-          <NameDiv>
+          {/* <StyledBtn1>무대로</StyledBtn1> */}
+          <StyledBtn>마이크켜기</StyledBtn>
+          <StyledBtn>마이크끄기</StyledBtn>
+          <div>
             <p>{getNicknameTag()}</p>
-          </NameDiv>
+            </div>
         </StyledVideo>
       ) : null}
     </ParentDiv>
