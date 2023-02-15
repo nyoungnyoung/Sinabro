@@ -62,7 +62,7 @@ export const mainSlice = createSlice({
       state.MyPageCard = action.payload;
     },
     changeTeacher: (state, action) => {
-      state.MyPageCard = action.payload;
+      state.TeacherCard = action.payload;
     },
     updateLecture: (state, action) => {
       const Enrollstate = state.lectureCard[action.payload - 1].isEnrolled;
