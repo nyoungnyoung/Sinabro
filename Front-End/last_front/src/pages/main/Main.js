@@ -69,7 +69,6 @@ function Main() {
       })
       .then((info) => {
         dispatch(changeTeacher(info.data));
-        console.log(info);
       });
   }, []);
 

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateLecture } from "../../store/mainSlice";
 import { changeMyPage } from "../../store/mainSlice";
+import { setAutoFreeze } from "immer";
 
 const LectureDiv = styled.div`
   width: 100%;
@@ -43,7 +44,7 @@ const StyledBtn1 = styled.button`
 
 const StyledBtn2 = styled.button`
   margin-top: 20px;
-  width: 50%;
+  width: ${props => props.role === "teacher" ? 100 : 50}%;
   height: 80px;
   border: none;
   border-radius: 0px 0px 10px 0px;
@@ -90,6 +91,7 @@ function LectureItemCard({
   savedName,
   isEnrolled,
 }) {
+  const role = useSelector(state => state.login.token.role);
   // useNavigate, dispatch 사용하기 위해 선언
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -167,6 +169,7 @@ function LectureItemCard({
 
   // 수강신청/취소 버튼 눌렀을 때(registInfo바뀔 때) MyPageCard 업데이트 해주기
   useEffect(() => {
+    if(role === "teacher") return;
     axios
       .get("normal/lecture/", {
         headers: { "X-ACCESS-TOKEN": loginToken },
@@ -188,7 +191,7 @@ function LectureItemCard({
           </p>
         </StyledLink>
         <div>
-          {registInfo ? (
+          {role !== "teacher" && (registInfo ? (
             <StyledBtn3
               onClick={() => {
                 deleteLecture(no);
@@ -204,7 +207,7 @@ function LectureItemCard({
             >
               수강신청
             </StyledBtn1>
-          )}
+          ))}
 
           {/* {isEnrolled ? (
             <StyledBtn1 onClick={deleteLecture(no)}>수강취소</StyledBtn1>
@@ -213,6 +216,7 @@ function LectureItemCard({
           )} */}
           {/* <StyledBtn1>강의신청</StyledBtn1> */}
           <StyledBtn2
+            role={role}
             onClick={() => {
               moveToDetail(no);
             }}
