@@ -7,8 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestCareer {
-	private String content;
-	private String startDate;
-	private String endDate;
+public class RequestNewPassword {
+	private String phone;
+	private String password;
 }

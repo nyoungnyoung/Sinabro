@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +26,15 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
+import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = "*")
 @RestController
+@RequiredArgsConstructor
 public class Controller {
 
+	private final OpenViduService openViduService;
+	
 	@Value("${OPENVIDU_URL}")
 	private String OPENVIDU_URL;
 
@@ -39,9 +42,6 @@ public class Controller {
 	private String OPENVIDU_SECRET;
 
 	private OpenVidu openvidu;
-	
-	@Autowired
-	private OpenViduService openViduService;
 
 	@PostConstruct
 	public void init() {
@@ -53,7 +53,7 @@ public class Controller {
 	 * @return The Session ID
 	 */
 	@PostMapping("/api/sessions")
-	public ResponseEntity<ResponseCreateConnection> initializeSession(@RequestBody(required = false) Map<String, Object> params, HttpServletRequest request)
+	public ResponseEntity<ResponseCreateConnection> initializeSession(@RequestBody(required = false) Map<String, Object> params)
 			throws OpenViduJavaClientException, OpenViduHttpException {
 		// params로 customSessionId를 보내야 한다. customSessionId는 강의 번호다.
 		SessionProperties properties = SessionProperties.fromJson(params).build();
@@ -61,18 +61,11 @@ public class Controller {
 		
 		// 강의 번호를 이용해 세션을 만든다. 강의 번호를 이용해 강의 이름을 조회하고 그 값을 반환한다. 
 		// 강의 이름을 프론트 myClassName에 박아 강의실 이름처럼 사용할 수 있다.
-//		String subject = openViduService.getLectureName(Integer.parseInt((String) params.get("customSessionId")));
-//		if(subject == null)
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		String subject = session.getSessionId();
-		// 강의를 만든 강사나 수강중인 학생이 아니라면 forbidden 에러 발생
-//		ResponseCreateConnection response = openViduService.getUserName(Integer.parseInt(session.getSessionId()), request);
-//		if(response == null)
-//			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		ResponseCreateConnection response = new ResponseCreateConnection();
-		response.setName("test connection");
-		response.setRole("test");
-		response.setSubject(subject);
+		// 없는 강의나 강의를 만든 강사나 수강중인 학생이 아니라면 forbidden 에러 발생
+		ResponseCreateConnection response = openViduService.getUserName(Integer.parseInt(session.getSessionId()), getPhone());
+		if(response == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		// clientData에 값을 넣어주는게 이 과정에서는 안되고 프론트에서 openvidu 서버에 커넥트 요청을 할 때 가능하다. 
 		// 따라서 토큰과 사용자 이름 반환으로 변경
 		ConnectionProperties connectionProperties = ConnectionProperties.fromJson(new HashMap<String, Object>()).build();
@@ -94,6 +87,10 @@ public class Controller {
 		
 		session.close();
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	private String getPhone() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }

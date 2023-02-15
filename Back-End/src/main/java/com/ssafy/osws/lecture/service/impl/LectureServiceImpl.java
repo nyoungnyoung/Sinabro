@@ -3,13 +3,11 @@ package com.ssafy.osws.lecture.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.osws.config.security.JwtProvider;
 import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.repository.LectureQueryDSLRepository;
 import com.ssafy.osws.lecture.data.repository.LectureReviewRepository;
@@ -19,25 +17,21 @@ import com.ssafy.osws.lecture.dto.response.ResponseLectureReview;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureTime;
 import com.ssafy.osws.lecture.service.LectureService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class LectureServiceImpl implements LectureService {
-	@Autowired
-	private LectureQueryDSLRepository lectureQueryDSLRepository;
 	
-	@Autowired
-	private LectureTimeRepository lectureTimeRepository;
-	
-	@Autowired
-	private LectureReviewRepository lectureReviewRepository;
+	private final LectureQueryDSLRepository lectureQueryDSLRepository;
+	private final LectureTimeRepository lectureTimeRepository;
+	private final LectureReviewRepository lectureReviewRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Autowired
-	private JwtProvider jwtProvider;
-	
 	@Override
-	public ResponseLectureDetail getLecture(int lectureNo, HttpServletRequest request) {
+	public ResponseLectureDetail getLecture(int lectureNo, String phone) {
 		Lecture lecture = lectureQueryDSLRepository.findByLectureNo(lectureNo);
 		ResponseLectureDetail responseLectureDetail = null;
 		if(lecture != null) {
@@ -45,16 +39,12 @@ public class LectureServiceImpl implements LectureService {
 			responseLectureDetail.setName(lecture.getUser().getName());
 		} else return null;
 		
-		String token = jwtProvider.resolveAccessToken(request);
-		if(token != null) {
-			String phone = jwtProvider.validateToken(token);
-			if ((lectureQueryDSLRepository.findByPhoneAndLectureNo(phone, lectureNo)) != null)
-				responseLectureDetail.setEnrolled(true);
-			else 
-				responseLectureDetail.setEnrolled(false);
-		} else {
+		
+		if ((lectureQueryDSLRepository.findByPhoneAndLectureNo(phone, lectureNo)) != null)
+			responseLectureDetail.setEnrolled(true);
+		else 
 			responseLectureDetail.setEnrolled(false);
-		}
+		
 		
 		responseLectureDetail.setLectureTimeList(Arrays.asList(
 				modelMapper.map(

@@ -1,48 +1,50 @@
 package com.ssafy.osws.openvidu.service.impl;
 
-import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.osws.config.CheckRole;
+import com.ssafy.osws.lecture.data.entity.Lecture;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.openvidu.dto.response.ResponseCreateConnection;
 import com.ssafy.osws.openvidu.service.OpenViduService;
 import com.ssafy.osws.user.data.repository.UserRepository;
-import com.ssafy.osws.user.service.impl.TeacherServiceImpl;
+import com.ssafy.osws.user.service.impl.NormalServiceImpl;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class OpenViduServiceImpl implements OpenViduService {
 	
-	@Autowired
-	private LectureRepository lectureRepository;
+	private final UserRepository userRepository;
+	private final LectureRepository lectureRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private TeacherServiceImpl teacherService;
+	private final NormalServiceImpl normalServiceImpl;
 
 	@Override
-	public String getLectureName(int lectureNo) {
-		return lectureRepository.findByNo(lectureNo).getSubject();
-	}
-
-	@Override
-	public ResponseCreateConnection getUserName(int lectureNo, HttpServletRequest request) {
+	public ResponseCreateConnection getUserName(int lectureNo, String phone) {
 		ResponseCreateConnection responseCreateConnection = null;
 		
-		if(CheckRole.hasNormal() && teacherService.isMine(lectureNo, request)) {
+		Lecture lecture = lectureRepository.findByNo(lectureNo);
+		if(lecture == null) {
+			return null;
+		}
+		
+		if(CheckRole.hasNormal() && normalServiceImpl.isMine(lectureNo, phone)) {
 			System.out.println("일반 사용자");
 			responseCreateConnection = new ResponseCreateConnection();
-			responseCreateConnection.setUserInfo(userRepository
-					.findByPhone(teacherService.findPhone(request)));
-		} else if(CheckRole.hasTeacher() && lectureRepository.findByNo(lectureNo).getUser().getPhone().equals(teacherService.findPhone(request))) {
+			responseCreateConnection.setName(userRepository
+					.findByPhone(phone).getName());
+		} else if(CheckRole.hasTeacher() && lecture.getUser().getPhone().equals(phone)) {
 			System.out.println("강사 사용자");
 			responseCreateConnection = new ResponseCreateConnection();
-			responseCreateConnection.setUserInfo(userRepository
-					.findByPhone(lectureRepository.findByNo(lectureNo).getUser().getPhone()));
+			responseCreateConnection.setName(lecture.getUser().getName());
+		}
+		
+		if(responseCreateConnection != null) {
+			responseCreateConnection.setSubject(lecture.getSubject());
+			responseCreateConnection.setTeacher(lecture.getUser().getName());
 		}
 		
 		return responseCreateConnection;

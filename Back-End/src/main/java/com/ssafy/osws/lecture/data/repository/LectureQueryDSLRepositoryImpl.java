@@ -32,7 +32,7 @@ public class LectureQueryDSLRepositoryImpl implements LectureQueryDSLRepository 
 	}
 	
 	@Override
-	public List<Lecture> findLectureByPhone(String phone) {
+	public List<Lecture> findAllByPhone(String phone) {
 		return jpaQueryFactory.select(lecture)
 				.from(lecture)
 				.leftJoin(enrollment)

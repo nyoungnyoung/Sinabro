@@ -5,18 +5,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.internal.util.compare.CalendarComparator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,16 +33,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NotcieServiceImpl implements NoticeService {
-	@Autowired
-	private ModelMapper modelMapper;
+	
 	private final NoticeRepository noticeRepository;
 	private final NoticeQueryDSLRpeository noticeQueryDSLRepository;
 	private final AttachmentRepository attachmentRepository;
-	private final long noticeCount = 10L;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@Value("${file.path}") 
 	String realPath;
 	
+	private final long noticeCount = 10L;
 	
 	@Override
 	public Long getTotalPageNumber() {

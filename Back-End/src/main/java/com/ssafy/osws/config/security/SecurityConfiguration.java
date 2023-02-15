@@ -9,26 +9,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import com.ssafy.osws.user.service.impl.OAuth2UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-	
-	private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
-	//인증 성공 핸들러
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
-    //인증 실패 핸들러
-    private final AuthenticationFailureHandler authenticationFailureHandler;
 	
 	// jwtProvider
 	private final JwtProvider jwtProvider;
@@ -70,19 +60,9 @@ public class SecurityConfiguration {
 	        .antMatchers(HttpMethod.DELETE).hasAnyRole("teacher", "admin")
 	        .antMatchers("/common/sign-out").hasAnyRole("teacher", "admin", "normal")
 	        .antMatchers("/common/**", "/login/**", "/api/**").permitAll()
-	        //.antMatchers("/oauth2/**").authenticated() 소셜 로그인
 	    	.and()
 	    	//== 필터 설정 == //
 	    	.addFilterBefore(new JwtAuthenticatioFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
-	        .addFilterBefore(new JwtExceptionFilter(), JwtAuthenticatioFilter.class)
-		  	//== 소셜 로그인 설정 ==//
-	        /*
-	        .oauth2Login()
-	        .userInfoEndpoint().userService(oAuth2UserServiceImpl)
-	        .and()
-	        .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
-	        .failureHandler(authenticationFailureHandler); //소셜 로그인 실패했을 때 Handler;
-	        */
 	        .build();
 	  }
 	

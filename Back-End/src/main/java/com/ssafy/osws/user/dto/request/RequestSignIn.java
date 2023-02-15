@@ -7,6 +7,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestLectureWeeklyInfo {
-	private String content;
+public class RequestSignIn {
+
+	private String phone;
+	private String password;
 }
