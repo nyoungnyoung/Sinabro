@@ -1,0 +1,68 @@
+{
+  "name": "dummy",
+  "data": [
+    {
+      "id": 1,
+      "originalName": "유화그리기",
+      "subject": "미술",
+      "content": "유화를 그려보아요",
+      "maxOccupancy": 5,
+      "startDate": "2023-01-01",
+      "endDate": "2023-01-08",
+      "lectureTimeList": [
+        {
+          "day": "월",
+          "startTime": 0,
+          "runTime": 0
+        }
+      ],
+      "weeklyInfoList": [
+        {
+          "content": "1주차 ot"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "originalName": "캐리커쳐그리기",
+      "subject": "미술",
+      "content": "유화를 그려보아요",
+      "maxOccupancy": 5,
+      "startDate": "2023-01-01",
+      "endDate": "2023-01-08",
+      "lectureTimeList": [
+        {
+          "day": "월",
+          "startTime": 0,
+          "runTime": 0
+        }
+      ],
+      "weeklyInfoList": [
+        {
+          "content": "1주차 ot"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "originalName": "수채화그리기",
+      "subject": "미술",
+      "content": "유화를 그려보아요",
+      "maxOccupancy": 5,
+      "startDate": "2023-01-01",
+      "endDate": "2023-01-08",
+      "lectureTimeList": [
+        {
+          "day": "월",
+          "startTime": 0,
+          "runTime": 0
+        }
+      ],
+      "weeklyInfoList": [
+        {
+          "content": "1주차 ot"
+        }
+      ]
+    }
+  ]
+}
