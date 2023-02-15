@@ -263,8 +263,8 @@ function App() {
       getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
-        // 강사 이름 저장해야함
-        // setTname(dto.teacher);
+        setTname(dto.teacher);
+        
         mySession
           .connect(dto.token, { clientData: dto.name })
           .then(async () => {
@@ -454,6 +454,7 @@ function App() {
             handleMode={handleMode}
             handleScreenShare={handleScreenShare}
             role={role}
+            tname={tname}
           />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}

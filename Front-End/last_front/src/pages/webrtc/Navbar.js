@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Navbar({ handleMode, handleScreenShare, role }) {
+function Navbar({ handleMode, handleScreenShare, role, tname, info }) {
 
   // const [mode, setMode] = useState("focus");
 
@@ -58,7 +58,7 @@ function Navbar({ handleMode, handleScreenShare, role }) {
 
         <LeftWrapper>
           <StyledP>
-            현재 수강하고 계신 강의는 000 강사님의 00000 교실입니다 :){" "}
+            현재 수강하고 계신 강의는 { tname } 강사님의 { info.myClassroom } 교실입니다 :){" "}
           </StyledP>
         </LeftWrapper>
       </Wrapper>
