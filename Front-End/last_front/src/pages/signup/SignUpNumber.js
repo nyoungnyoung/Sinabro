@@ -33,7 +33,6 @@ function SignUpNumber({ HandleSignUp, HandleAuthCode }) {
               phone: phone,
             })
             .then((response) => {
-              console.log(response.data);
               HandleAuthCode(response.data);
             })
             .catch((error) => console.log(error));
