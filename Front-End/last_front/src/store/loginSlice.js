@@ -13,6 +13,7 @@ export const loginSlice = createSlice({
       localStorage.setItem("token", JSON.stringify(state.token));
     },
     logOut(state, action) {
+      localStorage.removeItem("token");
       state.token = "";
     },
   },
