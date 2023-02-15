@@ -435,20 +435,6 @@ function App() {
   return (
     <div className="container">
         <div id="session">
-          <div id="session-header">
-            <h1 id="session-title">{info.myClassroom}</h1>
-            <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={() => {
-                leaveSession(session, handleOV);
-                setOV(null);
-                setSession(null);
-              }}
-              value="Leave session"
-            />
-          </div>
           <Navbar
             info={info}
             handleMode={handleMode}
@@ -502,33 +488,6 @@ function App() {
               handleMicInfo={handleMicInfo} 
               micInfo={micInfo}/>
           </StyledDiv2>
-
-          {info.mainStreamManager !== undefined ? (
-            <div id="main-video" className="col-md-6">
-              {/* <UserVideoComponent streamManager={info.mainStreamManager} /> */}
-            </div>
-          ) : null}
-          <div id="video-container" className="col-md-6">
-            {info.publisher !== undefined ? (
-              <div
-                className="stream-container col-md-6 col-xs-6"
-                onClick={() => handleMainVideoStream(info.publisher)}
-              >
-                {/* <UserVideoComponent streamManager={info.publisher} /> */}
-              </div>
-            ) : null}
-            {info.subscribers.map((sub, i) => (
-              <div
-                key={i}
-                className="stream-container col-md-6 col-xs-6"
-                // onClick={() => handleMainVideoStream(sub)}
-                >
-                {/* <button onClick={() => muteOne(sub)}> 한 사람만 ㄴ </button> */}
-                <button onClick={() => unmuteOne(sub)}> 한 사람만 음소거 해제 </button>
-                {/* <UserVideoComponent streamManager={sub} /> */}
-              </div>
-            ))}
-          </div>
         </div>
     </div>
   );
