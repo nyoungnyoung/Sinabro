@@ -31,8 +31,6 @@ function Main() {
   const main = useSelector((state) => state.main);
 
   // 처음 마운트 됐을 때 메인 카테고리 데이터 받아와서 store에 저장해주기
-  // http://localhost:5000/main/category 로컬
-  // https://i8d203.p.ssafy.io/api/main/category
   useEffect(() => {
     const getMainData = async () => {
       const res = await axios.get("/main/category");
@@ -40,10 +38,6 @@ function Main() {
     };
     getMainData();
   }, []);
-
-  // console.log(role);
-  console.log(main);
-  // console.log(loginToken);
 
   // 처음 마운트됐을 때 내가 신청한 강의 목록 axios 받아서 store에 저장해주기 -> 일반사용자
   useEffect(() => {
@@ -77,21 +71,12 @@ function Main() {
     navigate("/");
   };
 
-  // console.log(main);
-
   return (
     <div>
       <NavBar />
-      {/* <MagnifyingGlass /> */}
-      {/* <h1>Main</h1>
-      <p>로그인 후 보여지는 첫번째 페이지!</p>
-      <p>왼쪽에 신청 가능한 강의목록, 오른쪽에 마이페이지</p> */}
       <StyledDiv>
         <LectureList />
         {role === "normal" ? <MyPageList /> : <TeacherPage />}
-
-        {/* <LectureList changeValue={changeValue} lecture={lecture} /> */}
-        {/* <MyPageList changeValue={changeValue} /> */}
       </StyledDiv>
     </div>
   );
