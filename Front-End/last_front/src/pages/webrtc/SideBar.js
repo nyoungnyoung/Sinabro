@@ -18,7 +18,7 @@ function SideBar({
   handleMicInfo,
 }) {
   // 사용자 role 스토어에서 가져오기
-  const role = useSelector(state => state.login.token.role);
+  const role = useSelector((state) => state.login.token.role);
   const navigate = useNavigate();
   const moveToMain = () => {
     navigate("/main");
@@ -174,13 +174,13 @@ function SideBar({
           </MicDiv>
         ) : null}
 
-        <ChatDiv>
+        {/* <ChatDiv>
           <ChatDiv2>
             <GlassImg src="/img/chatting_black.png" alt="chatting" />
             <h3>채팅</h3>
           </ChatDiv2>
           <OnChatButton onClick={changeChatOn}>채팅장 열기</OnChatButton>
-        </ChatDiv>
+        </ChatDiv> */}
 
         <StyledButton
           onClick={() => {
@@ -280,23 +280,23 @@ const GlassImg = styled.img`
   margin-right: 10px;
 `;
 
-const ChatDiv = styled.div`
-  box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
-  margin-top: 5%;
-  margin-left: 13%;
-  margin-right: 5%;
-  width: 80%;
-  height: 13%;
-  border-radius: 10px;
-  background-color: #fff3c6;
-  margin-bottom: 85px;
-`;
+// const ChatDiv = styled.div`
+//   box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
+//   margin-top: 5%;
+//   margin-left: 13%;
+//   margin-right: 5%;
+//   width: 80%;
+//   height: 13%;
+//   border-radius: 10px;
+//   background-color: #fff3c6;
+//   margin-bottom: 85px;
+// `;
 
-const ChatDiv2 = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 50px;
-`;
+// const ChatDiv2 = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   height: 50px;
+// `;
 
 const OnButton = styled.button`
   width: 60px;
@@ -313,20 +313,20 @@ const OnButton = styled.button`
   }
 `;
 
-const OnChatButton = styled.button`
-  border-radius: 10px;
-  width: 100px;
-  background-color: gray;
-  border: 0px solid green;
-  color: white;
-  padding: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-  cursor: pointer;
-  :hover {
-    background-color: green;
-  }
-`;
+// const OnChatButton = styled.button`
+//   border-radius: 10px;
+//   width: 100px;
+//   background-color: gray;
+//   border: 0px solid green;
+//   color: white;
+//   padding: 5px;
+//   margin-left: 5px;
+//   margin-right: 5px;
+//   cursor: pointer;
+//   :hover {
+//     background-color: green;
+//   }
+// `;
 
 const OffButton = styled.button`
   border-radius: 10px;
@@ -349,6 +349,7 @@ const StyledButton = styled.button`
   font-weight: 1000;
   /* margin-right: 30px; */
   margin-left: 7%;
+  margin-top: 90%;
   width: 80%;
   height: 8%;
   background-color: #fff3c6;
