@@ -2,7 +2,13 @@ import React from "react";
 import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 
-const TogetherScreen = ({ info, handleMainVideoStream, mode, role }) => {
+const TogetherScreen = ({
+  info,
+  handleMainVideoStream,
+  mode,
+  role,
+  unmuteOne,
+}) => {
   const user = info.subscribers.length;
 
   // console.log(mode);

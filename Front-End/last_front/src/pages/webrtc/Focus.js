@@ -2,13 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 
-function Focus({
-  info,
-  handleMainVideoStream,
-  mode,
-  ratio,
-  role,
-}) {
+function Focus({ info, handleMainVideoStream, mode, ratio, role, unmuteOne }) {
   const imageRectRef = useRef();
   let containerDiv = useRef();
 
@@ -39,7 +33,7 @@ function Focus({
   let posX;
   let posY;
 
-  const moveScreenStart = e => {
+  const moveScreenStart = (e) => {
     const img = new Image();
     e.dataTransfer.setDragImage(img, 0, 0);
 
@@ -47,7 +41,7 @@ function Focus({
     posY = e.clientY;
   };
 
-  const moveScreen = e => {
+  const moveScreen = (e) => {
     const minX = e.target.offsetLeft + (e.clientX - posX) <= 0;
     const minY = e.target.offsetTop + (e.clientY - posY) <= 0;
 
@@ -83,7 +77,7 @@ function Focus({
     posY = minY ? e.clientY : 0;
   };
 
-  const moveScreenEnd = e => {
+  const moveScreenEnd = (e) => {
     const limitX = e.target.offsetLeft + (e.clientX - posX) <= 0;
     const limitY = e.target.offsetTop + (e.clientY - posY) <= 0;
 
@@ -98,43 +92,43 @@ function Focus({
   const user = info.subscribers.length;
 
   return (
-
     <TestDiv ref={imageRectRef}>
       <ContainerDiv
-          ref={containerDiv}
-          ratio={ratio}
-          onDragStart={moveScreenStart}
-          onDrag={moveScreen}
-          onDragEnd={moveScreenEnd}
-          draggable
-        >
-    <StyledDiv user={user} ref={imageRectRef}>
-      
-      <UserVideoComponent
-        streamManager={info.publisher}
-        user={user}
-        mode={mode}
-        role={role}
-          />
-
-      {info.subscribers.map((sub, i) => (
-        <div
-          key={i}
-          onClick={() => {
-            handleMainVideoStream(sub);
-          }}
-        >
+        ref={containerDiv}
+        ratio={ratio}
+        onDragStart={moveScreenStart}
+        onDrag={moveScreen}
+        onDragEnd={moveScreenEnd}
+        draggable
+      >
+        <StyledDiv user={user} ref={imageRectRef}>
           <UserVideoComponent
-            streamManager={sub}
+            streamManager={info.publisher}
             user={user}
             mode={mode}
             role={role}
           />
-        </div>
-      ))}
-      </StyledDiv>
-        </ContainerDiv>
-      </TestDiv>
+
+          {info.subscribers.map((sub, i) => (
+            <div
+              key={i}
+              onClick={() => {
+                handleMainVideoStream(sub);
+              }}
+            >
+              <UserVideoComponent
+                streamManager={sub}
+                user={user}
+                mode={mode}
+                role={role}
+                unmuteOne={unmuteOne}
+                sub={sub}
+              />
+            </div>
+          ))}
+        </StyledDiv>
+      </ContainerDiv>
+    </TestDiv>
   );
 }
 
@@ -193,9 +187,9 @@ const ContainerDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${props => 100 * props.ratio}%;
-  height: ${props => 100 * props.ratio}%;
-  transform: scale(${props => props.ratio});
+  width: ${(props) => 100 * props.ratio}%;
+  height: ${(props) => 100 * props.ratio}%;
+  transform: scale(${(props) => props.ratio});
   transform-origin: left top;
   display: table;
 `;
