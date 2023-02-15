@@ -10,14 +10,13 @@
 2. [팀원 및 담당파트](#team) <br/>
 3. [타겟](#target-people) <br/>
 4. [주요기능](#main-function) <br/>
-5. [서비스 화면] <br/>
+5. [서비스 화면](#service) <br/>
 6. [실행방법](#how-to-run) <br/>
 7. [개발환경](#stack) <br/>
-8. [아키텍처](#tech-architecture) <br/>
+8. [시스템 아키텍처](#tech-architecture) <br/>
 9. [ERD ](#erd) <br/> 
 10. [API 명세서](#api) <br/>
 11. [스케줄](#schedule) <br/>
-12. [협업툴](#cooperation-tool) <br/>
 
 
 ### :calendar: 개발기간: 
@@ -63,13 +62,13 @@
     - AWS EC2
     - Nginx
 
-### 🔨 아키텍처
-- 
+### 🔨 시스템 아키텍처
+![시스템아키텍처](/uploads/e01969c5f05df51b1d032dadd4e1bdb7/시스템아키텍처.PNG)
 
 ### 🎨 ERD 
 ### 💡 API 명세서
 ### 🗓️ 스케줄
-### 🎉 협업툴 
+
 
 
 
