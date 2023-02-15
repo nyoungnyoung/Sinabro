@@ -6,7 +6,6 @@ import GlassBtn from "./Btn/GlassBtn";
 import { useSelector } from "react-redux";
 
 function SideBar({
-  handleGlass,
   handleRatio,
   ratio,
   info,
@@ -71,17 +70,11 @@ function SideBar({
   }, [flag]);
 
   // 선생님 '전체마이크 제어 상태 업데이트'
-  // useEffect(() => {
-  //   console.log(allMic);
-  //   setAllMic(micInfo);   // micInfo==false값을 받아와서 allMic==false로 바꿔준다. 
-  // }, [micInfo]);
 
   // 채팅장이 꺼져있을 때
   if (chat === false) {
     return (
       <StyledDiv>
-        {/* <StyledH3>메뉴바</StyledH3> */}
-        {/* <p>WebRTC 메뉴바</p> */}
         <MicDiv>
           <MicDiv2>
             <MicImg src="/img/mic_black.png" alt="mic" />
@@ -164,20 +157,6 @@ function SideBar({
               <h3>전체마이크</h3>
             </MicDiv2>
             <div>
-              {/* <OnButton
-              <OnButton
-                style={
-                  allMic
-                    ? { backgroundColor: "green" }
-                    : { backgroundColor: "gray" }
-                }
-                onClick={() => {
-                  allMicOn();
-                  // info.publisher.publishVideo(true);
-                }}
-              >
-                켜짐
-              </OnButton> */}
               <OffButton
                 style={
                   micInfo
@@ -187,7 +166,6 @@ function SideBar({
                 onClick={() => {
                   allMicOff();
                   muteAll();
-                  // info.publisher.publishVideo(false);
                 }}
               >
                 꺼짐

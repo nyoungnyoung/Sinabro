@@ -263,8 +263,8 @@ function App() {
       getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
-        // 강사 이름 저장해야함
-        // setTname(dto.teacher);
+        setTname(dto.teacher);
+        
         mySession
           .connect(dto.token, { clientData: dto.name })
           .then(async () => {
@@ -435,25 +435,12 @@ function App() {
   return (
     <div className="container">
         <div id="session">
-          <div id="session-header">
-            <h1 id="session-title">{info.myClassroom}</h1>
-            <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={() => {
-                leaveSession(session, handleOV);
-                setOV(null);
-                setSession(null);
-              }}
-              value="Leave session"
-            />
-          </div>
           <Navbar
             info={info}
             handleMode={handleMode}
             handleScreenShare={handleScreenShare}
             role={role}
+            tname={tname}
           />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
@@ -501,33 +488,6 @@ function App() {
               handleMicInfo={handleMicInfo} 
               micInfo={micInfo}/>
           </StyledDiv2>
-
-          {info.mainStreamManager !== undefined ? (
-            <div id="main-video" className="col-md-6">
-              {/* <UserVideoComponent streamManager={info.mainStreamManager} /> */}
-            </div>
-          ) : null}
-          <div id="video-container" className="col-md-6">
-            {info.publisher !== undefined ? (
-              <div
-                className="stream-container col-md-6 col-xs-6"
-                onClick={() => handleMainVideoStream(info.publisher)}
-              >
-                {/* <UserVideoComponent streamManager={info.publisher} /> */}
-              </div>
-            ) : null}
-            {info.subscribers.map((sub, i) => (
-              <div
-                key={i}
-                className="stream-container col-md-6 col-xs-6"
-                // onClick={() => handleMainVideoStream(sub)}
-                >
-                {/* <button onClick={() => muteOne(sub)}> 한 사람만 ㄴ </button> */}
-                <button onClick={() => unmuteOne(sub)}> 한 사람만 음소거 해제 </button>
-                {/* <UserVideoComponent streamManager={sub} /> */}
-              </div>
-            ))}
-          </div>
         </div>
     </div>
   );
