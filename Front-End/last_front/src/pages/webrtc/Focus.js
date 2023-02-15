@@ -22,7 +22,7 @@ function Focus({
     ) {
       containerDiv.current.style.left = `${
         imageRectRef.current.offsetWidth -
-        containerDiv.current.offsetHeight * ratio
+        containerDiv.current.offsetWidth * ratio
       }px`;
     }
 

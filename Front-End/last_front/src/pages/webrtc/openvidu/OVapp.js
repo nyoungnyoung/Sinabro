@@ -1,6 +1,7 @@
 import { OpenVidu } from "openvidu-browser";
 
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
 import {
@@ -15,6 +16,7 @@ import SideBar from "../SideBar";
 import Navbar from "../Navbar";
 import styled from "styled-components";
 import TogetherScreen from "../TogetherScreen";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [ratio, setRatio] = useState(1);
@@ -24,6 +26,9 @@ function App() {
     else if (ratio < 1) setRatio(1);
     else setRatio(ratio);
   };
+
+  // LectureNo 주소에서 받아오기
+  const lectureNo = (useLocation().pathname.slice(8));
 
   const sendMainStreamManager = newPublisher => {
     session
@@ -303,7 +308,7 @@ function App() {
         ...prev,
         session: undefined,
         subscribers: [],
-        mySessionId: "SessionA",
+        mySessionId: lectureNo,
         myUserName: "Participant" + Math.floor(Math.random() * 100),
         mainStreamManager: undefined,
         publisher: undefined,
@@ -314,8 +319,13 @@ function App() {
   const joinSession = () => {
     // --- 1) Get an OpenVidu object ---
     // --- 2) Init a session ---
+    console.log("entered joinSession");
     setSession(OV.initSession());
   };
+
+  useEffect(() => {
+    joinSession();
+  }, []);
 
   const deleteSubscriber = streamManager => {
     let subscribers = info.subscribers;
@@ -360,60 +370,11 @@ function App() {
   };
 
   // 사용자 role 스토어에서 가져오기
-  // const role = useSelector(state => state.login.token.role);
-  const role = "teacher";
+  const role = useSelector(state => state.login.token.role);
+  // const role = "teacher";
 
   return (
     <div className="container">
-      {/* 세션이 열리기 전 */}
-      {session === null ? (
-        <div id="join">
-          <div id="img-div">
-            <img
-              src="resources/images/openvidu_grey_bg_transp_cropped.png"
-              alt="OpenVidu logo"
-            />
-          </div>
-          <div id="join-dialog" className="jumbotron vertical-center">
-            <h1> Join a video session </h1>
-            <form className="form-group" onSubmit={joinSession}>
-              <p>
-                <label>Participant: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="userName"
-                  value={info.myUserName}
-                  onChange={handleChangeUserName}
-                  required
-                />
-              </p>
-              <p>
-                <label> Session: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="sessionId"
-                  value={info.myClassroom}
-                  onChange={handleChangeSessionId}
-                  required
-                />
-              </p>
-              <p className="text-center">
-                <input
-                  className="btn btn-lg btn-success"
-                  name="commit"
-                  type="submit"
-                  value="JOIN"
-                />
-              </p>
-            </form>
-          </div>
-        </div>
-      ) : null}
-
-      {/* 세션이 열린 후 화상회의 시작 */}
-      {session !== null ? (
         <div id="session">
           <div id="session-header">
             <h1 id="session-title">{info.myClassroom}</h1>
@@ -433,6 +394,7 @@ function App() {
             info={info}
             handleMode={handleMode}
             handleScreenShare={handleScreenShare}
+            role={role}
           />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
@@ -500,7 +462,6 @@ function App() {
             ))}
           </div>
         </div>
-      ) : null}
     </div>
   );
 }
