@@ -28,7 +28,7 @@ function SignUpPw2({ signUpData }) {
         phone: signUpData.phone,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log("sign up done");
       })
       .catch((error) => {
         console.log(error);

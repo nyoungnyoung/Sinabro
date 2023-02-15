@@ -30,8 +30,6 @@ function SignUpMain() {
     setAuthCode(event);
   };
 
-  console.log(signUp);
-
   return (
     <StyledDiv>
       <StyledH1>회원가입</StyledH1>

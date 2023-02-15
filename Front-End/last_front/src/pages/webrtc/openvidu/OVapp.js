@@ -152,8 +152,8 @@ function App() {
     setSession(null);
   };
 
-  const handleOV = event => {
-    console.log(event);
+  const handleOV = () => {
+    console.log("exiting...");
   };
 
   //componentDidMount
@@ -251,7 +251,6 @@ function App() {
         if(role === "teacher"){
           console.log("수강생이 마이크 켰다!")
           setMicInfo(true);
-          // setAllMic(false)
         }
       });
 
@@ -342,7 +341,6 @@ function App() {
   const joinSession = () => {
     // --- 1) Get an OpenVidu object ---
     // --- 2) Init a session ---
-    console.log("entered joinSession");
     setSession(OV.initSession());
   };
 
@@ -359,24 +357,6 @@ function App() {
         return { ...prev, subscribers: subscribers };
       });
     }
-  };
-
-  const handleChangeSessionId = e => {
-    setInfo(prev => {
-      return {
-        ...prev,
-        mySessionId: e.target.value,
-      };
-    });
-  };
-
-  const handleChangeUserName = e => {
-    setInfo(prev => {
-      return {
-        ...prev,
-        myUserName: e.target.value,
-      };
-    });
   };
 
   const handleMainVideoStream = stream => {
@@ -416,7 +396,6 @@ function App() {
   };
 
   const micState = (flag) => {
-    // console.log(flag);
     session.signal({
       data: 'mute Cancelled',
       // to: [subscriber.stream.connection],

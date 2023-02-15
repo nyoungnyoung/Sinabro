@@ -3,12 +3,6 @@ import styled from "styled-components";
 import axios from "../../store/baseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { changeSub, changeLecture, changeMainNo } from "../../store/mainSlice";
-// import { Link } from "react-router-dom";
-// import { NavLink } from "react-router-dom";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import baseURL from "../../store/val";
 
 const CategoryDiv = styled.div`
   @media only screen and (max-width: 600px) {
@@ -79,7 +73,6 @@ function MainCategory() {
     axios.get("/main/category/" + selectedNo).then(response => {
       dispatch(changeSub(response.data));
       dispatch(changeMainNo(selectedNo));
-      // console.log(response.data);
     });
   }, [selectedNo]);
 
@@ -91,7 +84,6 @@ function MainCategory() {
       })
       .then(lecture => {
         dispatch(changeLecture(lecture.data));
-        console.log("강의카드", lecture.data);
       });
   }, [selectedNo]);
 
@@ -119,11 +111,6 @@ function MainCategory() {
           onClick={onClick}
         >
           <ImgDiv id={category.no}>
-            {/* <StyledImg
-              id={category.no}
-              src={require(`/img/${imgs[category.no - 1]}`).default}
-              alt="icon"
-            /> */}
             <StyledImg
               id={category.no}
               src={"/img/" + imgs[category.no - 1]}
@@ -132,9 +119,7 @@ function MainCategory() {
           </ImgDiv>
           <span id={category.no}>{category.name}</span>
         </StyledDiv>
-        // <NavLink key={category.no}>{category.name}</NavLink>
       ))}
-      {/* </Slider> */}
     </CategoryDiv>
   );
 }
