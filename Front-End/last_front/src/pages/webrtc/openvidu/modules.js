@@ -1,4 +1,5 @@
 import axios from "axios";
+import loginSlice from "../../../store/loginSlice";
 
 export const APPLICATION_SERVER_URL = "http://localhost:5000/";
 
@@ -17,12 +18,14 @@ export const getToken = async mySessionId => {
 // }
 
 const createSession = async sessionId => {
+  var accessToken = JSON.parse(localStorage.getItem("token")).accessToken;
   const response = await axios.post(
     APPLICATION_SERVER_URL + "api/sessions",
     { customSessionId: sessionId },
     {
       headers: {
         "Content-Type": "application/json",
+        "X-ACCESS-TOKEN": accessToken,
       },
     }
   );

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Navbar({ handleMode, handleScreenShare }) {
-
-  const role = "teacher";
+function Navbar({ handleMode, handleScreenShare, role }) {
 
   // const [mode, setMode] = useState("focus");
 

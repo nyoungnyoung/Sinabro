@@ -1,13 +1,9 @@
 import { OpenVidu } from "openvidu-browser";
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
-import UserVideoComponent from "./UserVideoComponent";
 import {
-  selectInterviwee,
   getToken,
-  APPLICATION_SERVER_URL,
   leaveSession,
 } from "./modules";
 import ShareScreen from "../ShareScreen";
@@ -16,23 +12,35 @@ import SideBar from "../SideBar";
 import Navbar from "../Navbar";
 import styled from "styled-components";
 import TogetherScreen from "../TogetherScreen";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [audioValue, setAudio] = useState(false);
+
   const handleAudio = (state) => {
     setAudio(state);
   };
+
   const [micInfo, setMicInfo] = useState(true);
+
   const handleMicInfo = (state) => {
     setMicInfo(state);
   };
+
+  // 강사 이름 저장하는 state
+  const [tname, setTname] = useState();
+
   const [ratio, setRatio] = useState(1);
+  
   const handleRatio = ratio => {
     console.log(ratio);
     if (ratio > 3) setRatio(3);
     else if (ratio < 1) setRatio(1);
     else setRatio(ratio);
   };
+
+  // LectureNo 주소에서 받아오기
+  const lectureNo = (useLocation().pathname.slice(8));
 
   const sendMainStreamManager = newPublisher => {
     session
@@ -81,15 +89,17 @@ function App() {
             await session.unpublish(info.publisher);
             await session.publish(newPublisher);
 
-            handleInfo(newPublisher, "publisher");
-            // handleInfo(info.mainStreamManager, "publisher");
+            setInfo(prev => {
+              return { ...prev, publisher: newPublisher };
+            });
           });
       });
       await session.unpublish(info.publisher);
       await session.publish(newPublisher);
-      handleInfo(newPublisher, "mainStreamManager");
+      setInfo(prev => {
+        return { ...prev, mainStreamManager: newPublisher };
+      });
       sendMainStreamManager(newPublisher);
-      // handleInfo(info.mainStreamManager, "publisher");
     } catch (e) {
       console.error(e);
     }
@@ -128,7 +138,6 @@ function App() {
       });
     setMode(event);
   };
-  // console.log(mode);
 
   const handleInfo = (event, type) => {
     setInfo({
@@ -196,35 +205,24 @@ function App() {
         for (let index = 0; index < info.subscribers.length; index++) {
           console.log(info.subscribers[index].stream.streamId);
           if (info.subscribers[index].stream.streamId === event.data) {
-            handleInfo(info.subscribers[index], "mainStreamManager");
+            setInfo(prev => {
+              return { ...prev, mainStreamManager: info.subscribers[index] };
+            });
           }
         }
-
-        // handleInfo(event.data, "mainStreamManager");
       });
 
-      mySession.on("signal:share", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:share", () => {
         setMode("share");
       });
 
-      mySession.on("signal:focus", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:focus", () => {
         setMode("focus");
       });
 
-      mySession.on("signal:together", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:together", () => {
         setMode("together");
       });
-
-      // mySession.on("micOff", (e) => {
-      //   console.log("마이크 통제: 꺼짐" + e.data);
-      //   info.publisher.publishAudio(false);
-      // });
 
       mySession.on("broadcast-interviewee", e => {
         console.log("면접자 : " + e.data);
@@ -265,6 +263,8 @@ function App() {
       getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+        // 강사 이름 저장해야함
+        // setTname(dto.teacher);
         mySession
           .connect(dto.token, { clientData: dto.name })
           .then(async () => {
@@ -331,7 +331,7 @@ function App() {
         ...prev,
         session: undefined,
         subscribers: [],
-        mySessionId: "SessionA",
+        mySessionId: lectureNo,
         myUserName: "Participant" + Math.floor(Math.random() * 100),
         mainStreamManager: undefined,
         publisher: undefined,
@@ -342,8 +342,13 @@ function App() {
   const joinSession = () => {
     // --- 1) Get an OpenVidu object ---
     // --- 2) Init a session ---
+    console.log("entered joinSession");
     setSession(OV.initSession());
   };
+
+  useEffect(() => {
+    joinSession();
+  }, []);
 
   const deleteSubscriber = streamManager => {
     let subscribers = info.subscribers;
@@ -375,7 +380,6 @@ function App() {
   };
 
   const handleMainVideoStream = stream => {
-    // if (info.mainStreamManager !== stream) {
     setInfo(prev => {
       return {
         ...prev,
@@ -384,7 +388,6 @@ function App() {
     });
     sendMainStreamManager(stream);
     handleMode("together");
-    // }
   };
 
   const muteAll = () => {
@@ -427,60 +430,10 @@ function App() {
   }
 
   // 사용자 role 스토어에서 가져오기
-  // const role = useSelector(state => state.login.token.role);
-  const role = "teacher";
+  const role = useSelector(state => state.login.token.role);
 
   return (
     <div className="container">
-      {/* 세션이 열리기 전 */}
-      {session === null ? (
-        <div id="join">
-          <div id="img-div">
-            <img
-              src="resources/images/openvidu_grey_bg_transp_cropped.png"
-              alt="OpenVidu logo"
-            />
-          </div>
-          <div id="join-dialog" className="jumbotron vertical-center">
-            <h1> Join a video session </h1>
-            <form className="form-group" onSubmit={joinSession}>
-              <p>
-                <label>Participant: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="userName"
-                  value={info.myUserName}
-                  onChange={handleChangeUserName}
-                  required
-                />
-              </p>
-              <p>
-                <label> Session: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="sessionId"
-                  value={info.myClassroom}
-                  onChange={handleChangeSessionId}
-                  required
-                />
-              </p>
-              <p className="text-center">
-                <input
-                  className="btn btn-lg btn-success"
-                  name="commit"
-                  type="submit"
-                  value="JOIN"
-                />
-              </p>
-            </form>
-          </div>
-        </div>
-      ) : null}
-
-      {/* 세션이 열린 후 화상회의 시작 */}
-      {session !== null ? (
         <div id="session">
           <div id="session-header">
             <h1 id="session-title">{info.myClassroom}</h1>
@@ -500,6 +453,7 @@ function App() {
             info={info}
             handleMode={handleMode}
             handleScreenShare={handleScreenShare}
+            role={role}
           />
           <StyledDiv2>
             {/* 모드별로 다른 컴포넌트 보여주기 */}
@@ -575,7 +529,6 @@ function App() {
             ))}
           </div>
         </div>
-      ) : null}
     </div>
   );
 }
