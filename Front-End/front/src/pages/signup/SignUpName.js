@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+<<<<<<< HEAD
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,11 +9,19 @@ import { signUpActions } from "../../store/SignUpSlice";
 function SignUpName() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+=======
+import CsBtn from "../../components/CsBtn";
+import styled from "styled-components";
+
+function SignUpName() {
+  const navigate = useNavigate();
+>>>>>>> dev-BE
 
   const moveToBirth = () => {
     navigate("/signup/birth");
   };
 
+<<<<<<< HEAD
   // 😀이름 저장
   const [name, setName] = useState("");
 
@@ -27,6 +36,11 @@ function SignUpName() {
   // 😀stateName 갱신 여부 확인 콘솔
   console.log("state", state);
 
+=======
+  // 이름 저장
+  const [name, setName] = useState("");
+
+>>>>>>> dev-BE
   return (
     <div>
       <StyledDiv1>
@@ -41,6 +55,7 @@ function SignUpName() {
             placeholder="고객님의 이름을 적어주세요 :)"
             onChange={(e) => {
               setName(e.target.value);
+<<<<<<< HEAD
             }}
           />
           <StyledButton1
@@ -52,6 +67,16 @@ function SignUpName() {
             확인
           </StyledButton1>
         </StyledDiv2>
+=======
+              console.log(name);
+            }}
+          />
+          <StyledButton1>확인</StyledButton1>
+        </StyledDiv2>
+        <div>
+          <StyledButton2 onClick={moveToBirth}>다음 단계로</StyledButton2>
+        </div>
+>>>>>>> dev-BE
       </StyledDiv1>
       <LoginDiv>
         <StyledLink to="/cs">
@@ -79,7 +104,10 @@ const StyledDiv1 = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
   padding-bottom: 20px;
+=======
+>>>>>>> dev-BE
 `;
 
 const StyledInput = styled.input`
@@ -93,4 +121,13 @@ const StyledButton1 = styled.button`
   padding: 10px;
 `;
 
+<<<<<<< HEAD
+=======
+const StyledButton2 = styled.button`
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding: 10px;
+`;
+>>>>>>> dev-BE
 export default SignUpName;

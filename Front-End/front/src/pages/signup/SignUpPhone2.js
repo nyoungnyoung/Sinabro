@@ -2,22 +2,34 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
+=======
+>>>>>>> dev-BE
 
 function SignUpPhone2() {
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const state = useSelector((state) => state);
   console.log(state);
 
+=======
+>>>>>>> dev-BE
   const moveToAgree = () => {
     navigate("/signup/agree");
   };
 
+<<<<<<< HEAD
   // 😀인증번호 저장
   const [prove, setProve] = useState("");
 
   console.log(prove);
+=======
+  // 인증번호 저장
+  const [prove, setProve] = useState();
+
+>>>>>>> dev-BE
   return (
     <div>
       <StyledDiv1>

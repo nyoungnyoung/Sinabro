@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminMain from "./AdminMain";
@@ -20,3 +21,16 @@ function Admin() {
 }
 
 export default Admin;
+=======
+import React from 'react';
+
+function Admin() {
+    return (
+        <div className='Admin'>
+            <h1>Admin</h1>
+        </div>
+    )
+}
+
+export default Admin
+>>>>>>> dev-BE

@@ -29,27 +29,32 @@ public class JwtAuthenticatioFilter extends OncePerRequestFilter {
 	    
 	    if (accessToken != null) {
 	    	try {
-	    		String userId = jwtProvider.validateToken(accessToken);
-	    		Authentication authentication = jwtProvider.getAuthentication(userId);
+	    		String phone = jwtProvider.validateToken(accessToken);
+	    		Authentication authentication = jwtProvider.getAuthentication(phone);
 	    		SecurityContextHolder.getContext().setAuthentication(authentication);
 	    	} catch (ExpiredJwtException e) {
 	    		// accessToken 기간 만료, refreshToken 확인
-	    		if (refreshToken == null) {
-	    			throw new ExpiredJwtException(null, null, null);
-	    		} else {
-	    			try {
-	    				jwtProvider.validateToken(refreshToken);
-	    			} catch (JwtException je) {
-	    				System.out.println("리프레시 실패");
-	    				throw new JwtException(null);
-	    			}
-	    		}
+	    		checkRefreshToken(refreshToken, response);
+	    		return;
 	    	} catch (JwtException e) {
-	    		// 잘 못된 토큰
-	    		throw new JwtException(null);
+	    		response.setStatus(500);
+	    		return;
 	      }
 	    }
+	    
 	    filterChain.doFilter(request, response);
+	}
+	
+	private void checkRefreshToken(String refreshToken, HttpServletResponse response) {
+		if (refreshToken == null) {
+			response.setStatus(401);
+		} else {
+			try {
+				jwtProvider.validateToken(refreshToken);
+			} catch (JwtException je) {
+				response.setStatus(500);
+			}
+		}
 	}
 
 }

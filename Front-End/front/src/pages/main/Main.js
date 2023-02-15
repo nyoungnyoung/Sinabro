@@ -35,9 +35,12 @@ function Main() {
       <Link to="/signup">
         <button>회원가입</button>
       </Link>
+<<<<<<< HEAD
       <Link to="/manage">
         <button>강사페이지</button>
       </Link>
+=======
+>>>>>>> dev-BE
       <h1>Main</h1>
       <MainPageDiv>
         <Banner />

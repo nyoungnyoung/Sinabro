@@ -1,4 +1,4 @@
-package com.ssafy.osws.user.dto;
+package com.ssafy.osws.user.dto.response;
 
 import com.ssafy.osws.user.data.entity.User;
 
@@ -10,18 +10,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseSignIn {
-
-	private String id;
+	private String role;
 	private String accessToken;
 	private String refreshToken;
 	
 	public User toEntitiy(User user) {
 		return User.builder()
 				.no(user.getNo())
-				.userId(user.getUserId())
 				.originalName(user.getOriginalName())
 				.savedName(user.getSavedName())
-				.email(user.getEmail())
 				.name(user.getName())
 				.password(user.getPassword())
 				.phone(user.getPhone())

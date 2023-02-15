@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
@@ -32,6 +33,22 @@ function SignUpAgree() {
   const state = useSelector((state) => state);
   console.log("state", state);
   // console.log(agree);
+=======
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
+import CsBtn from "../../components/CsBtn";
+
+function SignUpAgree() {
+  const navigate = useNavigate();
+
+  const moveToMSG = () => {
+    navigate("/signup/msg");
+  };
+
+  // 약관동의 여부
+  // const [isCheck, setisCheck] = useState(false);
+>>>>>>> dev-BE
 
   return (
     <div>
@@ -44,7 +61,11 @@ function SignUpAgree() {
           </StyledDiv2>
         </div>
         <StyledDiv3>
+<<<<<<< HEAD
           <input type="checkbox" onClick={sendAgree} />
+=======
+          <input type="checkbox" />
+>>>>>>> dev-BE
           <p>약관에 동의합니다</p>
         </StyledDiv3>
         <div>

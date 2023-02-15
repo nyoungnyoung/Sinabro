@@ -17,9 +17,19 @@ public class NoticeQueryDSLRepositoryImpl implements NoticeQueryDSLRpeository {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	@Override
-	public List<Notice> findAllBySubjectAndNo(String subject, int startNumber) {
+	public List<Notice> findAllByQuery(String subject, int startNumber) {
 		
-		return jpaQueryFactory.selectFrom(notice).offset(startNumber).limit(10).fetch();
+		return jpaQueryFactory.selectFrom(notice)
+				.where(notice.subject.contains(subject))
+				.offset(startNumber).limit(10)
+				.fetch();
+	}
+
+	@Override
+	public List<Notice> findAll(int startNumber) {
+		return jpaQueryFactory.selectFrom(notice)
+				.offset(startNumber).limit(10)
+				.fetch();
 	}
 	
 }

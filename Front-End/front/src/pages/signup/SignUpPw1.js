@@ -2,17 +2,24 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpPw1() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+=======
+
+function SignUpPw1() {
+  const navigate = useNavigate();
+>>>>>>> dev-BE
 
   const moveToPw2 = () => {
     navigate("/signup/pw2");
   };
 
+<<<<<<< HEAD
   // 😀비밀번호 저장
   const [password, setPassword] = useState("");
 
@@ -31,6 +38,15 @@ function SignUpPw1() {
   return (
     <div>
       <StyledDiv1>
+=======
+  //비밀번호 저장
+  const [password, setPassword] = useState("");
+
+  return (
+    <div>
+      <StyledDiv1>
+        {/* <h1>SignUp PW_1</h1> */}
+>>>>>>> dev-BE
         <div>
           <h3>고객님께서 사용하고 싶으신 비밀번호를 적어주세요!</h3>
         </div>
@@ -41,6 +57,7 @@ function SignUpPw1() {
             placeholder="여기에 비밀번호를 적어주세요 :)"
             onChange={(e) => {
               setPassword(e.target.value);
+<<<<<<< HEAD
             }}
           />
           <StyledButton1
@@ -55,6 +72,17 @@ function SignUpPw1() {
       </StyledDiv1>
 
       {/* 고객센터 */}
+=======
+              console.log(password);
+            }}
+          />
+          <StyledButton1>다음</StyledButton1>
+        </StyledDiv2>
+        <div>
+          <StyledButton2 onClick={moveToPw2}>다음 단계로</StyledButton2>
+        </div>
+      </StyledDiv1>
+>>>>>>> dev-BE
       <LoginDiv>
         <StyledLink to="/cs">
           <CsBtn />
@@ -82,7 +110,10 @@ const StyledDiv1 = styled.div`
 const StyledDiv2 = styled.div`
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
   padding-bottom: 20px;
+=======
+>>>>>>> dev-BE
 `;
 
 const StyledInput = styled.input`
@@ -96,4 +127,13 @@ const StyledButton1 = styled.button`
   padding: 10px;
 `;
 
+<<<<<<< HEAD
+=======
+const StyledButton2 = styled.button`
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding: 10px;
+`;
+>>>>>>> dev-BE
 export default SignUpPw1;

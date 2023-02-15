@@ -2,6 +2,7 @@ package com.ssafy.osws.config;
 
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.Server;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -26,7 +28,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
+    	Server serverLocal = new Server("local", "http://localhost:5000", "for local usages", Collections.emptyList(), Collections.emptyList());
+        Server testServer = new Server("test", "https://i8d203.p.ssafy.io/api", "for testing", Collections.emptyList(), Collections.emptyList());
         return new Docket(DocumentationType.OAS_30)
+        		.servers(serverLocal, testServer)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())

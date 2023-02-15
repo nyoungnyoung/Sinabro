@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CsBtn from "../../components/CsBtn";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { signUpActions } from "../../store/SignUpSlice";
 
 function SignUpPw2() {
   const dispatch = useDispatch();
+=======
+
+function SignUpPw2() {
+>>>>>>> dev-BE
   const navigate = useNavigate();
 
   const moveToName = () => {
     navigate("/signup/name");
   };
 
+<<<<<<< HEAD
   // 😀password2 저장
   const [password2, setPassword2] = useState("");
 
@@ -27,6 +33,10 @@ function SignUpPw2() {
   // 😀statePw2 갱신 여부 확인 콘솔
   console.log("state", state);
 
+=======
+  const [password2, setPassword2] = useState("");
+
+>>>>>>> dev-BE
   return (
     <div>
       {/* <h1>SignUp PW_2</h1> */}
@@ -42,10 +52,19 @@ function SignUpPw2() {
             value={password2}
             placeholder="비밀번호를 한 번 더 입력해주세요 :)"
             onChange={(e) => {
+<<<<<<< HEAD
               setPassword2(e.target.value);
             }}
           />
           <StyledButton1 onClick={sendPw2}>확인</StyledButton1>
+=======
+              console.log(e.target.value);
+              setPassword2(e.target.value);
+              console.log(password2);
+            }}
+          />
+          <StyledButton1>확인</StyledButton1>
+>>>>>>> dev-BE
         </StyledDiv2>
         <div>
           <StyledButton2 onClick={moveToName}>다음 단계로</StyledButton2>

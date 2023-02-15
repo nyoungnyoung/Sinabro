@@ -3,7 +3,10 @@ import dummy from "./data.json";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
+<<<<<<< HEAD
   margin-top: 5px;
+=======
+>>>>>>> dev-BE
   margin-right: 30px;
 `;
 
@@ -41,7 +44,11 @@ function SideBar() {
   return (
     <StyledDiv className="SideBar">
       <StyledUl key={items.id}>
+<<<<<<< HEAD
         {items.map(item => (
+=======
+        {items.map((item) => (
+>>>>>>> dev-BE
           <StyledLi key={item.id}>{item.category}</StyledLi>
         ))}
       </StyledUl>

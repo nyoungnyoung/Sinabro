@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import LectureTimeForm from "./LectureTimeForm";
+=======
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
+>>>>>>> dev-BE
 
 const StyledDiv = styled.div`
   padding-top: 5vh;
@@ -11,6 +16,7 @@ const StyledDiv = styled.div`
   padding-right: 10vw;
 `;
 
+<<<<<<< HEAD
 // const LectureDay = styled.div`
 //   display: flex;
 // `;
@@ -30,11 +36,15 @@ const StyledImg = styled.img`
 function LectureCreate() {
   // const weekList = ["월", "화", "수", "목", "금", "토", "일"];
   // const [startTime, setStartTime] = useState(new Date());
+=======
+function LectureCreate() {
+>>>>>>> dev-BE
   const [lecture, setLecture] = useState({
     poster: "",
     title: "",
     description: "",
     maxCapacity: 0,
+<<<<<<< HEAD
     startDate: new Date(),
     endDate: new Date(),
     day: [
@@ -42,6 +52,15 @@ function LectureCreate() {
         day: "월",
         startTime: "12:00 AM",
         hour: 0,
+=======
+    startDate: "",
+    endDate: "",
+    day: [
+      {
+        day: "",
+        startTime: "",
+        hour: "",
+>>>>>>> dev-BE
       },
     ],
     weeklyPlan: [
@@ -51,6 +70,7 @@ function LectureCreate() {
     ],
   });
 
+<<<<<<< HEAD
   // day, weekPlan 제외 onChange함수
   const onChange = e => {
     setLecture({
@@ -60,12 +80,17 @@ function LectureCreate() {
   };
 
   console.log(lecture);
+=======
+  const date = new Date().getDate();
+  console.log(date);
+>>>>>>> dev-BE
 
   return (
     <StyledDiv className="LectureCreate">
       <h1>강의생성</h1>
       <hr />
       <form>
+<<<<<<< HEAD
         <span>강의명 :</span>
         <input
           type="text"
@@ -165,6 +190,9 @@ function LectureCreate() {
         <p>주차별계획</p>
         <StyledImg src="/img/add.png" alt="plus" />
         <hr />
+=======
+        <input type="text" name="lectureName" value={lecture.title} />
+>>>>>>> dev-BE
       </form>
     </StyledDiv>
   );

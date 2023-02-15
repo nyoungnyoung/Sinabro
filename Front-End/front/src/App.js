@@ -36,7 +36,11 @@ function App() {
           </Route>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/manage/*" element={<Manage />} />
+<<<<<<< HEAD
           <Route path="/admin/*" element={<Admin />} />
+=======
+          <Route path="/admin" element={<Admin />} />
+>>>>>>> dev-BE
           <Route path="/cs" element={<Cs />} />
           <Route path="/realtime" element={<RealTime />} />
         </Routes>

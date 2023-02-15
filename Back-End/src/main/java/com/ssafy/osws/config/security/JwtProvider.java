@@ -29,9 +29,9 @@ public class JwtProvider {
 	/*
 	 * access token 생성
 	 */
-	public String createAccessToken(String userId) {
+	public String createAccessToken(String phone) {
         String jwt = Jwts.builder()
-        		.setSubject(userId)
+        		.setSubject(phone)
                 .setExpiration(new Date(System.currentTimeMillis() + 1800000))
                 .signWith(key).compact();
         return jwt;
@@ -40,11 +40,11 @@ public class JwtProvider {
     /*
      * refresh token 생성
      */
-    public String createRefreshToken(String userId) {
+    public String createRefreshToken(String phone) {
         Calendar expiredDate = Calendar.getInstance();
         expiredDate.add(Calendar.DAY_OF_MONTH, 14);
         String jwt = Jwts.builder()
-        		.setSubject(userId)
+        		.setSubject(phone)
                 .setExpiration(expiredDate.getTime())
                 .signWith(key).compact();
         return jwt;
@@ -78,8 +78,8 @@ public class JwtProvider {
                 .getSubject();
     }
     
-    public Authentication getAuthentication(String userId) throws JwtException {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+    public Authentication getAuthentication(String phone) throws JwtException {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(phone);
         
         return new UsernamePasswordAuthenticationToken(userDetails
             , ""

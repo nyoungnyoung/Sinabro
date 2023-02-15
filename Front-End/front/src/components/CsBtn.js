@@ -7,7 +7,11 @@ const BtnDiv = styled.button`
   padding-left: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
+<<<<<<< HEAD
   margin-bottom: 5px;
+=======
+  margin-bottom: 5px;\
+>>>>>>> dev-BE
   cursor: pointer;
 `;
 
