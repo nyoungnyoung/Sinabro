@@ -24,9 +24,14 @@ const UserVideoComponent = ({
             mode={mode}
           />
           <StyledBtnDiv>
-            <p>{getNicknameTag()}</p>
+            {role === "normal" ? <StyledP>{getNicknameTag()}</StyledP> : null}
             {role === "teacher" ? (
-              <StyledBtn onClick={() => unmuteOne(sub)}>음소거 해제</StyledBtn>
+              <div>
+                <p>{getNicknameTag()}</p>
+                <StyledBtn onClick={() => unmuteOne(sub)}>
+                  음소거 해제
+                </StyledBtn>
+              </div>
             ) : null}
           </StyledBtnDiv>
         </StyledVideo>
@@ -44,6 +49,7 @@ const StyledBtn = styled.button`
   margin-left: 5%;
   width: 100px;
   height: 30px;
+  cursor: pointer;
 `;
 
 const StyledVideo = styled.div`
@@ -53,6 +59,13 @@ const StyledVideo = styled.div`
 
 const StyledBtnDiv = styled.div`
   background-color: black;
+`;
+
+const StyledP = styled.p`
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 40px;
 `;
 
 const buttonDiv = styled.div`
