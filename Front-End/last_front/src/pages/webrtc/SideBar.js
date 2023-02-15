@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import ChattingBar from "./ChattingBar";
 import GlassBtn from "./Btn/GlassBtn";
 
@@ -11,11 +10,11 @@ function SideBar({
   ratio,
   info,
   handleLeaveSession,
-  flag, 
-  handleAudio, 
-  muteAll, 
-  micState, 
-  micInfo
+  flag,
+  handleAudio,
+  muteAll,
+  micState,
+  micInfo,
 }) {
   // 사용자 role 스토어에서 가져오기
   // const role = useSelector(state => state.login.token.role);
@@ -45,15 +44,6 @@ function SideBar({
     setVideo(false);
   };
 
-  // 돋보기
-  const [glass, setGlass] = useState(false);
-  const changeGlassOn = () => {
-    setGlass(true);
-  };
-  const changeGlassOff = () => {
-    setGlass(false);
-  };
-
   // 채팅창
   const [chat, setChat] = useState(false);
   const changeChatOn = () => {
@@ -72,12 +62,12 @@ function SideBar({
     setAllMic(false);
   };
 
-  // 음소거 상태 업데이트 
+  // 음소거 상태 업데이트
   useEffect(() => {
     setMic(flag);
-  }, [flag]);  
+  }, [flag]);
 
-  // 선생님 '전체마이크 제어 상태 업데이트' 
+  // 선생님 '전체마이크 제어 상태 업데이트'
   useEffect(() => {
     setAllMic(micInfo);
   }, [micInfo]);
@@ -227,6 +217,7 @@ function SideBar({
 }
 
 const StyledDiv = styled.div`
+  justify-content: center;
   width: 20%;
   height: 90vh;
   background-color: black;
@@ -236,9 +227,9 @@ const StyledDiv = styled.div`
 // `;
 const MicDiv = styled.div`
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 13%;
   margin-right: 5%;
-  width: 90%;
+  width: 80%;
   height: 13%;
   background-color: #fff3c6;
   border-radius: 10px;
@@ -260,10 +251,10 @@ const MicImg = styled.img`
 `;
 
 const VideoDiv = styled.div`
-  margin-left: 5%;
+  margin-left: 13%;
   margin-right: 5%;
   margin-top: 5%;
-  width: 90%;
+  width: 80%;
   height: 13%;
   background-color: #fff3c6;
   border-radius: 10px;
@@ -285,9 +276,9 @@ const VideoImg = styled.img`
 
 const GlassDiv = styled.div`
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 13%;
   margin-right: 5%;
-  width: 90%;
+  width: 80%;
   height: 13%;
   border-radius: 10px;
   background-color: #fff3c6;
@@ -310,9 +301,9 @@ const GlassImg = styled.img`
 const ChatDiv = styled.div`
   box-shadow: inset 2px 2px 4px gray, inset -2px -2px 4px white;
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 13%;
   margin-right: 5%;
-  width: 90%;
+  width: 80%;
   height: 13%;
   border-radius: 10px;
   background-color: #fff3c6;
@@ -374,8 +365,9 @@ const StyledButton = styled.button`
   border-radius: 10px;
   font-size: 100%;
   font-weight: 1000;
-  margin-top: 15px;
-  width: 90%;
+  /* margin-right: 30px; */
+  margin-left: 7%;
+  width: 80%;
   height: 8%;
   background-color: #fff3c6;
   border: 0px #f7c815 solid;

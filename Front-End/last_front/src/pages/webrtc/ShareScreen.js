@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import UserVideoComponent from "./openvidu/UserVideoComponent";
 
@@ -33,7 +33,7 @@ const ShareScreen = ({ info, ratio }) => {
   let posX;
   let posY;
 
-  const moveScreenStart = e => {
+  const moveScreenStart = (e) => {
     const img = new Image();
     e.dataTransfer.setDragImage(img, 0, 0);
 
@@ -41,7 +41,7 @@ const ShareScreen = ({ info, ratio }) => {
     posY = e.clientY;
   };
 
-  const moveScreen = e => {
+  const moveScreen = (e) => {
     const minX = e.target.offsetLeft + (e.clientX - posX) <= 0;
     const minY = e.target.offsetTop + (e.clientY - posY) <= 0;
 
@@ -77,7 +77,7 @@ const ShareScreen = ({ info, ratio }) => {
     posY = minY ? e.clientY : 0;
   };
 
-  const moveScreenEnd = e => {
+  const moveScreenEnd = (e) => {
     const limitX = e.target.offsetLeft + (e.clientX - posX) <= 0;
     const limitY = e.target.offsetTop + (e.clientY - posY) <= 0;
 
@@ -92,21 +92,21 @@ const ShareScreen = ({ info, ratio }) => {
   return (
     <TestDiv ref={imageRectRef}>
       <ContainerDiv
-          ref={containerDiv}
-          ratio={ratio}
-          onDragStart={moveScreenStart}
-          onDrag={moveScreen}
-          onDragEnd={moveScreenEnd}
-          draggable
-        >
-    <StyledDiv>
-      <StyledDiv2>
-        <ShareDiv>
-          <UserVideoComponent streamManager={info.mainStreamManager} />
-        </ShareDiv>
-      </StyledDiv2>
-    </StyledDiv>
-    </ContainerDiv>
+        ref={containerDiv}
+        ratio={ratio}
+        onDragStart={moveScreenStart}
+        onDrag={moveScreen}
+        onDragEnd={moveScreenEnd}
+        draggable
+      >
+        <StyledDiv>
+          <StyledDiv2>
+            <ShareDiv>
+              <UserVideoComponent streamManager={info.mainStreamManager} />
+            </ShareDiv>
+          </StyledDiv2>
+        </StyledDiv>
+      </ContainerDiv>
     </TestDiv>
   );
 };
@@ -134,9 +134,9 @@ const ContainerDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${props => 100 * props.ratio}%;
-  height: ${props => 100 * props.ratio}%;
-  transform: scale(${props => props.ratio});
+  width: ${(props) => 100 * props.ratio}%;
+  height: ${(props) => 100 * props.ratio}%;
+  transform: scale(${(props) => props.ratio});
   transform-origin: left top;
   display: table;
 `;
@@ -148,8 +148,9 @@ const ContainerDiv = styled.div`
 // `;
 
 const ShareDiv = styled.div`
-  margin: auto;
-  width: 95%;
+  margin-top: 5%;
+  margin-right: 5%;
+  width: 90%;
   height: 70vh;
   background-color: black;
 `;
