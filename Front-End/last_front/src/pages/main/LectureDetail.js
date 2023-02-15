@@ -156,8 +156,8 @@ function LectureDetail() {
             <StyledH3>{lectureData.content}</StyledH3>
             <StyledInfo>
               <h4>
-                수강기간 {lectureData.startDate.substring(0, 10)} ~{" "}
-                {lectureData.endDate.substring(0, 10)}
+                수강기간 {lectureData.startDate} ~{" "}
+                {lectureData.endDate}
               </h4>
               <p>강사명 {lectureData.name}</p>
             </StyledInfo>
