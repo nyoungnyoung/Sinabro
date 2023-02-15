@@ -15,6 +15,7 @@ function SideBar({
   muteAll,
   micState,
   micInfo,
+  handleMicInfo,
 }) {
   // 사용자 role 스토어에서 가져오기
   // const role = useSelector(state => state.login.token.role);
@@ -59,7 +60,9 @@ function SideBar({
     setAllMic(true);
   };
   const allMicOff = () => {
+    handleMicInfo(false);
     setAllMic(false);
+    console.log(allMic);
   };
 
   // 음소거 상태 업데이트
@@ -68,9 +71,10 @@ function SideBar({
   }, [flag]);
 
   // 선생님 '전체마이크 제어 상태 업데이트'
-  useEffect(() => {
-    setAllMic(micInfo);
-  }, [micInfo]);
+  // useEffect(() => {
+  //   console.log(allMic);
+  //   setAllMic(micInfo);   // micInfo==false값을 받아와서 allMic==false로 바꿔준다. 
+  // }, [micInfo]);
 
   // 채팅장이 꺼져있을 때
   if (chat === false) {
@@ -176,9 +180,9 @@ function SideBar({
               </OnButton> */}
               <OffButton
                 style={
-                  !allMic
-                    ? { backgroundColor: "red" }
-                    : { backgroundColor: "gray" }
+                  micInfo
+                    ? { backgroundColor: "gray" }
+                    : { backgroundColor: "red" }
                 }
                 onClick={() => {
                   allMicOff();

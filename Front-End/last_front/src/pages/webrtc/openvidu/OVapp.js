@@ -23,7 +23,9 @@ function App() {
     setAudio(state);
   };
   const [micInfo, setMicInfo] = useState(true);
-
+  const handleMicInfo = (state) => {
+    setMicInfo(state);
+  };
   const [ratio, setRatio] = useState(1);
   const handleRatio = ratio => {
     console.log(ratio);
@@ -251,6 +253,7 @@ function App() {
         if(role === "teacher"){
           console.log("수강생이 마이크 켰다!")
           setMicInfo(true);
+          // setAllMic(false)
         }
       });
 
@@ -540,7 +543,8 @@ function App() {
               flag={audioValue} 
               handleAudio={handleAudio} 
               muteAll={muteAll} 
-              micState={micState} 
+              micState={micState}
+              handleMicInfo={handleMicInfo} 
               micInfo={micInfo}/>
           </StyledDiv2>
 
@@ -564,7 +568,7 @@ function App() {
                 className="stream-container col-md-6 col-xs-6"
                 // onClick={() => handleMainVideoStream(sub)}
                 >
-                {/* <button onClick={() => muteOne(sub)}> 한 사람만 음소거 </button> */}
+                {/* <button onClick={() => muteOne(sub)}> 한 사람만 ㄴ </button> */}
                 <button onClick={() => unmuteOne(sub)}> 한 사람만 음소거 해제 </button>
                 {/* <UserVideoComponent streamManager={sub} /> */}
               </div>
