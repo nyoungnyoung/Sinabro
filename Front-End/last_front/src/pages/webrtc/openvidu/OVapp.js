@@ -152,8 +152,8 @@ function App() {
     setSession(null);
   };
 
-  const handleOV = event => {
-    console.log(event);
+  const handleOV = () => {
+    console.log("exiting...");
   };
 
   //componentDidMount
@@ -342,7 +342,6 @@ function App() {
   const joinSession = () => {
     // --- 1) Get an OpenVidu object ---
     // --- 2) Init a session ---
-    console.log("entered joinSession");
     setSession(OV.initSession());
   };
 

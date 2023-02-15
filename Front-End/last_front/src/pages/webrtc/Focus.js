@@ -96,7 +96,6 @@ function Focus({
   };
 
   const user = info.subscribers.length;
-  console.log("참여자 수: " + user);
 
   return (
 
