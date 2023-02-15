@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ChattingBar from "./ChattingBar";
 import GlassBtn from "./Btn/GlassBtn";
+import { useSelector } from "react-redux";
 
 function SideBar({
   handleGlass,
