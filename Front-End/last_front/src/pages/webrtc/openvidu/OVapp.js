@@ -251,7 +251,6 @@ function App() {
         if(role === "teacher"){
           console.log("수강생이 마이크 켰다!")
           setMicInfo(true);
-          // setAllMic(false)
         }
       });
 
@@ -360,24 +359,6 @@ function App() {
     }
   };
 
-  const handleChangeSessionId = e => {
-    setInfo(prev => {
-      return {
-        ...prev,
-        mySessionId: e.target.value,
-      };
-    });
-  };
-
-  const handleChangeUserName = e => {
-    setInfo(prev => {
-      return {
-        ...prev,
-        myUserName: e.target.value,
-      };
-    });
-  };
-
   const handleMainVideoStream = stream => {
     setInfo(prev => {
       return {
@@ -415,7 +396,6 @@ function App() {
   };
 
   const micState = (flag) => {
-    // console.log(flag);
     session.signal({
       data: 'mute Cancelled',
       // to: [subscriber.stream.connection],
