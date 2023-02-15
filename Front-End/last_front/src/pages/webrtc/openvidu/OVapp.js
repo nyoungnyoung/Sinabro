@@ -19,6 +19,9 @@ import TogetherScreen from "../TogetherScreen";
 import { useLocation } from "react-router-dom";
 
 function App() {
+  // 강사 이름 저장하는 state
+  const [tname, setTname] = useState();
+
   const [ratio, setRatio] = useState(1);
   const handleRatio = ratio => {
     console.log(ratio);
@@ -242,6 +245,8 @@ function App() {
       getToken(info.mySessionId).then(dto => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+        // 강사 이름 저장해야함
+        // setTname(dto.teacher);
         mySession
           .connect(dto.token, { clientData: dto.name })
           .then(async () => {
@@ -357,7 +362,6 @@ function App() {
   };
 
   const handleMainVideoStream = stream => {
-    // if (info.mainStreamManager !== stream) {
     setInfo(prev => {
       return {
         ...prev,
@@ -366,12 +370,10 @@ function App() {
     });
     sendMainStreamManager(stream);
     handleMode("together");
-    // }
   };
 
   // 사용자 role 스토어에서 가져오기
   const role = useSelector(state => state.login.token.role);
-  // const role = "teacher";
 
   return (
     <div className="container">
