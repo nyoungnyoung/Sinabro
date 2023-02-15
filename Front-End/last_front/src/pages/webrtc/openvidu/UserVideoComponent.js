@@ -3,20 +3,14 @@ import styled, { css } from "styled-components";
 import OpenViduVideoComponent from "./OvVideo";
 import "./UserVideo.css";
 
-const StyledVideo = styled.div`
-  width: 100%;
-  position: relative;
-`;
-
-const StyledBtn = styled.button`
-  position: absolute;
-  left: 50%;
-  top: 30%
-  font-weight: 700;
-  font-size: 20px;
-`;
-
-const UserVideoComponent = ({ streamManager, user, mode, role }) => {
+const UserVideoComponent = ({
+  streamManager,
+  user,
+  mode,
+  role,
+  unmuteOne,
+  sub,
+}) => {
   const getNicknameTag = () => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
   };
@@ -29,20 +23,47 @@ const UserVideoComponent = ({ streamManager, user, mode, role }) => {
             user={user}
             mode={mode}
           />
-          {/* <StyledBtn1>무대로</StyledBtn1> */}
-          <StyledBtn>마이크켜기</StyledBtn>
-          <StyledBtn>마이크끄기</StyledBtn>
-          <div>
+          <StyledBtnDiv>
             <p>{getNicknameTag()}</p>
-            </div>
+            {role === "teacher" ? (
+              <StyledBtn onClick={() => unmuteOne(sub)}>음소거 해제</StyledBtn>
+            ) : null}
+          </StyledBtnDiv>
         </StyledVideo>
       ) : null}
     </ParentDiv>
   );
 };
 
-const ParentDiv = styled.div`
+const StyledBtn = styled.button`
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: gray;
+  color: white;
+  margin-left: 5%;
+  width: 100px;
+  height: 30px;
+`;
+
+const StyledVideo = styled.div`
+  width: 100%;
   position: relative;
+`;
+
+const StyledBtnDiv = styled.div`
+  background-color: black;
+`;
+
+const buttonDiv = styled.div`
+  background-color: black;
+  position: static;
+  left: 0px;
+  /* position: absolute; */
+`;
+
+const ParentDiv = styled.div`
+  /* position: relative; */
 `;
 
 const NameDiv = styled.div`

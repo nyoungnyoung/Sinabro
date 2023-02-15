@@ -2,10 +2,7 @@ import { OpenVidu } from "openvidu-browser";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
-import {
-  getToken,
-  leaveSession,
-} from "./modules";
+import { getToken, leaveSession } from "./modules";
 import ShareScreen from "../ShareScreen";
 import Focus from "../Focus";
 import SideBar from "../SideBar";
@@ -31,8 +28,8 @@ function App() {
   const [tname, setTname] = useState();
 
   const [ratio, setRatio] = useState(1);
-  
-  const handleRatio = ratio => {
+
+  const handleRatio = (ratio) => {
     console.log(ratio);
     if (ratio > 3) setRatio(3);
     else if (ratio < 1) setRatio(1);
@@ -40,9 +37,9 @@ function App() {
   };
 
   // LectureNo 주소에서 받아오기
-  const lectureNo = (useLocation().pathname.slice(8));
+  const lectureNo = useLocation().pathname.slice(8);
 
-  const sendMainStreamManager = newPublisher => {
+  const sendMainStreamManager = (newPublisher) => {
     session
       .signal({
         data: newPublisher.stream.streamId,
@@ -52,7 +49,7 @@ function App() {
       .then(() => {
         console.log("received signal changeMainStreamManager");
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   const screenShare = async () => {
@@ -68,7 +65,7 @@ function App() {
         mirror: false, // Whether to mirror your local video or not
       });
 
-      newPublisher.once("accessAllowed", event => {
+      newPublisher.once("accessAllowed", (event) => {
         newPublisher.stream
           .getMediaStream()
           .getVideoTracks()[0]
@@ -89,14 +86,14 @@ function App() {
             await session.unpublish(info.publisher);
             await session.publish(newPublisher);
 
-            setInfo(prev => {
+            setInfo((prev) => {
               return { ...prev, publisher: newPublisher };
             });
           });
       });
       await session.unpublish(info.publisher);
       await session.publish(newPublisher);
-      setInfo(prev => {
+      setInfo((prev) => {
         return { ...prev, mainStreamManager: newPublisher };
       });
       sendMainStreamManager(newPublisher);
@@ -126,7 +123,7 @@ function App() {
   const [mode, setMode] = useState("focus");
 
   // 모드 변경을 위한 함수 (Navbar로 prop해줄 함수)
-  const handleMode = event => {
+  const handleMode = (event) => {
     session
       .signal({
         data: "test mode",
@@ -179,7 +176,7 @@ function App() {
 
     // On every new Stream received...
     if (mySession !== null) {
-      mySession.on("streamCreated", e => {
+      mySession.on("streamCreated", (e) => {
         // Subscribe to the Stream to receive it. Second parameter is undefined
         // so OpenVidu doesn't create an HTML video by its own
         let subscriber = mySession.subscribe(e.stream, undefined);
@@ -187,13 +184,13 @@ function App() {
         subscribers.push(subscriber);
 
         // Update the state with the new subscribers
-        setInfo(prev => {
+        setInfo((prev) => {
           return { ...prev, subscribers: subscribers };
         });
       });
 
       // On every Stream destroyed...
-      mySession.on("streamDestroyed", e => {
+      mySession.on("streamDestroyed", (e) => {
         // Remove the stream from 'subscribers' array
         console.log("연결 해제");
         console.log(e);
@@ -201,11 +198,11 @@ function App() {
         deleteSubscriber(e.stream.streamManager);
       });
 
-      mySession.on("signal:changeMainStreamManager", event => {
+      mySession.on("signal:changeMainStreamManager", (event) => {
         for (let index = 0; index < info.subscribers.length; index++) {
           console.log(info.subscribers[index].stream.streamId);
           if (info.subscribers[index].stream.streamId === event.data) {
-            setInfo(prev => {
+            setInfo((prev) => {
               return { ...prev, mainStreamManager: info.subscribers[index] };
             });
           }
@@ -224,46 +221,46 @@ function App() {
         setMode("together");
       });
 
-      mySession.on("broadcast-interviewee", e => {
+      mySession.on("broadcast-interviewee", (e) => {
         console.log("면접자 : " + e.data);
-        setInfo(prev => {
+        setInfo((prev) => {
           return { ...prev, interviewee: e.data };
         });
       });
 
-      mySession.on('signal:mute', (e) => {
-        if(role !== "teacher"){
+      mySession.on("signal:mute", (e) => {
+        if (role !== "teacher") {
           setAudio(false);
           publisher.publishAudio(false);
         }
       });
 
-      // 특정 인원만 음소거 해제 
-      mySession.on('signal:unmute', (e) => {
+      // 특정 인원만 음소거 해제
+      mySession.on("signal:unmute", (e) => {
         setAudio(true);
         console.log("음소거 해제 완료!" + audioValue);
         publisher.publishAudio(true);
       });
 
-      // 수강생이 마이크를 켜면 선생님의 전체 음소거 버튼이 회색으로 갱신됨 
-      mySession.on('signal:mute-cancelled', (e) => {
+      // 수강생이 마이크를 켜면 선생님의 전체 음소거 버튼이 회색으로 갱신됨
+      mySession.on("signal:mute-cancelled", (e) => {
         console.log("role확인!:" + role);
-        if(role === "teacher"){
-          console.log("수강생이 마이크 켰다!")
+        if (role === "teacher") {
+          console.log("수강생이 마이크 켰다!");
           setMicInfo(true);
         }
       });
 
       // On every asynchronous exception...
-      mySession.on("exception", exception => {
+      mySession.on("exception", (exception) => {
         console.warn(exception);
       });
       let publisher;
-      getToken(info.mySessionId).then(dto => {
+      getToken(info.mySessionId).then((dto) => {
         // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
         // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
         setTname(dto.teacher);
-        
+
         mySession
           .connect(dto.token, { clientData: dto.name })
           .then(async () => {
@@ -289,7 +286,7 @@ function App() {
             // Obtain the current video device in use
             let devices = await OV.getDevices();
             let videoDevices = devices.filter(
-              device => device.kind === "videoinput"
+              (device) => device.kind === "videoinput"
             );
 
             let currentVideoDeviceId = publisher.stream
@@ -298,12 +295,12 @@ function App() {
               .getSettings().deviceId;
 
             let currentVideoDevice = videoDevices.find(
-              device => device.deviceId === currentVideoDeviceId
+              (device) => device.deviceId === currentVideoDeviceId
             );
 
             // Set the main video in the page to display our webcam and store our Publisher
 
-            setInfo(prev => {
+            setInfo((prev) => {
               return {
                 ...prev,
                 currentVideoDevice: currentVideoDevice,
@@ -313,7 +310,7 @@ function App() {
               };
             });
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(
               "There was an error connecting to the session:",
               error.code,
@@ -325,7 +322,7 @@ function App() {
   }, [session]);
 
   useEffect(() => {
-    setInfo(prev => {
+    setInfo((prev) => {
       return {
         ...prev,
         session: undefined,
@@ -348,12 +345,12 @@ function App() {
     joinSession();
   }, []);
 
-  const deleteSubscriber = streamManager => {
+  const deleteSubscriber = (streamManager) => {
     let subscribers = info.subscribers;
     let index = subscribers.indexOf(streamManager, 0);
     if (index > -1) {
       subscribers.splice(index, 1);
-      setInfo(prev => {
+      setInfo((prev) => {
         return { ...prev, subscribers: subscribers };
       });
     }
@@ -371,28 +368,34 @@ function App() {
   };
 
   const muteAll = () => {
-    session.signal({
-      data: 'mute All',
-      // to: [subscriber.stream.connection],
-      to: [],
-      type: 'mute'
-    }).then(()=>{
-      console.log('message successfully sent');
-    }).catch(error => {
-      console.error(error);
-    });
+    session
+      .signal({
+        data: "mute All",
+        // to: [subscriber.stream.connection],
+        to: [],
+        type: "mute",
+      })
+      .then(() => {
+        console.log("message successfully sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const unmuteOne = (subscriber) => {
-    session.signal({
-      data: 'unmute One',
-      to: [subscriber.stream.connection],
-      type: 'unmute'
-    }).then(()=>{
-      console.log('message successfully sent');
-    }).catch(error => {
-      console.error(error);
-    });
+    session
+      .signal({
+        data: "unmute One",
+        to: [subscriber.stream.connection],
+        type: "unmute",
+      })
+      .then(() => {
+        console.log("message successfully sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const micState = (flag) => {
@@ -409,65 +412,68 @@ function App() {
   }
 
   // 사용자 role 스토어에서 가져오기
-  const role = useSelector(state => state.login.token.role);
+  const role = useSelector((state) => state.login.token.role);
 
   return (
     <div className="container">
-        <div id="session">
-          <Navbar
-            info={info}
-            handleMode={handleMode}
-            handleScreenShare={handleScreenShare}
-            role={role}
-            tname={tname}
-          />
-          <StyledDiv2>
-            {/* 모드별로 다른 컴포넌트 보여주기 */}
-            {mode === "focus" ? (
-              <Focus
-                info={info}
-                OV={OV}
-                session={session}
-                handleInfo={handleInfo}
-                handleMainVideoStream={handleMainVideoStream}
-                mode={mode}
-                ratio={ratio}
-                role={role}
-              />
-            ) : mode === "share" ? (
-              <ShareScreen
-                info={info}
-                OV={OV}
-                session={session}
-                setInfo={setInfo}
-                mode={mode}
-                ratio={ratio}
-              />
-            ) : (
-              <TogetherScreen
-                info={info}
-                OV={OV}
-                session={session}
-                setInfo={setInfo}
-                handleMainVideoStream={handleMainVideoStream}
-                mode={mode}
-                ratio={ratio}
-                role={role}
-              />
-            )}
-            <SideBar 
-              handleLeaveSession={handleLeaveSession} 
-              handleRatio={handleRatio} 
-              info={info} 
+      <div id="session">
+        <Navbar
+          info={info}
+          handleMode={handleMode}
+          handleScreenShare={handleScreenShare}
+          role={role}
+          tname={tname}
+        />
+        <StyledDiv2>
+          {/* 모드별로 다른 컴포넌트 보여주기 */}
+          {mode === "focus" ? (
+            <Focus
+              info={info}
+              OV={OV}
+              session={session}
+              handleInfo={handleInfo}
+              handleMainVideoStream={handleMainVideoStream}
+              mode={mode}
               ratio={ratio}
-              flag={audioValue} 
-              handleAudio={handleAudio} 
-              muteAll={muteAll} 
-              micState={micState}
-              handleMicInfo={handleMicInfo} 
-              micInfo={micInfo}/>
-          </StyledDiv2>
-        </div>
+              role={role}
+              unmuteOne={unmuteOne}
+            />
+          ) : mode === "share" ? (
+            <ShareScreen
+              info={info}
+              OV={OV}
+              session={session}
+              setInfo={setInfo}
+              mode={mode}
+              ratio={ratio}
+            />
+          ) : (
+            <TogetherScreen
+              info={info}
+              OV={OV}
+              session={session}
+              setInfo={setInfo}
+              handleMainVideoStream={handleMainVideoStream}
+              mode={mode}
+              ratio={ratio}
+              role={role}
+              unmuteOne={unmuteOne}
+            />
+          )}
+          <SideBar
+            handleLeaveSession={handleLeaveSession}
+            handleRatio={handleRatio}
+            info={info}
+            ratio={ratio}
+            flag={audioValue}
+            handleAudio={handleAudio}
+            muteAll={muteAll}
+            micState={micState}
+            handleMicInfo={handleMicInfo}
+            micInfo={micInfo}
+          />
+        </StyledDiv2>
+      </div>
     </div>
   );
 }
