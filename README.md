@@ -8,19 +8,20 @@
 ### 📃 Contents  
 1. [개발기간](# 개발기간) <br/> 
 2. [팀원 및 담당파트](#team) <br/>
-3. [페르소나](#target-people) <br/>
+3. [타겟](#target-people) <br/>
 4. [주요기능](#main-function) <br/>
-5. [실행방법](#how-to-run) <br/>
-6. [개발환경](#stack) <br/>
-7. [아키텍처](#tech-architecture) <br/>
-7. [ERD ](#erd) <br/> 
-8. [API 명세서](#api) <br/>
-9. [스케줄](#schedule) <br/>
-10. [협업툴](#cooperation-tool) <br/>
+5. [서비스 화면] <br/>
+6. [실행방법](#how-to-run) <br/>
+7. [개발환경](#stack) <br/>
+8. [아키텍처](#tech-architecture) <br/>
+9. [ERD ](#erd) <br/> 
+10. [API 명세서](#api) <br/>
+11. [스케줄](#schedule) <br/>
+12. [협업툴](#cooperation-tool) <br/>
 
 
 ### :calendar: 개발기간: 
-<p> 2023.01.03 ~ 2023.02.17 </p>
+<p> 2023.01.03 ~ 2023.02.16 </p>
 
 ### 💻 팀원 및 담당파트 
 김호균 : ‘ ’, '', '' <br/>
@@ -29,18 +30,46 @@
 이아현 : ‘ ’, '', '' <br/>
 이진우  : ‘ ’, '', '' <br/>
 
-### ✔️ 페르소나
+### ✔️ 타겟 
+- 
 ### 🔍 주요기능 
-### ✨ 실행방법
-### 📚 개발환경
-### 🔨 아키텍처
-### 🎨 ERD 
-### 💡 API 명세서
-### 🗓️ 스케줄
-### 🎉 협업툴 
+- 서비스 설명 : 어르신들이 사용하기 편리한 온라인 복지 플랫폼 서비스
+- 주요 기능 : 
+    - webRTC를 통한 실시간 화상 강의
+    - 노인친화적 디자인을 고려한 UI/UX
+    - 
 
 ### 👀 시나브로 서비스 화면
 <details markdown="1">
 <summary> 서비스 화면 보기!!  ←  클릭!! </summary>
 <img src=".jpg" width="60%"> 
 </details>
+
+
+### ✨ 실행방법
+### 📚 개발환경
+- Front-End:
+    - React
+    - reduxjs/toolkit 
+    - styled-components
+- Backend
+    - Database: Mysql
+    - Web: Springboot
+    - Library: Spring JPA, Spring Security, OpenVidu
+- CI/CD
+    - Docker
+    - Jenkins
+- Web Service 
+    - AWS EC2
+    - Nginx
+
+### 🔨 아키텍처
+- 
+
+### 🎨 ERD 
+### 💡 API 명세서
+### 🗓️ 스케줄
+### 🎉 협업툴 
+
+
+
