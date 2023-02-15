@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.osws.lecture.data.entity.Lecture;
-import com.ssafy.osws.lecture.data.repository.LectureCategoryRepository;
 import com.ssafy.osws.lecture.data.repository.LectureRepository;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureDetail;
 import com.ssafy.osws.lecture.service.LectureService;
@@ -26,29 +24,22 @@ import com.ssafy.osws.main.dto.response.ResponseSubCategory;
 import com.ssafy.osws.notice.data.entity.Notice;
 import com.ssafy.osws.notice.data.repository.NoticeRepository;
 
-@Service
-public class MainServiceImpl implements MainService {
-	@Autowired
-	private NoticeRepository noticeRepository;
-	
-	@Autowired
-	private SubCategoryRepository subCategoryRepository;
-	
-	@Autowired
-	private LectureRepository lectureRepository;
+import lombok.RequiredArgsConstructor;
 
-	@Autowired
-	private LectureCategoryRepository lectureCategoryRepository;
-	
-	@Autowired
-	private MainRepository mainRepository;
+@Service
+@RequiredArgsConstructor
+public class MainServiceImpl implements MainService {
+
+	private final NoticeRepository noticeRepository;
+	private final SubCategoryRepository subCategoryRepository;
+	private final LectureRepository lectureRepository;
+	private final MainRepository mainRepository;
+
+	private final LectureService lectureService;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Autowired
-	private LectureService lectureService;
-
 	@Override
 	public ResponsePriorityNotice getPriorityNotice() throws Exception {
 		Notice notice = noticeRepository.findByPriority(true);
@@ -82,7 +73,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<ResponseLectureDetail> getLectureListByCategory(String categoryNumber, HttpServletRequest request) {
+	public List<ResponseLectureDetail> getLectureListByCategory(String categoryNumber, String phone) {
 		List<Lecture> lectureList = null;
 		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		// 대분류가 전체일 경우 모든 강의 반환. (1이면 저장된 강의를 no값 오름차순으로 반환함) (jw) 
@@ -90,7 +81,7 @@ public class MainServiceImpl implements MainService {
 			lectureList = lectureRepository.findAllLectures(PageRequest.of(0,6));
 			for(Lecture lecture: lectureList) {
 				int lectureNo = lecture.getNo();
-				resultList.add(lectureService.getLecture(lectureNo,request));
+				resultList.add(lectureService.getLecture(lectureNo,phone));
 			}
 		}
 		else {
@@ -98,14 +89,14 @@ public class MainServiceImpl implements MainService {
 			//resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 			for(Lecture lecture: lectureList) {
 				int lectureNo = lecture.getNo();
-				resultList.add(lectureService.getLecture(lectureNo,request));
+				resultList.add(lectureService.getLecture(lectureNo, phone));
 			}
 		} 
 		return resultList; 
 	}
 
 	@Override
-	public List<ResponseLectureDetail> getLectureListBySubCategory(String subCategoryNumberList, HttpServletRequest request) {
+	public List<ResponseLectureDetail> getLectureListBySubCategory(String subCategoryNumberList, String phone) {
 		List<Lecture> lectureList = null;
 		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		
@@ -120,14 +111,14 @@ public class MainServiceImpl implements MainService {
 		lectureList = lectureRepository.findLectureBySubCategory(intList, PageRequest.of(0,6));
 		for(Lecture lecture: lectureList) {
 			int lectureNo = lecture.getNo();
-			resultList.add(lectureService.getLecture(lectureNo,request));
+			resultList.add(lectureService.getLecture(lectureNo, phone));
 		}
 //		resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 		return resultList;
 	}
 
 	@Override
-	public List<ResponseLectureDetail> searchLectureList(String query, HttpServletRequest request) {
+	public List<ResponseLectureDetail> searchLectureList(String query, String phone) {
 		List<Lecture> lectureList = null;
 		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		
@@ -136,7 +127,7 @@ public class MainServiceImpl implements MainService {
 		System.out.println(lectureList);
 		for(Lecture lecture: lectureList) {
 			int lectureNo = lecture.getNo();
-			resultList.add(lectureService.getLecture(lectureNo, request));
+			resultList.add(lectureService.getLecture(lectureNo, phone));
 		}
 		
 		return resultList;

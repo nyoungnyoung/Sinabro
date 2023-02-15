@@ -1,6 +1,5 @@
 package com.ssafy.osws.lecture.data.entity;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;

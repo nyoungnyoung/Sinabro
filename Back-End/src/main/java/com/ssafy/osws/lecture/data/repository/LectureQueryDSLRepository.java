@@ -6,7 +6,7 @@ import com.ssafy.osws.lecture.data.entity.Lecture;
 
 public interface LectureQueryDSLRepository {
 
-	List<Lecture> findLectureByPhone(String phone);
+	List<Lecture> findAllByPhone(String phone);
 
 	Lecture findByLectureNo(int lectureNo);
 

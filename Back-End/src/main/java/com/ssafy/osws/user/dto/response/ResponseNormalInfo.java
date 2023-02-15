@@ -10,5 +10,4 @@ import lombok.Setter;
 public class ResponseNormalInfo {
 	private String name;
 	private String phone;
-//	private String email;
 }

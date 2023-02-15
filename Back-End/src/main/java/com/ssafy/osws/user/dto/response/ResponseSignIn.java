@@ -1,4 +1,4 @@
-package com.ssafy.osws.user.dto;
+package com.ssafy.osws.user.dto.response;
 
 import com.ssafy.osws.user.data.entity.User;
 

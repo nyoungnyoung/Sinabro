@@ -2,49 +2,40 @@ package com.ssafy.osws.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.osws.config.security.JwtProvider;
-import com.ssafy.osws.user.dto.RequestAuthentificationNumber;
-import com.ssafy.osws.user.dto.RequestNewPassword;
-import com.ssafy.osws.user.dto.RequestSignUp;
-import com.ssafy.osws.user.dto.RequestSignIn;
-import com.ssafy.osws.user.dto.ResponseSignIn;
+import com.ssafy.osws.user.dto.request.RequestAuthentificationNumber;
+import com.ssafy.osws.user.dto.request.RequestNewPassword;
+import com.ssafy.osws.user.dto.request.RequestSignIn;
+import com.ssafy.osws.user.dto.request.RequestSignUp;
+import com.ssafy.osws.user.dto.response.ResponseSignIn;
 import com.ssafy.osws.user.service.CommonService;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/common")
+@RequiredArgsConstructor
 public class CommonController {
-
-	private CommonService commonService;
 	
-	@Autowired
-	private JwtProvider jwtProvider;
-
-	public CommonController(CommonService commonService) {
-		this.commonService = commonService;
-	}
+	private final CommonService commonService;
 
 	@ApiOperation(
 			value = "전화번호 조회", 
 			notes = "DB 내부의 가입자 정보에 전화번호를 조회하고, 일치하는 정보가 있을 경우 True를, 없을 경우 False를 반환한다.")
 	@PostMapping("/phone-check")
 	public ResponseEntity<Boolean> phoneCheck(@RequestBody RequestAuthentificationNumber requestAuthentificationNumber, HttpServletRequest request) throws Exception {
-		if (commonService.isSaved(requestAuthentificationNumber.getPhone())) {
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-		}
+		
+		return new ResponseEntity<Boolean>(commonService.isSaved(requestAuthentificationNumber.getPhone()), HttpStatus.OK);
+		
 	}
 
 	@ApiOperation(
@@ -56,7 +47,6 @@ public class CommonController {
 			String authCode = commonService.sendAuthCode(requestAuthentificationNumber.getPhone());
 			return new ResponseEntity<String>(authCode, HttpStatus.OK);
 		} catch (Exception exception) {
-			System.out.println(exception);
 			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -95,24 +85,7 @@ public class CommonController {
 			value="로그아웃",
 			notes="성공적으로 로그아웃하면 true, 실패하면 false를 반환한다.")
 	@GetMapping("/sign-out")
-	public ResponseEntity<Boolean> signOut(HttpServletRequest request) {
-		String phone = jwtProvider.validateToken(jwtProvider.resolveAccessToken(request));
-		return new ResponseEntity<Boolean>(commonService.signOut(phone), HttpStatus.OK);
+	public ResponseEntity<Boolean> signOut() {
+		return new ResponseEntity<Boolean>(commonService.signOut(SecurityContextHolder.getContext().getAuthentication().getName()), HttpStatus.OK);
 	}
-
-//	@ApiOperation(
-//			value="아이디중복체크",
-//			notes="DB에 이미 존재하는 아이디가 있을 경우 True, 없을 경우 False를 반환한다.")
-//	@GetMapping("/sign-up/{userId}")
-//	public ResponseEntity<?> checkId(@PathVariable String userId) throws Exception {
-//		try {
-//			if (commonService.checkId(userId) == true) {
-//				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//			} else {
-//				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-//			}
-//		} catch (Exception e) {
-//			return new ResponseEntity<String>(""+e, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
 }
