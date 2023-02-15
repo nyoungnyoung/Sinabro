@@ -1,13 +1,9 @@
 import { OpenVidu } from "openvidu-browser";
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
-import UserVideoComponent from "./UserVideoComponent";
 import {
-  selectInterviwee,
   getToken,
-  APPLICATION_SERVER_URL,
   leaveSession,
 } from "./modules";
 import ShareScreen from "../ShareScreen";
@@ -129,7 +125,6 @@ function App() {
       });
     setMode(event);
   };
-  // console.log(mode);
 
   const handleInfo = (event, type) => {
     setInfo({
@@ -197,44 +192,23 @@ function App() {
         for (let index = 0; index < info.subscribers.length; index++) {
           console.log(info.subscribers[index].stream.streamId);
           if (info.subscribers[index].stream.streamId === event.data) {
-            // handleInfo(info.subscribers[index], "mainStreamManager");
             setInfo(prev => {
               return { ...prev, mainStreamManager: info.subscribers[index] };
             });
           }
         }
-
-        // handleInfo(event.data, "mainStreamManager");
       });
 
-      mySession.on("signal:share", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:share", () => {
         setMode("share");
       });
 
-      mySession.on("signal:focus", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:focus", () => {
         setMode("focus");
       });
 
-      mySession.on("signal:together", event => {
-        console.log(event.data);
-        // handleInfo([강사의publisher객체], "mainStreamManager");
+      mySession.on("signal:together", () => {
         setMode("together");
-      });
-
-      // mySession.on("micOff", (e) => {
-      //   console.log("마이크 통제: 꺼짐" + e.data);
-      //   info.publisher.publishAudio(false);
-      // });
-
-      mySession.on("broadcast-interviewee", e => {
-        console.log("면접자 : " + e.data);
-        setInfo(prev => {
-          return { ...prev, interviewee: e.data };
-        });
       });
 
       // On every asynchronous exception...
