@@ -4,28 +4,18 @@ import styled from "styled-components";
 
 function Navbar({ handleMode, handleScreenShare, role, tname, info }) {
 
-  // const [mode, setMode] = useState("focus");
-
   const changeShare = async () => {
     await handleScreenShare();
-    // setMode("share");
     handleMode("share");
   };
-  // console.log(mode);
 
   const changeFocus = () => {
     handleMode("focus");
   };
-  // console.log(mode);
 
   const changeTogether = () => {
     handleMode("together");
   };
-  // console.log(mode);
-
-  // useEffect(() => {
-  //   handleMode(mode);
-  // }, [mode]);
 
   const navigate = useNavigate();
 
