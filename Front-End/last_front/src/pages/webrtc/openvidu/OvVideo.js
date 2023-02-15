@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
 const StyledVideo = styled.video`
-  width: 90%;
+  width: 100%;
   ${({ user, mode }) => {
     if (mode === "focus") {
       if (user + 1 === 1) {
@@ -58,6 +58,7 @@ const StyledVideo = styled.video`
       `;
     }
   }};
+  padding: 0px 0px 0px 0px;
 `;
 
 const OvVideo = ({ streamManager, user, mode }) => {

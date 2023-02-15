@@ -27,7 +27,7 @@ const UserVideoComponent = ({ streamManager, user, mode, role }) => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
   };
   return (
-    <div>
+    <ParentDiv>
       {streamManager !== undefined ? (
         <StyledVideo className="streamcomponent">
           <OpenViduVideoComponent
@@ -38,13 +38,23 @@ const UserVideoComponent = ({ streamManager, user, mode, role }) => {
           {/* <StyledBtn1>무대로</StyledBtn1>
           <StyledBtn2>마이크켜기</StyledBtn2>
           <StyledBtn2>마이크끄기</StyledBtn2> */}
-          <div>
+          <NameDiv>
             <p>{getNicknameTag()}</p>
-          </div>
+          </NameDiv>
         </StyledVideo>
       ) : null}
-    </div>
+    </ParentDiv>
   );
 };
+
+const ParentDiv = styled.div`
+  position: relative;
+`;
+
+const NameDiv = styled.div`
+  background-color: black;
+  opacity: 0.5;
+  position: absolute;
+`;
 
 export default UserVideoComponent;
