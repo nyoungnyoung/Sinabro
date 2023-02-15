@@ -39,7 +39,6 @@ function Login() {
         password: login.password,
       })
       .then(response => {
-        console.log(response.data);
         // response.data : 토큰
         // 토큰은 전역변수로 관리해줘야한다.
         if (response.data) {
@@ -61,8 +60,6 @@ function Login() {
   };
 
   const token = useSelector(state => state);
-  console.log(token);
-  // console.log(login);
   return (
     <StyledDiv>
       <CardDiv>
