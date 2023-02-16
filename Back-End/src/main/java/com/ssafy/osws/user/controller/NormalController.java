@@ -18,7 +18,10 @@ import com.ssafy.osws.user.service.NormalService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "강의수강 관련 API", description = "Normal API Controller")
 @RestController
 @RequestMapping("/normal")
 @RequiredArgsConstructor

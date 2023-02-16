@@ -20,7 +20,9 @@ import com.ssafy.osws.main.service.MainService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "메인페이지 관련 API", description = "Main API Controller")
 @RestController
 @RequestMapping("/main")
 public class MainController {

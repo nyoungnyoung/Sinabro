@@ -16,10 +16,12 @@ import com.ssafy.osws.lecture.dto.response.ResponseLectureDetail;
 import com.ssafy.osws.lecture.dto.response.ResponseLectureReview;
 import com.ssafy.osws.lecture.service.LectureService;
 
-
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "강의 관련 API", description = "Lecture API Controller")
 @RestController
 @RequestMapping("/lecture")
 @RequiredArgsConstructor
