@@ -348,7 +348,6 @@ const StyledButton = styled.button`
   border-radius: 10px;
   font-size: 100%;
   font-weight: 1000;
-  position: absolute;
   bottom: 0;
   /* margin-right: 30px; */
   margin-left: 7%;
