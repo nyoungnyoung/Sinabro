@@ -83,7 +83,7 @@
 
 
 ### 👀 시나브로 서비스 화면
-<h3> 사용자 시나리오 <h3>
+<h3> 수강자 화면 <h3>
 <p> 회원가입 및 로그인 </p>
 <img src="/uploads/5077396214b6e84f594f35969f243a30/첫페이지.PNG" width="60%"> 
 <img src="/uploads/7d269376db5b6ff48eb30ed67740f65c/회원가입1.PNG" width="60%"> 
@@ -96,17 +96,25 @@
 <p> 메인페이지 <p/>
 <img src="/uploads/ec233acd4f53b1dd9ed7e5a822dce124/메인1.PNG" width="60%">
 <p> 수강신청<p/>
-<img src="/uploads/2d76249c8cf0d0fdfae4ffa470dee204/수강신청.PNG" width="60%"> 
+<img src="/uploads/51c681b2244bc3675ad82e9f8a2eec54/수강신청1.PNG" width="60%"> 
+<p> 나의배움터 확인<p/>
 <img src="/uploads/9ce41273b6fd151c594bff10586aa0b8/수강신청.jpg" width="60%"> 
 <p> 대분류/소분류 카테고리별 강의 검색<p/>
 <img src="/uploads/673e9e0bbe14f23c2b0b1b3c66467bdb/소분류카테고리.png" width="60%"> 
 <p> 강의 검색 결과 <p/>
 <img src="/uploads/3e9071b5aa5885250827c23ee3c23965/검색결과.PNG" width="60%"> 
+<p> 강의 입장 <p/>
+<img src="/uploads/73fd946c784ddbead580ff5d44af306d/수강신청.jpg" width="60%"> 
+<p> 마이크 및 비디오 켜기/끄기 <p/>
+<img src="/uploads/6ed1f4ba19628fc0ab5b220e0998dc53/강의입장.PNG" width="60%"> 
+<p> 돋보기 기능 <p/>
+<img src="/uploads/a4b3244a9574e915715a6a58d465ccf7/돋보기.PNG" width="60%"> 
 
-<h3> 강사 시나리오 </h3>
-<p> 강사 메인페이지<p/>
+
+<h3> 강의자 화면 </h3>
+<p> 강의자 메인페이지<p/>
 <img src="/uploads/c924f6743f7a71b16bd5bd0ed6f6f194/강사메인.png" width="60%"> 
-<p> 강사강의화면<p/>
+<p> 강의자 강의화면<p/>
 <img src="/uploads/b6747cdca31ebe662c0ba0ba44b50f2f/강사강의화면.png" width="60%"> 
 <p> 화면공유시 화면<p/>
 <img src="/uploads/3bc5169772dde8e0999bd854b9dd534d/화면공유.png" width="60%"> 
