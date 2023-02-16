@@ -32,9 +32,9 @@ function Navbar({ handleMode, handleScreenShare, role, tname, info }) {
         </HeaderWrapper>
 
         <LeftWrapper>
-          <ModeButton onClick={changeShare}>share</ModeButton>
-          <ModeButton onClick={changeFocus}>focus</ModeButton>
-          <ModeButton onClick={changeTogether}>together</ModeButton>
+          <ModeButton onClick={changeShare}>화면공유</ModeButton>
+          <ModeButton onClick={changeFocus}>함께하기</ModeButton>
+          <ModeButton onClick={changeTogether}>발표하기</ModeButton>
         </LeftWrapper>
       </Wrapper>
     );
