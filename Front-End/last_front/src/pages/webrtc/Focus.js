@@ -108,7 +108,6 @@ function Focus({ info, handleMainVideoStream, mode, ratio, role, unmuteOne }) {
             mode={mode}
             role={role}
             handleMainVideoStream={handleMainVideoStream}
-            sub={sub}
           />
 
           {info.subscribers.map((sub, i) => (
