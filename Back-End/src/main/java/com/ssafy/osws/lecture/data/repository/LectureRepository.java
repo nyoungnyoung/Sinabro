@@ -18,7 +18,7 @@ public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 	List<Lecture> findLectureByCategory(@Param("categoryNumber") int categoryNumber, Pageable pageable);
 
 	@Query("select l from Lecture l order by no ASC") 
-	List<Lecture> findAllLectures(PageRequest of);
+	List<Lecture> findAllLectures();
 	
 	@Query("select l from Lecture l where l.no in " 
 			+ "(select lc.lectureToLectureCategory from LectureCategory lc "

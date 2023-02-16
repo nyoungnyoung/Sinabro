@@ -79,7 +79,7 @@ public class MainServiceImpl implements MainService {
 		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		// 대분류가 전체일 경우 모든 강의 반환. (1이면 저장된 강의를 no값 오름차순으로 반환함) (jw) 
 		if(Integer.parseInt(categoryNumber) == 1) {
-			lectureList = lectureRepository.findAllLectures(PageRequest.of(0,6));
+			lectureList = lectureRepository.findAllLectures();
 			for(Lecture lecture: lectureList) {
 				int lectureNo = lecture.getNo();
 				resultList.add(lectureService.getLecture(lectureNo,phone));
