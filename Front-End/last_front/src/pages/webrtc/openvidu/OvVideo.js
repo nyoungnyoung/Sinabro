@@ -59,7 +59,7 @@ const StyledVideo = styled.video`
       `;
     }
   }};
-  /* padding: 0px 0px 0px 0px; */
+  padding-left: 0px;
 `;
 
 const OvVideo = ({ streamManager, user, mode }) => {

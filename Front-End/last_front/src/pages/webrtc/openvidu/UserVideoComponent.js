@@ -81,7 +81,7 @@ const buttonDiv = styled.div`
 `;
 
 const ParentDiv = styled.div`
-  /* position: relative; */
+  position: relative;
 `;
 
 const NameDiv = styled.div`
