@@ -61,7 +61,7 @@ const StyledVideo = styled.video`
   /* padding: 0px 0px 0px 0px; */
 `;
 
-const OvVideo = ({ streamManager, user, mode, handleMainVideoStream }) => {
+const OvVideo = ({ streamManager, user, mode }) => {
   const videoRef = useRef();
 
   // console.log("비디오입니당", user);
@@ -79,7 +79,7 @@ const OvVideo = ({ streamManager, user, mode, handleMainVideoStream }) => {
     }
   }, [streamManager]);
 
-  return <StyledVideo autoPlay={true} ref={videoRef} user={user} mode={mode} onClick={()=>{handleMainVideoStream()}} />;
+  return <StyledVideo autoPlay={true} ref={videoRef} user={user} mode={mode} />;
 };
 
 export default OvVideo;
