@@ -148,6 +148,7 @@ const StyledDiv = styled.div`
   /* position: relative; */
   /* justify-items: center;
   justify-content: center; */
+  text-align: center;
   display: grid;
 
   ${({ user }) => {
