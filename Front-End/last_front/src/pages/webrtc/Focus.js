@@ -107,14 +107,15 @@ function Focus({ info, handleMainVideoStream, mode, ratio, role, unmuteOne }) {
             user={user}
             mode={mode}
             role={role}
+            handleMainVideoStream={handleMainVideoStream}
           />
 
           {info.subscribers.map((sub, i) => (
             <div
               key={i}
-              onClick={() => {
-                handleMainVideoStream(sub);
-              }}
+              // onClick={() => {
+              //   handleMainVideoStream(sub);
+              // }}
             >
               <UserVideoComponent
                 streamManager={sub}

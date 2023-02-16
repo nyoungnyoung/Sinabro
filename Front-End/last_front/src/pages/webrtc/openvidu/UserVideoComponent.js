@@ -10,6 +10,7 @@ const UserVideoComponent = ({
   role,
   unmuteOne,
   sub,
+  handleMainVideoStream,
 }) => {
   const getNicknameTag = () => {
     return JSON.parse(streamManager.stream.connection.data).clientData;
@@ -22,6 +23,7 @@ const UserVideoComponent = ({
             streamManager={streamManager}
             user={user}
             mode={mode}
+            handleMainVideoStream={handleMainVideoStream}
           />
           <StyledBtnDiv>
             {role === "normal" ? <StyledP>{getNicknameTag()}</StyledP> : null}
