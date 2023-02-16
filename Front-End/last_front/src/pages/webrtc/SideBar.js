@@ -348,7 +348,9 @@ const StyledButton = styled.button`
   border-radius: 10px;
   font-size: 100%;
   font-weight: 1000;
-  bottom: 0;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
   /* margin-right: 30px; */
   margin-left: 7%;
   margin-top: 90%;
