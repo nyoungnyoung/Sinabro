@@ -27,7 +27,7 @@ const UserVideoComponent = ({
             {role === "normal" ? <StyledP>{getNicknameTag()}</StyledP> : null}
             {role === "teacher" ? (
               <div>
-                <NameDiv>{getNicknameTag()}</NameDiv>
+                <p>{getNicknameTag()}</p>
                 <StyledBtn onClick={() => unmuteOne(streamManager)}>
                   음소거 해제
                 </StyledBtn>
@@ -81,7 +81,7 @@ const buttonDiv = styled.div`
 `;
 
 const ParentDiv = styled.div`
-  position: relative;
+  position: relative; 
 `;
 
 const NameDiv = styled.div`

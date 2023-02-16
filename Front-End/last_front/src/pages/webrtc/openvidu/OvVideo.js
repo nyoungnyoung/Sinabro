@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 
 const StyledVideo = styled.video`
   width: 100%;
-  position: absolute;
   ${({ user, mode }) => {
     if (mode === "focus") {
       if (user + 1 === 1) {
