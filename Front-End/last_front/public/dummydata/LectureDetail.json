@@ -1,0 +1,134 @@
+[
+  {
+    "no": 1,
+    "content": "유화로 가을 풍경을 그려봅니다",
+    "isEnrolled": true,
+    "lectureTimeList": [
+      {
+        "day": 0,
+        "runtime": "1시간0분",
+        "startTime": "02:30PM"
+      },
+      {
+        "day": 3,
+        "runtime": "1시간0분",
+        "startTime": "02:30PM"
+      }
+    ],
+    "name": "김호균",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "유화 그리기"
+  },
+  {
+    "no": 2,
+    "content": "친구의 얼굴을 캐릭터로 그려봐요",
+    "isEnrolled": false,
+    "lectureTimeList": [
+      {
+        "day": 2,
+        "runtime": "1시간0분",
+        "startTime": "03:30PM"
+      },
+      {
+        "day": 4,
+        "runtime": "1시간0분",
+        "startTime": "03:30PM"
+      }
+    ],
+    "name": "양동기",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "캐리커처 그리기"
+  },
+  {
+    "no": 3,
+    "content": "원하는 풍경을 맘껏 그려요",
+    "isEnrolled": true,
+    "lectureTimeList": [
+      {
+        "day": 3,
+        "runtime": "1시간0분",
+        "startTime": "05:30PM"
+      },
+      {
+        "day": 5,
+        "runtime": "1시간0분",
+        "startTime": "04:30PM"
+      }
+    ],
+    "name": "윤선영",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "풍경화 그리기"
+  },
+  {
+    "no": 4,
+    "content": "추억의 만화를 그려보아요",
+    "isEnrolled": true,
+    "lectureTimeList": [
+      {
+        "day": 2,
+        "runtime": "1시간0분",
+        "startTime": "04:00PM"
+      },
+      {
+        "day": 5,
+        "runtime": "1시간0분",
+        "startTime": "06:30PM"
+      }
+    ],
+    "name": "이아현",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "만화 그리기"
+  },
+  {
+    "no": 5,
+    "content": "예쁜 글씨 쓰기",
+    "isEnrolled": false,
+    "lectureTimeList": [
+      {
+        "day": 1,
+        "runtime": "2시간0분",
+        "startTime": "04:00PM"
+      },
+      {
+        "day": 4,
+        "runtime": "1시간30분",
+        "startTime": "05:30PM"
+      }
+    ],
+    "name": "이진우",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "캘리그라피"
+  },
+  {
+    "no": 6,
+    "content": "수채화로 바다풍경을 그려봐요",
+    "isEnrolled": false,
+    "lectureTimeList": [
+      {
+        "day": 2,
+        "runtime": "1시간30분",
+        "startTime": "04:30PM"
+      },
+      {
+        "day": 5,
+        "runtime": "1시간0분",
+        "startTime": "04:30PM"
+      }
+    ],
+    "name": "김싸피",
+    "savedName": "https://cdn.inflearn.com/public/courses/329922/cover/364e7406-3569-437b-b719-7f146cad3d60/thumbnail-js.png",
+    "startDate": "Wed Jan 25 2023 00:00:00 GMT+0900",
+    "endDate": "Fri Jan 25 2023 00:00:00 GMT+0900",
+    "subject": "수채화 그리기"
+  }
+]

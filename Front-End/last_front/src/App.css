@@ -1,0 +1,110 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: "SeoulNamsanB";
+  src: url(./fonts/SeoulNamsan/08SeoulNamsanB_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanEB";
+  src: url(./fonts/SeoulNamsan/08SeoulNamsanEB_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanL";
+  src: url(./fonts/SeoulNamsan/08SeoulNamsanL_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanM";
+  src: url(./fonts/SeoulNamsan/08SeoulNamsanM_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanvert";
+  src: url(./fonts/SeoulNamsan/08SeoulNamsanvert_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumGothic";
+  src: url(./fonts/NanumGothic/NanumGothic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumGothicBold";
+  src: url(./fonts/NanumGothic/NanumGothicBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumGothicExtraBold";
+  src: url(./fonts/NanumGothic/NanumGothicExtraBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumGothicLight";
+  src: url(./fonts/NanumGothic/NanumGothicLight.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url(./fonts/NanumBarunGothic/NanumBarunGothic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumBarunGothicBold";
+  src: url(./fonts/NanumBarunGothic/NanumBarunGothicBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NanumBarunGothicLight";
+  src: url(./fonts/NanumBarunGothic/NanumBarunGothicLight.ttf)
+    format("truetype");
+}
+
+@font-face {
+  font-family: "NanumBarunGothicUltraLight";
+  src: url(./fonts/NanumBarunGothic/NanumBarunGothicUltraLight.ttf)
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Chilgok_Cye";
+  src: url(./fonts/ChilgokHalmae/Chilgok_Cye.ttf) format("truetype");
+}
