@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "공지 관련 API", description = "Notice API Controller")
+@Tag(name = "공지-관련-API", description = "Notice API Controller")
 @RestController
 @RequestMapping("/notice")
 @RequiredArgsConstructor

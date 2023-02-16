@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Openvidu 관련 API", description = "Openvidu API Controller")
+@Tag(name = "Openvidu-관련-API", description = "Openvidu API Controller")
 @CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
