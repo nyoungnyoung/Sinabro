@@ -199,6 +199,7 @@ function SideBar({
 }
 
 const StyledDiv = styled.div`
+  position: relative;
   justify-content: center;
   width: 20%;
   height: 90vh;
@@ -347,6 +348,8 @@ const StyledButton = styled.button`
   border-radius: 10px;
   font-size: 100%;
   font-weight: 1000;
+  position: absolute;
+  bottom: 0;
   /* margin-right: 30px; */
   margin-left: 7%;
   margin-top: 90%;
