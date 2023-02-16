@@ -144,8 +144,9 @@ const StyledDiv = styled.div`
   width: 100%;
   height: 100%;
   color: white;
+
   background-color: black;
-  /* position: relative; */
+  position: relative;
   /* justify-items: center;
   justify-content: center; */
   display: grid;
