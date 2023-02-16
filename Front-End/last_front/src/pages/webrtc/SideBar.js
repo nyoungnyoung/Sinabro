@@ -350,7 +350,8 @@ const StyledButton = styled.button`
   font-weight: 1000;
   position: absolute;
   bottom: 0px;
-  right: 25%;
+  left: 0%;
+  right: 0%;
   /* margin-right: 30px; */
   margin-left: 7%;
   margin-top: 90%;
