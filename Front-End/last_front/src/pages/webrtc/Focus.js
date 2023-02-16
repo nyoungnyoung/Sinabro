@@ -124,7 +124,6 @@ function Focus({ info, handleMainVideoStream, mode, ratio, role, unmuteOne }) {
                 mode={mode}
                 role={role}
                 unmuteOne={unmuteOne}
-                sub={sub}
                 handleMainVideoStream={handleMainVideoStream}
               />
             </div>
