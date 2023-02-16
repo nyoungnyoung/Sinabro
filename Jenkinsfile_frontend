@@ -5,7 +5,7 @@ pipeline {
         stage('Gitlab') {
             steps {
                 script {
-                    git branch: 'dev_FE',
+                    git branch: 'master',
                     credentialsId: 'GitLab',
                     url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git'
                 }
