@@ -62,6 +62,7 @@ const StyledVideo = styled.div`
 `;
 
 const StyledBtnDiv = styled.div`
+  position: absolute;
   background-color: black;
 `;
 
