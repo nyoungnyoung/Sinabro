@@ -28,9 +28,12 @@ const UserVideoComponent = ({
             {role === "normal" ? <StyledP>{getNicknameTag()}</StyledP> : null}
             {role === "teacher" ? (
               <div>
-                <p onClick={() => { handleMainVideoStream(sub) }}>{getNicknameTag()}</p>
+                <p>{getNicknameTag()}</p>
                 <StyledBtn onClick={() => unmuteOne(sub)}>
                   음소거 해제
+                </StyledBtn>
+                <StyledBtn onClick={() => handleMainVideoStream(sub)}>
+                  무대로 보내기
                 </StyledBtn>
               </div>
             ) : null}
