@@ -28,7 +28,7 @@ const UserVideoComponent = ({
             {role === "normal" ? <StyledP>{getNicknameTag()}</StyledP> : null}
             {role === "teacher" ? (
               <div>
-                <p onClick={() => { handleMainVideoStream() }}>{getNicknameTag()}</p>
+                <p onClick={() => { handleMainVideoStream(sub) }}>{getNicknameTag()}</p>
                 <StyledBtn onClick={() => unmuteOne(sub)}>
                   음소거 해제
                 </StyledBtn>
