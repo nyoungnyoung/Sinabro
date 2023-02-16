@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const APPLICATION_SERVER_URL = "https://i8d203.p.ssafy.io/api";
+export const APPLICATION_SERVER_URL = "https://i8d203.p.ssafy.io/api/";
 
 export const getToken = async mySessionId => {
   const responseDto = await createSession(mySessionId);
