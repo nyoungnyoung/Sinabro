@@ -53,6 +53,7 @@ const StyledBtn = styled.button`
   width: 100px;
   height: 30px;
   cursor: pointer;
+  display: inline-block;
 `;
 
 const StyledVideo = styled.div`
