@@ -46,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	@Override
 	public List<ResponseSimpleLecture> getInProgressLectureList(String phone) {
-		List<Lecture> lectureList = lectureRepository.findAllByUserNoAndEndDate(phone, PageRequest.of(0,6));
+		List<Lecture> lectureList = lectureRepository.findAllByUserNoAndEndDate(phone);
 		return Arrays.asList(modelMapper.map(lectureList, ResponseSimpleLecture[].class));
 	}
 

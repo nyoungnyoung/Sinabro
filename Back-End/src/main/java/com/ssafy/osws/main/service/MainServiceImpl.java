@@ -86,7 +86,7 @@ public class MainServiceImpl implements MainService {
 			}
 		}
 		else {
-			lectureList = lectureRepository.findLectureByCategory(Integer.parseInt(categoryNumber), PageRequest.of(0,6));
+			lectureList = lectureRepository.findLectureByCategory(Integer.parseInt(categoryNumber));
 			//resultList = Arrays.asList(modelMapper.map(lectureList, ResponseLecture[].class));
 			for(Lecture lecture: lectureList) {
 				int lectureNo = lecture.getNo();
@@ -109,7 +109,7 @@ public class MainServiceImpl implements MainService {
 			intList.add(Integer.valueOf(s));
 		}
 		
-		lectureList = lectureRepository.findLectureBySubCategory(intList, PageRequest.of(0,6));
+		lectureList = lectureRepository.findLectureBySubCategory(intList);
 		for(Lecture lecture: lectureList) {
 			int lectureNo = lecture.getNo();
 			resultList.add(lectureService.getLecture(lectureNo, phone));
@@ -124,7 +124,7 @@ public class MainServiceImpl implements MainService {
 		List<ResponseLectureDetail> resultList = new ArrayList<>();
 		
 		// subCategoryNumberList 는 , 기준으로 나눠야 한다.
-		lectureList = lectureRepository.findBySubjectContaining(query, PageRequest.of(0,6));
+		lectureList = lectureRepository.findBySubjectContaining(query);
 		System.out.println(lectureList);
 		for(Lecture lecture: lectureList) {
 			int lectureNo = lecture.getNo();
