@@ -20,10 +20,7 @@ import com.ssafy.osws.user.service.CommonService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "회원-관련-API", description = "Common API Controller")
 @RestController
 @RequestMapping("/common")
 @RequiredArgsConstructor
