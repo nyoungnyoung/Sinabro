@@ -19,6 +19,7 @@ import com.ssafy.osws.main.dto.response.ResponseSubCategory;
 import com.ssafy.osws.main.service.MainService;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 @RequestMapping("/main")
