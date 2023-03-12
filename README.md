@@ -60,6 +60,7 @@
     - Spring Boot JPA를 사용한 백엔드 메인페이지(대분류/소분류 카테고리, 강의목록, 강의검색) API 구현
     - 백엔드 API 기획 및 DataBase 설계 
     - Openvidu 화상회의 중 사용자 음소거 기능 구현
+    - READEME.md 작성
 
 
 ### ✔️ 기획배경 & 타겟 
