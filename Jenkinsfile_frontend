@@ -7,7 +7,7 @@ pipeline {
                 script {
                     git branch: 'master',
                     credentialsId: 'GitLab',
-                    url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12D203.git'
+                    url: '${GitLab 접속 주소}'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
                 }
                 dir('Front-End') {
                     script {
-                        dockerImage = docker.build "xronace/d203-frontend:latest"
+                        dockerImage = docker.build "${도커 허브 이름/도커 이미지 이름:태그}"
                     }
                 }
             }
@@ -32,16 +32,16 @@ pipeline {
                     docker.withRegistry('', 'Docker-Hub') {
                         dockerImage.push("$BUILD_NUMBER")
                     }
-                    sh "docker rmi xronace/d203-frontend:$BUILD_NUMBER"
+                    sh "docker rmi ${도커 허브 이름/도커 이미지 이름:$BUILD_NUMBER}"
                 }
             }
         }
         stage('Deploy') {
             steps {
                 sshagent(credentials: ['ec2-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker stop d203-frontend"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker rm -f d203-frontend"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@i8d203.p.ssafy.io "docker run -dp 3000:80 --net=bridge --name d203-frontend xronace/d203-frontend:latest"'
+                    sh 'ssh -o StrictHostKeyChecking=no ${사용자 이름@ssh 접속 주소} "docker stop ${컨테이너 이름}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ${사용자 이름@ssh 접속 주소} "docker rm -f ${컨테이너 이름}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ${사용자 이름@ssh 접속 주소} "docker run -dp 3000:80 --net=bridge --name ${컨테이너 이름} ${도커 허브 이름/도커 이미지 이름:태그}"'
                     sh 'docker image prune -f'
                 }
             }

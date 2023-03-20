@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oswsdb?serverTimezone=Asia/Seoul
-    username: ssafy
-    password: d203mysqlqwer
+    url: jdbc:mysql://${DB 주소}:3306/${DB 이름}?serverTimezone=Asia/Seoul
+    username: ${사용자 이름}
+    password: ${사용자 비밀번호}
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
@@ -12,8 +12,8 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
   
-OPENVIDU_URL: https://i8d203.p.ssafy.io:8443/
-OPENVIDU_SECRET: SINABRO
+OPENVIDU_URL: ${openvidu 접속 주소 이름}
+OPENVIDU_SECRET: ${openvidu 비밀번호}
  
 server:
   port: 5000
@@ -22,4 +22,4 @@ server:
     
 # 파일 저장 경로 배포할 때는 리눅스에 맞춰 변경해주자
 file:
-  path: /var/ubuntu/sinabro/files/
+  path: ${EC2 내 저장 경로}
