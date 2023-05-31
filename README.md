@@ -10,7 +10,7 @@
 
 
 ### 📃 Contents  
-1. [개발기간](#-개발기간) <br/> 
+1. [개발기간](#개발기간) <br/> 
 2. [팀원 및 담당파트](#team) <br/>
 3. [기획배경 & 타겟](#target-people) <br/>
 4. [주요기능](#main-function) <br/>
@@ -60,7 +60,6 @@
     - Spring Boot JPA를 사용한 백엔드 메인페이지(대분류/소분류 카테고리, 강의목록, 강의검색) API 구현
     - 백엔드 API 기획 및 DataBase 설계 
     - Openvidu 화상회의 중 사용자 음소거 기능 구현
-    - READEME.md 작성
 
 
 ### ✔️ 기획배경 & 타겟 
@@ -86,43 +85,43 @@
 ### 👀 시나브로 서비스 화면
 <h3> 수강자 화면 <h3>
 <p> 회원가입 및 로그인 </p>
-<img src="/uploads/5077396214b6e84f594f35969f243a30/첫페이지.PNG" width="60%"> 
-<img src="/uploads/7d269376db5b6ff48eb30ed67740f65c/회원가입1.PNG" width="60%"> 
-<img src="/uploads/a44cf3ede3ee17f1770eaec72ef47b7d/회원가입2.PNG" width="60%"> 
-<img src="/uploads/0134dfe9d711365e461226cb0d2840ea/회원가입3.jpg" width="60%"> 
-<img src="/uploads/fcf1e93d0e692769c585edf139e0e4a6/회원가입4.PNG" width="60%"> 
-<img src="/uploads/4278820184e4d78d11d8bb2bf9b6a46e/회원가입5.PNG" width="60%"> 
-<img src="/uploads/145745ebae9252ea5ad1c3dafa61ac2e/회원가입6.PNG" width="60%"> 
-<img src="/uploads/87e3ef59a606b6d86b606d398fb9f403/로그인.PNG" width="60%">
+<img src="./imgs/첫페이지.PNG" width="60%"> 
+<img src="./imgs/회원가입1.PNG" width="60%"> 
+<img src="./imgs/회원가입2.PNG" width="60%"> 
+<img src="./imgs/회원가입3.jpg" width="60%"> 
+<img src="./imgs/회원가입4.PNG" width="60%"> 
+<img src="./imgs/회원가입5.PNG" width="60%"> 
+<img src="./imgs/회원가입6.PNG" width="60%"> 
+<img src="./imgs/로그인.PNG" width="60%">
 <p> 메인페이지 <p/>
-<img src="/uploads/ec233acd4f53b1dd9ed7e5a822dce124/메인1.PNG" width="60%">
+<img src="./imgs/메인1.PNG" width="60%">
 <p> 수강신청<p/>
-<img src="/uploads/51c681b2244bc3675ad82e9f8a2eec54/수강신청1.PNG" width="60%"> 
+<img src="./imgs/수강신청1.PNG" width="60%"> 
 <p> 나의배움터 확인<p/>
-<img src="/uploads/9ce41273b6fd151c594bff10586aa0b8/수강신청.jpg" width="60%"> 
+<img src="./imgs/수강신청.jpg" width="60%"> 
 <p> 대분류/소분류 카테고리별 강의 검색<p/>
-<img src="/uploads/673e9e0bbe14f23c2b0b1b3c66467bdb/소분류카테고리.png" width="60%"> 
+<img src="./imgs/소분류카테고리.png" width="60%"> 
 <p> 강의 검색 결과 <p/>
-<img src="/uploads/3e9071b5aa5885250827c23ee3c23965/검색결과.PNG" width="60%"> 
+<img src="./imgs/검색결과.PNG" width="60%"> 
 <p> 강의 입장 <p/>
-<img src="/uploads/73fd946c784ddbead580ff5d44af306d/수강신청.jpg" width="60%"> 
+<img src="./imgs/수강신청.jpg" width="60%"> 
 <p> 마이크 및 비디오 켜기/끄기 <p/>
-<img src="/uploads/6ed1f4ba19628fc0ab5b220e0998dc53/강의입장.PNG" width="60%"> 
+<img src="./imgs/강의입장.PNG" width="60%"> 
 <p> 돋보기 기능 <p/>
-<img src="/uploads/a4b3244a9574e915715a6a58d465ccf7/돋보기.PNG" width="60%"> 
+<img src="./imgs/돋보기.PNG" width="60%"> 
 
 
 <h3> 강의자 화면 </h3>
 <p> 강의자 메인페이지<p/>
-<img src="/uploads/c924f6743f7a71b16bd5bd0ed6f6f194/강사메인.png" width="60%"> 
+<img src="./imgs/강사메인.png" width="60%"> 
 <p> 강의자 강의화면<p/>
-<img src="/uploads/b6747cdca31ebe662c0ba0ba44b50f2f/강사강의화면.png" width="60%"> 
+<img src="./imgs/강사강의화면.png" width="60%"> 
 <p> 화면공유시 화면<p/>
-<img src="/uploads/3bc5169772dde8e0999bd854b9dd534d/화면공유.png" width="60%"> 
+<img src="./imgs/화면공유.png" width="60%"> 
 <p> 참여형 화면<p/>
-<img src="/uploads/ce9293f2cf57d14d8ac3fb900fc963af/참여형.png" width="60%">
+<img src="./imgs/참여형.png" width="60%">
 <p> 전체음소거 기능 <p/>
-<img src="/uploads/7ea03d8220471af5b48af81e62721377/전체음소거.png" width="60%"> 
+<img src="./imgs/전체음소거.png" width="60%"> 
 
 ### ✨ 실행방법
 - 포팅 매뉴얼 참조 
@@ -144,16 +143,16 @@
     - Nginx
 
 ### 🔨 시스템 아키텍처
-![시스템아키텍처](/uploads/1c157d6efcae4d6ef1569ca871c1684e/시스템아키텍처.PNG)
+![시스템아키텍처](./imgs/시스템아키텍처.PNG)
 
 ### 🎨 ERD 
-![ERD](/uploads/af052303cf82cc6eb439994ca6026630/ERD.png)
+![ERD](./imgs/ERD.png)
 
 ### 💡 API 명세서
-![API문서](/uploads/0a6f1eeb7e5669e0424af665f4dd88a8/API문서.PNG)
+![API문서](./imgs/API문서.PNG)
 
 ### 🗓️ 스케줄(간트차트)
-![간트차트](/uploads/17496513a462478c1140046810855eee/간트차트.png)
+![간트차트](./imgs/간트차트.png)
 
 ### 💪 협업툴 
 - Notion 
